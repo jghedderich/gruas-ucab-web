@@ -1,4 +1,4 @@
-# README para Proyecto Next.js con App Router y Vitest
+# Aplicación web de Gruas UCAB
 
 Este documento proporciona instrucciones sobre cómo ejecutar, probar y gestionar tu proyecto de Next.js utilizando `pnpm`, el App Router y Vitest como framework de pruebas.
 
