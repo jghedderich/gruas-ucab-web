@@ -3,9 +3,10 @@ import React from 'react';
 import Table from '../ui/Table';
 import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
-import { Usuario } from '@/types';
 import Toggle from '../ui/Toggle';
-import { useUsuariosTable } from '@/hooks/useUsuariosTable';
+import { useUsersTable } from '@/hooks/useUsersTable';
+import { Badge } from '../ui/badge';
+import { User } from '@/types';
 
 const columns = [
   {
@@ -35,42 +36,44 @@ const pageInfo = {
   hasNextPage: true,
 };
 
-interface UsuariosTableProps {
-  usuarios: Usuario[];
+interface UsersTableProps {
+  users: User[];
 }
 
-export const UsuariosTable = ({ usuarios }: UsuariosTableProps) => {
-  const { handleToggle, activeUsuarios } = useUsuariosTable();
+export const UsersTable = ({ users }: UsersTableProps) => {
+  const { handleToggle, activeUsers } = useUsersTable();
 
   return (
     <Table columns={columns} pageInfo={pageInfo}>
-      {usuarios.map((usuario) => (
-        <tr key={usuario.id} className="border-y">
+      {users.map((user) => (
+        <tr key={user.id} className="border-y">
           <td className="py-4 px-5">
-            <h6>{usuario.id}</h6>
+            <h6>{user.id}</h6>
           </td>
           <td className="py-4 px-5">
             <p>
-              {usuario.apellido}, {usuario.nombre}
+              {user.lastName}, {user.firstName}
             </p>
           </td>
           <td className="py-4 px-5">
-            <p>{usuario.email}</p>
+            <p>{user.email}</p>
           </td>
 
           <td className="py-4 px-5">
-            <p>{usuario.rol}</p>
+            <Badge variant={'secondary'} className="rounded-full">
+              {user.role}
+            </Badge>
           </td>
 
           <td className="py-4 px-6">
             <Toggle
-              handleClick={() => handleToggle(usuario)}
-              isToggleOn={true}
+              handleClick={() => handleToggle(user)}
+              isToggleOn={activeUsers.has(user.id)}
             />
           </td>
           <td className="px-6">
             <Link
-              href={`Usuarios/${usuario.id}`}
+              href={`users/${user.id}`}
               className="hover:text-brand-500 transition ease-out"
             >
               <PencilIcon width={20} height={20} />

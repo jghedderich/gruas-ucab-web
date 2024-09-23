@@ -9,6 +9,11 @@ const existingVehicle = {
   owner: 'john',
 };
 
+export const metadata = {
+  title: 'Editar vehículo | Grúas UCAB',
+  description: 'Edita los datos del vehículo seleccionado.',
+};
+
 export default function EditVehiclesPage() {
   return (
     <Section

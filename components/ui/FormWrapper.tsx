@@ -40,7 +40,7 @@ export function FormWrapper<TFormValues extends FieldValues>({
                 ? 'Enviando...'
                 : isEditing
                 ? 'Actualizar'
-                : 'Crear'}
+                : 'Enviar'}
             </Button>
           </CardFooter>
         </form>

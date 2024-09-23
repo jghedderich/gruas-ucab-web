@@ -7,10 +7,9 @@ import { TarifasIcon } from '../icons/TarifasIcon';
 import { OrderIcon } from '../icons/OrderIcon';
 import Image from 'next/image';
 import UserPopover from '../auth/UserPopover';
+import { ProviderIcon } from '../icons/ProviderIcon';
 
 function Sidebar() {
-  const [isOpen, setIsOpen] = React.useState(false);
-
   const sidebarLinksTop = [
     {
       name: 'Ordenes de Servicio',
@@ -21,6 +20,11 @@ function Sidebar() {
       name: 'Usuarios',
       href: '/usuarios',
       icon: UsersIcon,
+    },
+    {
+      name: 'Proveedores',
+      href: '/proveedores',
+      icon: ProviderIcon,
     },
     {
       name: 'Vehículos',
@@ -35,11 +39,7 @@ function Sidebar() {
   ];
 
   return (
-    <nav
-      className={`flex flex-col justify-between px-4 pb-8 pt-5 border-r w-20 h-screen bg-white z-50 ease-out duration-300 ${
-        isOpen ? 'md:left-0 right-0' : 'md:left-0 right-full'
-      }`}
-    >
+    <nav className="flex flex-col justify-between px-4 pb-8 pt-5 border-r w-20 h-screen bg-white z-50 ease-out duration-300">
       <div>
         <div className="flex justify-between items-center mb-10">
           <Image
@@ -55,7 +55,6 @@ function Sidebar() {
               key={link.name}
               name={link.name}
               href={link.href}
-              closeSidebar={() => setIsOpen(false)}
               icon={<link.icon width={26} height={26} />}
             />
           ))}

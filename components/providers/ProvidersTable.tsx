@@ -3,9 +3,9 @@ import React from 'react';
 import Table from '../ui/Table';
 import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
-import { Vehicle } from '@/types';
 import Toggle from '../ui/Toggle';
-import { useVehiclesTable } from '@/hooks/useVehiclesTable';
+import { Provider } from '@/types';
+import { useProvidersTable } from '@/hooks/useProvidersTable';
 
 const columns = [
   {
@@ -13,16 +13,16 @@ const columns = [
     field: 'id',
   },
   {
-    title: 'Marca',
-    field: 'marca',
+    title: 'Nombre',
+    field: 'nombre',
   },
   {
-    title: 'Modelo',
-    field: 'modelo',
+    title: 'Administrador',
+    field: 'admin',
   },
   {
-    title: 'Año',
-    field: 'año',
+    title: 'Flota',
+    field: 'flota',
   },
 ];
 
@@ -35,40 +35,42 @@ const pageInfo = {
   hasNextPage: true,
 };
 
-interface VehiclesTableProps {
-  vehicles: Vehicle[];
+interface ProvidersTableProps {
+  providers: Provider[];
 }
 
-export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
-  const { handleToggle, activeVehicles } = useVehiclesTable();
+export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
+  const { handleToggle, activeProviders } = useProvidersTable();
 
   return (
     <Table columns={columns} pageInfo={pageInfo}>
-      {vehicles.map((vehicle) => (
-        <tr key={vehicle.id} className="border-y">
+      {providers.map((provider) => (
+        <tr key={provider.id} className="border-y">
           <td className="py-4 px-5">
-            <h6>{vehicle.id}</h6>
+            <h6>{provider.id}</h6>
           </td>
           <td className="py-4 px-5">
-            <p>{vehicle.brand}</p>
+            <p>{provider.nombre}</p>
           </td>
           <td className="py-4 px-5">
-            <p>{vehicle.model}</p>
+            <p>
+              {provider.admin.lastName}, {provider.admin.firstName}
+            </p>
           </td>
 
           <td className="py-4 px-5">
-            <p>{vehicle.year}</p>
+            <p>{provider.flota.length} vehículos</p>
           </td>
 
           <td className="py-4 px-6">
             <Toggle
-              handleClick={() => handleToggle(vehicle)}
-              isToggleOn={activeVehicles.has(vehicle.id)}
+              handleClick={() => handleToggle(provider)}
+              isToggleOn={activeProviders.has(provider.id)}
             />
           </td>
-          <td>
+          <td className="px-6">
             <Link
-              href={`vehiculos/${vehicle.id}`}
+              href={`providers/${provider.id}`}
               className="hover:text-brand-500 transition ease-out"
             >
               <PencilIcon width={20} height={20} />

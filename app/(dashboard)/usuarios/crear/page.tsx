@@ -1,4 +1,10 @@
 import Section from '@/components/ui/Section';
+import { UsersForm } from '@/components/users/UsersForm';
+
+export const metadata = {
+  title: 'Crear usuario | Grúas UCAB',
+  description: 'Crea un usuario.',
+};
 
 export default function CreateUsuariosPage() {
   return (
@@ -7,7 +13,7 @@ export default function CreateUsuariosPage() {
       subtitle="Crear un usuario."
       description="Ingresa los datos del usuario que deseas crear."
     >
-      <div>Crear usuario</div>
+      <UsersForm />
     </Section>
   );
 }

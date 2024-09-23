@@ -4,7 +4,7 @@ import Section from '@/components/ui/Section';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Grúas Ucab | Ordenes de Servicio',
+  title: 'Ordenes de Servicio | Grúas UCAB',
   description: 'Lista de ordenes de servicio gestionados por Grúas Ucab',
 };
 

@@ -1,42 +1,55 @@
 import { PlusIcon } from '@/components/icons/PlusIcon';
 import { Button } from '@/components/ui/button';
 import Section from '@/components/ui/Section';
-import { UsuariosTable } from '@/components/usuarios/UsuariosTable';
+import { UsersTable } from '@/components/users/UsersTable';
+import { Role, User } from '@/types';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Grúas Ucab | Usuarios',
+  title: 'Usuarios | Grúas UCAB',
   description: 'Lista de usuarios gestionados por Grúas Ucab',
 };
 
-const usuarios = [
+const usuarios: User[] = [
   {
     id: 1,
-    nombre: 'Juan',
-    apellido: 'Hernandez',
+    firstName: 'Juan',
+    lastName: 'Hernandez',
     email: 'juan@gruas.com',
-    rol: 'admin',
+    role: Role.Driver,
+    dni: 'V1029302',
+    password: '123456',
+    isActive: false,
   },
   {
     id: 2,
-    nombre: 'Pedro',
-    apellido: 'Hernandez',
+    firstName: 'Pedro',
+    lastName: 'Hernandez',
     email: 'pedro@gruas.com',
-    rol: 'operador de cabina',
+    role: Role.Driver,
+    dni: 'V1029302',
+    password: '123456',
+    isActive: false,
   },
   {
     id: 3,
-    nombre: 'Carlos',
-    apellido: 'Hernandez',
+    firstName: 'Carlos',
+    lastName: 'Hernandez',
     email: 'carlos@gruas.com',
-    rol: 'proveedor',
+    role: Role.Operator,
+    dni: 'V1029302',
+    password: '123456',
+    isActive: false,
   },
   {
     id: 4,
-    nombre: 'Luis',
-    apellido: 'Hernandez',
+    firstName: 'Luis',
+    lastName: 'Hernandez',
     email: 'luis@gruas.com',
-    rol: 'conductor',
+    role: Role.Provider,
+    dni: 'V1029302',
+    password: '123456',
+    isActive: false,
   },
 ];
 
@@ -55,7 +68,7 @@ export default function UsuariosPage() {
         </Link>
       }
     >
-      <UsuariosTable usuarios={usuarios} />
+      <UsersTable users={usuarios} />
     </Section>
   );
 }

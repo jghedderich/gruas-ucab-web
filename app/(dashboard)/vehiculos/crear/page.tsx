@@ -1,6 +1,11 @@
 import Section from '@/components/ui/Section';
 import VehicleForm from '@/components/vehicles/VehiclesForm';
 
+export const metadata = {
+  title: 'Crear vehículo | Grúas UCAB',
+  description: 'Crea un vehículo.',
+};
+
 export default function CreateVehiclesPage() {
   return (
     <Section

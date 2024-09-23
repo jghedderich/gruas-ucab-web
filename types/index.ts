@@ -17,6 +17,15 @@ export interface IPagination<T> {
   pageInfo: IPageInfo;
 }
 
+export interface Provider {
+  id: number;
+  nombre: string;
+  admin: User;
+  flota: Vehicle[];
+  conductores: User[];
+  isActive: boolean;
+}
+
 export interface Vehicle {
   id: number;
   brand: string;
@@ -25,19 +34,20 @@ export interface Vehicle {
   owner: string;
 }
 
-export enum Rol {
+export enum Role {
   Admin = 'admin',
-  Operador = 'operador de cabina',
-  Proveedor = 'proveedor',
-  Conductor = 'conductor',
+  Operator = 'operador de cabina',
+  Provider = 'proveedor',
+  Driver = 'conductor',
 }
 
-export interface Usuario {
+export interface User {
   id: number;
-  nombre: string;
-  apellido: string;
+  firstName: string;
+  lastName: string;
   password: string;
   dni: string;
   email: string;
-  rol: Rol;
+  role: Role;
+  isActive: boolean;
 }
