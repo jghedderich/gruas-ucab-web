@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { User, LogOut } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import {
   Popover,
   PopoverContent,
@@ -11,6 +10,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { UserCircle } from '../icons/UserCircle';
+import { Badge } from '../ui/badge';
 
 export default function UserPopover() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,22 +30,20 @@ export default function UserPopover() {
         </button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-80"
+        className="w-64"
         align="start"
         alignOffset={0}
         sideOffset={16}
       >
         <div className="flex flex-col space-y-4">
           <div className="flex items-center space-x-4">
-            <Image
-              src={user.avatar}
-              alt={user.name}
-              width={50}
-              height={50}
-              className="rounded-full border"
-            />
             <div>
-              <h4 className="font-semibold">{user.name}</h4>
+              <div className="flex gap-2 items-center">
+                <h4 className="font-semibold">{user.name}</h4>
+                <Badge variant={'secondary'} className="px-2">
+                  Admin
+                </Badge>
+              </div>
               <p className="text-sm text-gray-500">{user.email}</p>
             </div>
           </div>

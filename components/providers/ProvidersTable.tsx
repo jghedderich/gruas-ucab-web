@@ -50,16 +50,14 @@ export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
             <h6>{provider.id}</h6>
           </td>
           <td className="py-4 px-5">
-            <p>{provider.nombre}</p>
+            <p>{provider.name}</p>
           </td>
           <td className="py-4 px-5">
-            <p>
-              {provider.admin.lastName}, {provider.admin.firstName}
-            </p>
+            <p>{provider.admin}</p>
           </td>
 
           <td className="py-4 px-5">
-            <p>{provider.flota.length} vehículos</p>
+            <p>{provider.fleet.length} vehículos</p>
           </td>
 
           <td className="py-4 px-6">
@@ -70,7 +68,7 @@ export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
           </td>
           <td className="px-6">
             <Link
-              href={`providers/${provider.id}`}
+              href={`empresas-proveedoras/${provider.id}`}
               className="hover:text-brand-500 transition ease-out"
             >
               <PencilIcon width={20} height={20} />

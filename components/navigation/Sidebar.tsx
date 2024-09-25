@@ -6,7 +6,7 @@ import { TruckIcon } from '../icons/TruckIcon';
 import { TarifasIcon } from '../icons/TarifasIcon';
 import { OrderIcon } from '../icons/OrderIcon';
 import Image from 'next/image';
-import UserPopover from '../auth/UserPopover';
+import UserPopover from '../profile/UserPopover';
 import { ProviderIcon } from '../icons/ProviderIcon';
 
 function Sidebar() {
@@ -39,7 +39,7 @@ function Sidebar() {
   ];
 
   return (
-    <nav className="flex flex-col justify-between px-4 pb-8 pt-5 border-r w-20 h-screen bg-white z-50 ease-out duration-300">
+    <nav className="fixed flex flex-col justify-between px-4 pb-8 pt-5 border-r w-20 h-screen bg-white z-50 ease-out duration-300">
       <div>
         <div className="flex justify-between items-center mb-10">
           <Image

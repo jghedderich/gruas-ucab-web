@@ -6,7 +6,7 @@ import { Vehicle } from '@/types';
 import { VehiclesTable } from '@/components/vehicles/VehiclesTable';
 
 export const metadata = {
-  title: 'Grúas Ucab | Vehículos',
+  title: 'Vehículos | Grúas UCAB',
   description: 'Lista de vehículos gestionados por Grúas Ucab',
 };
 

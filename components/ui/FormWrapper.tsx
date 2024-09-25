@@ -4,6 +4,7 @@ import { UseFormReturn, FieldValues } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
+import { cn } from '@/lib/utils';
 
 interface FormWrapperProps<TFormValues extends FieldValues> {
   form: UseFormReturn<TFormValues>;
@@ -12,6 +13,7 @@ interface FormWrapperProps<TFormValues extends FieldValues> {
   back: () => void;
   children: React.ReactNode;
   isEditing: boolean;
+  className?: string;
 }
 
 export function FormWrapper<TFormValues extends FieldValues>({
@@ -19,15 +21,18 @@ export function FormWrapper<TFormValues extends FieldValues>({
   form,
   isSubmitting,
   isEditing,
+  className,
   onSubmit,
   back,
 }: FormWrapperProps<TFormValues>) {
   return (
-    <Card className="max-w-xl pt-5">
+    <Card className="max-w-3xl pt-5">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div
+              className={cn('grid grid-cols-1 gap-6 md:grid-cols-2', className)}
+            >
               {children}
             </div>
           </CardContent>

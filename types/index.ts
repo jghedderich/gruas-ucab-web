@@ -17,12 +17,36 @@ export interface IPagination<T> {
   pageInfo: IPageInfo;
 }
 
+export interface Address {
+  street: string;
+  urbanization: string;
+  municipality: string;
+  zipCode: string;
+  city: string;
+  state: string;
+  latitude: number;
+  longitude: number;
+}
+
+export interface Order {
+  id: number;
+  status: string;
+  clientPolicy: string;
+  clientName: string;
+  clientPhone: string;
+  clientDni: string;
+  location: Address;
+  destination: Address;
+  description: string;
+}
+
+// admin might need to be of type User, or maybe create adminId
 export interface Provider {
   id: number;
-  nombre: string;
-  admin: User;
-  flota: Vehicle[];
-  conductores: User[];
+  name: string;
+  admin: string;
+  fleet: Vehicle[];
+  drivers: User[];
   isActive: boolean;
 }
 

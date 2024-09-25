@@ -6,6 +6,7 @@ interface ISectionProps {
   description: string;
   trailing?: React.ReactNode;
   children: React.ReactNode;
+  className?: string;
 }
 
 function Section({
@@ -14,9 +15,10 @@ function Section({
   description,
   trailing,
   children,
+  className,
 }: ISectionProps) {
   return (
-    <main>
+    <main className={className}>
       <header>
         <h1 className="font-semibold text-3xl mb-8">{title}</h1>
         <section className="flex items-center justify-between mb-5">
