@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import { useUsersForm } from '@/hooks/useUsersForm';
+import { useUsersForm } from '@/hooks/users/useUsersForm';
 
 interface UsersFormProps {
   user?: User;

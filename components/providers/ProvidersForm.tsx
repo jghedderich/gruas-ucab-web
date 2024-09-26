@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/select';
 import { Provider } from '@/types';
 import { FormWrapper } from '../ui/FormWrapper';
-import { useProviderForm } from '@/hooks/useProviderForm';
+import { useProviderForm } from '@/hooks/providers/useProviderForm';
 
 interface ProviderFormProps {
   provider?: Provider;

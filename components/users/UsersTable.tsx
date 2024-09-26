@@ -4,7 +4,7 @@ import Table from '../ui/Table';
 import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
 import Toggle from '../ui/Toggle';
-import { useUsersTable } from '@/hooks/useUsersTable';
+import { useUsersTable } from '@/hooks/users/useUsersTable';
 import { Badge } from '../ui/badge';
 import { User } from '@/types';
 

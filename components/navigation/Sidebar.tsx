@@ -3,11 +3,11 @@ import React from 'react';
 import SideBarLink from './SidebarLink';
 import { UsersIcon } from '../icons/UsersIcon';
 import { TruckIcon } from '../icons/TruckIcon';
-import { TarifasIcon } from '../icons/TarifasIcon';
 import { OrderIcon } from '../icons/OrderIcon';
 import Image from 'next/image';
 import UserPopover from '../profile/UserPopover';
 import { ProviderIcon } from '../icons/ProviderIcon';
+import { PolicyIcon } from '../icons/PolicyIcon';
 
 function Sidebar() {
   const sidebarLinksTop = [
@@ -32,9 +32,9 @@ function Sidebar() {
       icon: TruckIcon,
     },
     {
-      name: 'Tarifas',
-      href: '/tarifas',
-      icon: TarifasIcon,
+      name: 'Pólizas',
+      href: '/polizas',
+      icon: PolicyIcon,
     },
   ];
 

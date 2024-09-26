@@ -15,6 +15,7 @@ const testUser: User = {
   dni: 'V12345678',
   email: 'john.doe@example.com',
   role: Role.Driver,
+  isActive: true,
 };
 
 export default function EditUsuariosPage() {

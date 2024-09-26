@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
 import Toggle from '../ui/Toggle';
 import { Provider } from '@/types';
-import { useProvidersTable } from '@/hooks/useProvidersTable';
+import { useProvidersTable } from '@/hooks/providers/useProvidersTable';
 
 const columns = [
   {

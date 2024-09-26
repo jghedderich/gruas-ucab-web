@@ -75,3 +75,13 @@ export interface User {
   role: Role;
   isActive: boolean;
 }
+
+export interface Policy {
+  id: number;
+  name: string;
+  price: number;
+  kilometersCovered: number;
+  tripsCovered?: number;
+  extraPerKm: number;
+  isActive: boolean;
+}

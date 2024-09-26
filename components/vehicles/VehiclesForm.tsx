@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Vehicle } from '@/types';
-import { useVehiclesForm } from '@/hooks/useVehiclesForm';
+import { useVehiclesForm } from '@/hooks/vehicles/useVehiclesForm';
 import { FormWrapper } from '../ui/FormWrapper';
 
 interface VehicleFormProps {

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
 import { Vehicle } from '@/types';
 import Toggle from '../ui/Toggle';
-import { useVehiclesTable } from '@/hooks/useVehiclesTable';
+import { useVehiclesTable } from '@/hooks/vehicles/useVehiclesTable';
 
 const columns = [
   {

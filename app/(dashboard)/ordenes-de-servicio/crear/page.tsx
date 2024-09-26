@@ -1,5 +1,11 @@
 import OrderForm from '@/components/orders/OrderForm';
 import Section from '@/components/ui/Section';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Ordenes de Servicio | Grúas UCAB',
+  description: 'Crear una orden de servicio.',
+};
 
 export default function CreateOrdenesDeServicioPage() {
   return (
