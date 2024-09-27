@@ -36,6 +36,11 @@ function Sidebar() {
       href: '/polizas',
       icon: PolicyIcon,
     },
+    {
+      name: 'Departamentos',
+      href: '/departamentos',
+      icon: ProviderIcon,
+    },
   ];
 
   return (
