@@ -28,13 +28,55 @@ export interface Address {
   longitude: number;
 }
 
-export interface Order {
-  id: number;
+export interface ClientVehicle {
+  brand: string;
+  model: string;
+  type: 'car' | 'motorcycle' | 'truck' | 'sedan' | 'suv' | 'van';
+  year: number;
+  licensePlate: string;
+  color: string;
+}
+
+export interface Client {
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  dni: string;
+  vehicle: ClientVehicle;
+}
+
+export interface Driver {
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  dni: string;
+  provider: string;
+}
+
+export interface ExtraPaymentRequest {
+  amount: number;
+  reason: string;
   status: string;
-  clientPolicy: string;
-  clientName: string;
-  clientPhone: string;
-  clientDni: string;
+}
+
+export interface Order {
+  id: string;
+  status: string;
+  client: Client;
+  driver: Driver;
+  towTruck: TowTruck;
+  extraPaymentRequest: {
+    amount: number;
+    reason: string;
+    status: string;
+  };
+  extraCosts: {
+    amount: number;
+    reason: string;
+  };
+  totalDistance: number;
   location: Address;
   destination: Address;
   description: string;
@@ -45,17 +87,18 @@ export interface Provider {
   id: number;
   name: string;
   admin: string;
-  fleet: Vehicle[];
+  fleet: TowTruck[];
   drivers: User[];
   isActive: boolean;
 }
 
-export interface Vehicle {
-  id: number;
+export interface TowTruck {
+  id?: number;
   brand: string;
   model: string;
   year: number;
-  owner: string;
+  licensePlate: string;
+  color: string;
 }
 
 export enum Role {
