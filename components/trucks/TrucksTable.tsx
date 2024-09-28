@@ -3,9 +3,9 @@ import React from 'react';
 import Table from '../ui/Table';
 import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
-import { Vehicle } from '@/types';
 import Toggle from '../ui/Toggle';
-import { useVehiclesTable } from '@/hooks/vehicles/useVehiclesTable';
+import { Truck } from '@/types';
+import { useTrucksTable } from '@/hooks/vehicles/useTrucksTable';
 
 const columns = [
   {
@@ -35,40 +35,40 @@ const pageInfo = {
   hasNextPage: true,
 };
 
-interface VehiclesTableProps {
-  vehicles: Vehicle[];
+interface TrucksTableProps {
+  trucks: Truck[];
 }
 
-export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
-  const { handleToggle, activeVehicles } = useVehiclesTable();
+export const TrucksTable = ({ trucks }: TrucksTableProps) => {
+  const { handleToggle, activeTrucks } = useTrucksTable();
 
   return (
     <Table columns={columns} pageInfo={pageInfo}>
-      {vehicles.map((vehicle) => (
-        <tr key={vehicle.id} className="border-y">
+      {trucks.map((truck) => (
+        <tr key={truck.id} className="border-y">
           <td className="py-4 px-5">
-            <h6>{vehicle.id}</h6>
+            <h6>{truck.id}</h6>
           </td>
           <td className="py-4 px-5">
-            <p>{vehicle.brand}</p>
+            <p>{truck.brand}</p>
           </td>
           <td className="py-4 px-5">
-            <p>{vehicle.model}</p>
+            <p>{truck.model}</p>
           </td>
 
           <td className="py-4 px-5">
-            <p>{vehicle.year}</p>
+            <p>{truck.year}</p>
           </td>
 
           <td className="py-4 px-6">
             <Toggle
-              handleClick={() => handleToggle(vehicle)}
-              isToggleOn={activeVehicles.has(vehicle.id)}
+              handleClick={() => handleToggle(truck)}
+              isToggleOn={activeTrucks.has(truck.id)}
             />
           </td>
           <td>
             <Link
-              href={`vehiculos/${vehicle.id}`}
+              href={`vehiculos/${truck.id}`}
               className="hover:text-brand-500 transition ease-out"
             >
               <PencilIcon width={20} height={20} />

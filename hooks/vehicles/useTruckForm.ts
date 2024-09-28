@@ -1,6 +1,6 @@
 'use client';
 
-import { Vehicle } from '@/types';
+import { Truck } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -24,7 +24,7 @@ const formSchema = z.object({
   }),
 });
 
-export const useVehiclesForm = ({ vehicle }: { vehicle?: Vehicle }) => {
+export const useTruckForm = ({ truck }: { truck?: Truck }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { back } = useRouter();
 
@@ -39,10 +39,10 @@ export const useVehiclesForm = ({ vehicle }: { vehicle?: Vehicle }) => {
   });
 
   useEffect(() => {
-    if (vehicle) {
-      form.reset(vehicle);
+    if (truck) {
+      form.reset(truck);
     }
-  }, [vehicle, form]);
+  }, [truck, form]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);

@@ -59,7 +59,7 @@ export const DepartmentsTable = ({ departments }: DepartmentsTableProps) => {
           </td>
           <td className="px-6">
             <Link
-              href={`departments/${department.id}`}
+              href={`departamentos/${department.id}`}
               className="hover:text-brand-500 transition ease-out"
             >
               <PencilIcon width={20} height={20} />

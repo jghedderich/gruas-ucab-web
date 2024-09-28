@@ -15,23 +15,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Vehicle } from '@/types';
-import { useVehiclesForm } from '@/hooks/vehicles/useVehiclesForm';
+import { Truck } from '@/types';
 import { FormWrapper } from '../ui/FormWrapper';
+import { useTruckForm } from '@/hooks/vehicles/useTruckForm';
 
-interface VehicleFormProps {
-  vehicle?: Vehicle;
+interface TruckFormProps {
+  truck?: Truck;
 }
 
-export default function VehicleForm({ vehicle }: VehicleFormProps) {
-  const { form, onSubmit, back, isSubmitting } = useVehiclesForm({ vehicle });
+export default function TruckForm({ truck }: TruckFormProps) {
+  const { form, onSubmit, back, isSubmitting } = useTruckForm({ truck });
   return (
     <FormWrapper
       form={form}
       isSubmitting={isSubmitting}
       onSubmit={onSubmit}
       back={back}
-      isEditing={!!vehicle}
+      isEditing={!!truck}
     >
       <FormField
         control={form.control}

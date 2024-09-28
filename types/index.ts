@@ -46,6 +46,16 @@ export interface Client {
   vehicle: ClientVehicle;
 }
 
+export interface Truck {
+  id: number;
+  brand: string;
+  model: string;
+  year: number;
+  licensePlate: string;
+  color: string;
+  owner: string;
+}
+
 export interface Driver {
   name: string;
   lastName: string;

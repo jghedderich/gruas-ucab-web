@@ -2,21 +2,23 @@ import Section from '@/components/ui/Section';
 import { PlusIcon } from '@/components/icons/PlusIcon';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Vehicle } from '@/types';
-import { VehiclesTable } from '@/components/vehicles/VehiclesTable';
+import { Truck } from '@/types';
+import { TrucksTable } from '@/components/trucks/TrucksTable';
 
 export const metadata = {
-  title: 'Vehículos | Grúas UCAB',
-  description: 'Lista de vehículos gestionados por Grúas Ucab',
+  title: 'Grúas | Grúas UCAB',
+  description: 'Lista de grúas gestionados por Grúas Ucab',
 };
 
-const vehiclesData: Vehicle[] = [
+const trucksData: Truck[] = [
   {
     id: 1,
     brand: 'Toyota',
     model: 'Camry',
     year: 2020,
     owner: 'Alice Johnson',
+    licensePlate: '',
+    color: 'black',
   },
   {
     id: 2,
@@ -24,6 +26,8 @@ const vehiclesData: Vehicle[] = [
     model: 'Civic',
     year: 2019,
     owner: 'Bob Smith',
+    licensePlate: '',
+    color: 'black',
   },
   {
     id: 3,
@@ -31,6 +35,8 @@ const vehiclesData: Vehicle[] = [
     model: 'Mustang',
     year: 2021,
     owner: 'Charlie Brown',
+    licensePlate: '',
+    color: 'black',
   },
   {
     id: 4,
@@ -38,6 +44,8 @@ const vehiclesData: Vehicle[] = [
     model: 'Malibu',
     year: 2018,
     owner: 'Diana Prince',
+    licensePlate: '',
+    color: 'black',
   },
   {
     id: 5,
@@ -45,6 +53,8 @@ const vehiclesData: Vehicle[] = [
     model: 'Model S',
     year: 2022,
     owner: 'Ethan Hunt',
+    licensePlate: '',
+    color: 'black',
   },
   {
     id: 6,
@@ -52,6 +62,8 @@ const vehiclesData: Vehicle[] = [
     model: 'Camry',
     year: 2020,
     owner: 'Alice Johnson',
+    licensePlate: '',
+    color: 'black',
   },
   {
     id: 7,
@@ -59,25 +71,27 @@ const vehiclesData: Vehicle[] = [
     model: 'Civic',
     year: 2019,
     owner: 'Bob Smith',
+    licensePlate: '',
+    color: 'black',
   },
 ];
 
-export default function VehiculosPage() {
+export default function TrucksPage() {
   return (
     <Section
-      title="Vehículos"
-      subtitle="Todos los vehículos"
-      description="La lista de vehículos de Grúas Ucab."
+      title="Grúas"
+      subtitle="Todas las grúas"
+      description="La lista de grúas de Grúas Ucab."
       trailing={
-        <Link href="vehiculos/crear">
+        <Link href="gruas/crear">
           <Button className="min-w-max flex gap-2">
             <PlusIcon className="w-5 h-5" />
-            <span className="hidden md:flex shrink-0">Crear Vehículo</span>
+            <span className="hidden md:flex shrink-0">Crear grúa</span>
           </Button>
         </Link>
       }
     >
-      <VehiclesTable vehicles={vehiclesData} />
+      <TrucksTable trucks={trucksData} />
     </Section>
   );
 }
