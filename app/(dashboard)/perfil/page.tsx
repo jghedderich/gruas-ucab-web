@@ -21,7 +21,7 @@ const user: User = {
   isActive: false,
 };
 
-export default function UsuariosPage() {
+export default function ProfilePage() {
   return (
     <Section
       title="Perfil"
@@ -29,7 +29,7 @@ export default function UsuariosPage() {
       description="Actualiza tus datos personales."
       className="max-w-3xl"
       trailing={
-        <Link href="/perfil/cambiar-password">
+        <Link href="/perfil/change-password">
           <Button className="min-w-max flex gap-2">
             <LockIcon className="w-5 h-5" />
             <span className="hidden md:flex shrink-0">Cambiar contraseña</span>

@@ -1,8 +1,5 @@
 'use client';
-import React from 'react';
-import { FormWrapper } from '../ui/FormWrapper';
-import { useProfileForm } from '@/hooks/profile/useProfileForm';
-import { User } from '@/types';
+import { useChangePasswordForm } from '@/hooks/profile/useChangePasswordForm';
 import {
   FormControl,
   FormField,
@@ -10,16 +7,11 @@ import {
   FormLabel,
   FormMessage,
 } from '../ui/form';
+import { FormWrapper } from '../ui/FormWrapper';
 import { Input } from '../ui/input';
 
-interface ProfileFormProps {
-  currentUser: User;
-}
-
-export const ProfileForm = ({ currentUser }: ProfileFormProps) => {
-  const { form, onSubmit, back, isSubmitting } = useProfileForm({
-    currentUser,
-  });
+export const ChangePasswordForm = () => {
+  const { form, onSubmit, back, isSubmitting } = useChangePasswordForm();
   return (
     <FormWrapper
       form={form}
@@ -27,15 +19,30 @@ export const ProfileForm = ({ currentUser }: ProfileFormProps) => {
       onSubmit={onSubmit}
       back={back}
       isEditing={true}
+      className="grid-cos-1"
     >
       <FormField
         control={form.control}
-        name="firstName"
+        name="currentPassword"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Nombre</FormLabel>
+            <FormLabel>Contraseña actual</FormLabel>
             <FormControl>
-              <Input placeholder="Nombre" {...field} />
+              <Input {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <div></div>
+      <FormField
+        control={form.control}
+        name="newPassword"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Nueva contraseña</FormLabel>
+            <FormControl>
+              <Input placeholder="Mínimo 6 caracteres" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -43,25 +50,12 @@ export const ProfileForm = ({ currentUser }: ProfileFormProps) => {
       />
       <FormField
         control={form.control}
-        name="lastName"
+        name="confirmPassword"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Apellido</FormLabel>
+            <FormLabel>Repita la nueva contraseña</FormLabel>
             <FormControl>
-              <Input placeholder="Apellido" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="dni"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Cédula o Rif</FormLabel>
-            <FormControl>
-              <Input placeholder="DNI" {...field} />
+              <Input placeholder="Mínimo 6 caracteres" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

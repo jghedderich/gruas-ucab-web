@@ -36,6 +36,7 @@ const providerLinks = [
   { name: 'Ordenes', href: '/ordenes-de-servicio', icon: OrderIcon },
   { name: 'Grúas', href: '/gruas', icon: TruckIcon },
   { name: 'Conductores', href: '/conductores', icon: UsersIcon },
+  { name: 'Proveedores', href: '/proveedores', icon: ProviderIcon },
   // { name: 'Pólizas', href: '/polizas', icon: PolicyIcon },
   // { name: 'Tarifas', href: '/tarifas', icon: TarifasIcon },
 ];
