@@ -46,6 +46,12 @@ export interface Client {
   vehicle: ClientVehicle;
 }
 
+export interface AdditionalCost {
+  id: number;
+  name: string;
+  description: string;
+}
+
 export interface Truck {
   id: number;
   brand: string;

@@ -10,6 +10,7 @@ import UserPopover from '../profile/UserPopover';
 import { ProviderIcon } from '../icons/ProviderIcon';
 import { PolicyIcon } from '../icons/PolicyIcon';
 import { TarifasIcon } from '../icons/TarifasIcon';
+import { CostsIcon } from '../icons/CostsIcon';
 
 // Assuming you'll get the user type from a prop or context
 type UserType = 'admin' | 'operator' | 'provider';
@@ -24,6 +25,7 @@ const adminLinks = [
   { name: 'Pólizas', href: '/polizas', icon: PolicyIcon },
   { name: 'Departamentos', href: '/departamentos', icon: ProviderIcon },
   { name: 'Tarifas', href: '/tarifas', icon: TarifasIcon },
+  { name: 'Costos adicionales', href: '/costos-adicionales', icon: CostsIcon },
 ];
 
 const operatorLinks = [

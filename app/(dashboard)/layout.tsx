@@ -7,7 +7,7 @@ export default function DashboardLayout({
 }) {
   return (
     <section className="flex">
-      <Sidebar userType="provider" />
+      <Sidebar userType="admin" />
       <div className="max-w-screen-lg mx-auto mt-6 pl-24 pr-6 w-full">
         {children}
       </div>
