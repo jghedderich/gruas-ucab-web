@@ -4,45 +4,33 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { useToast } from '../use-toast';
 import { Role, User } from '@/types';
-
-const formSchema = z.object({
-  nombre: z.string().min(2, {
-    message: 'Nombre must be at least 2 characters.',
-  }),
-  apellido: z.string().min(2, {
-    message: 'Apellido must be at least 2 characters.',
-  }),
-  password: z.string().min(6, {
-    message: 'Password must be at least 6 characters.',
-  }),
-  dni: z.string().min(8, {
-    message: 'DNI must be at least 8 characters.',
-  }),
-  email: z.string().email({
-    message: 'Invalid email address.',
-  }),
-  rol: z.enum([Role.Admin, Role.Operator, Role.Provider, Role.Driver]),
-});
+import { UserFormData, usersSchema } from '@/schemas/user-schema';
 
 export const useUsersForm = ({ user }: { user?: User }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { back } = useRouter();
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<UserFormData>({
+    resolver: zodResolver(usersSchema),
     defaultValues: {
-      nombre: '',
-      apellido: '',
+      name: user?.firstName || '',
+      lastName: user?.lastName || '',
+      email: user?.email || '',
+      phone: user?.phone || '',
       password: '',
-      dni: '',
-      email: '',
-      rol: user?.role,
+      dni: user?.dni || '',
+      role: user?.role || Role.Driver,
+      companyName: user?.companyName || '',
+      companyAddress: user?.companyAddress || '',
+      companyPhone: user?.companyPhone || '',
+      rif: user?.rif || '',
     },
   });
+
+  const watchRole = form.watch('role');
 
   useEffect(() => {
     if (user) {
@@ -50,7 +38,7 @@ export const useUsersForm = ({ user }: { user?: User }) => {
     }
   }, [user, form]);
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: UserFormData) {
     setIsSubmitting(true);
     // Simulate API call
     setTimeout(() => {
@@ -73,6 +61,7 @@ export const useUsersForm = ({ user }: { user?: User }) => {
     // state
     form,
     isSubmitting,
+    watchRole,
 
     // actions
     back,

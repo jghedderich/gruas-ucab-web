@@ -22,6 +22,10 @@ export const useAdditionalCostForm = ({
 
   const form = useForm<AdditionalCostFormData>({
     resolver: zodResolver(additionalCostSchema),
+    defaultValues: {
+      name: '',
+      description: '',
+    },
   });
 
   useEffect(() => {

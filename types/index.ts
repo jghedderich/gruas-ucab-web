@@ -119,7 +119,7 @@ export interface TowTruck {
 
 export enum Role {
   Admin = 'admin',
-  Operator = 'operador de cabina',
+  Operator = 'operador',
   Provider = 'proveedor',
   Driver = 'conductor',
 }
@@ -129,9 +129,14 @@ export interface User {
   firstName: string;
   lastName: string;
   password: string;
+  phone: string;
   dni: string;
   email: string;
   role: Role;
+  companyName?: string;
+  rif?: string;
+  companyAddress?: string;
+  companyPhone?: string;
   isActive: boolean;
 }
 
