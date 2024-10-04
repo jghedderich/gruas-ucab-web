@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
 import { FormWrapper } from '../ui/FormWrapper';
-import { Policy } from '@/types';
-import { usePoliciesForm } from '@/hooks/policies/usePoliciesForm';
+import { Fee } from '@/types';
 import {
   FormControl,
   FormField,
@@ -11,20 +10,21 @@ import {
   FormMessage,
 } from '../ui/form';
 import { Input } from '../ui/input';
+import { useFeesForm } from '@/hooks/fees/useFeeForm';
 
-interface PoliciesFormProps {
-  policy?: Policy;
+interface FeesFormProps {
+  fee?: Fee;
 }
 
-export const PoliciesForm = ({ policy }: PoliciesFormProps) => {
-  const { form, onSubmit, back, isSubmitting } = usePoliciesForm({ policy });
+export const FeesForm = ({ fee }: FeesFormProps) => {
+  const { form, onSubmit, back, isSubmitting } = useFeesForm({ fee });
   return (
     <FormWrapper
       form={form}
       onSubmit={onSubmit}
       back={back}
       isSubmitting={isSubmitting}
-      isEditing={!!policy}
+      isEditing={!!fee}
     >
       <FormField
         control={form.control}
@@ -33,7 +33,7 @@ export const PoliciesForm = ({ policy }: PoliciesFormProps) => {
           <FormItem>
             <FormLabel>Nombre</FormLabel>
             <FormControl>
-              <Input placeholder="Básico, Oro, Silver, etc" {...field} />
+              <Input placeholder="Liviano, Mediano, Pesado, etc" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -41,12 +41,12 @@ export const PoliciesForm = ({ policy }: PoliciesFormProps) => {
       />
       <FormField
         control={form.control}
-        name="price"
+        name="base"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Precio anual ($)</FormLabel>
+            <FormLabel>Precio base ($)</FormLabel>
             <FormControl>
-              <Input type="number" placeholder="10" {...field} />
+              <Input type="number" placeholder="30" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -54,12 +54,12 @@ export const PoliciesForm = ({ policy }: PoliciesFormProps) => {
       />
       <FormField
         control={form.control}
-        name="amountCovered"
+        name="perKm"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Distancia cubierta (km)</FormLabel>
+            <FormLabel>Precio por Kilómetro ($)</FormLabel>
             <FormControl>
-              <Input type="number" placeholder="1000" {...field} />
+              <Input type="number" placeholder="1" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

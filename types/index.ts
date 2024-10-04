@@ -144,9 +144,15 @@ export interface Policy {
   id: number;
   name: string;
   price: number;
-  kilometersCovered: number;
-  tripsCovered?: number;
-  extraPerKm: number;
+  amountCovered: number;
+  isActive: boolean;
+}
+
+export interface Fee {
+  id: number;
+  name: string;
+  base: number;
+  perKm: number;
   isActive: boolean;
 }
 

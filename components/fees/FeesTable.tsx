@@ -3,9 +3,9 @@ import React from 'react';
 import Table from '../ui/Table';
 import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
-import { Policy } from '@/types';
+import { Fee } from '@/types';
 import Toggle from '../ui/Toggle';
-import { usePoliciesTable } from '@/hooks/policies/usePoliciesTable';
+import { useFeesTable } from '@/hooks/fees/useFeesTable';
 
 const columns = [
   {
@@ -17,12 +17,12 @@ const columns = [
     field: 'nombre',
   },
   {
-    title: 'Costo Anual',
-    field: 'costo anual',
+    title: 'Costo base',
+    field: 'base',
   },
   {
-    title: 'Cobertura',
-    field: 'cobertura',
+    title: 'Costo por km',
+    field: 'perKm',
   },
 ];
 
@@ -35,38 +35,38 @@ const pageInfo = {
   hasNextPage: true,
 };
 
-interface PoliciesTableProps {
-  policies: Policy[];
+interface FeesTableProps {
+  fees: Fee[];
 }
 
-export const PoliciesTable = ({ policies }: PoliciesTableProps) => {
-  const { handleToggle, activePolicies } = usePoliciesTable();
+export const FeesTable = ({ fees }: FeesTableProps) => {
+  const { handleToggle, activeFees } = useFeesTable();
 
   return (
     <Table columns={columns} pageInfo={pageInfo}>
-      {policies.map((policy) => (
-        <tr key={policy.id} className="border-y">
+      {fees.map((fee) => (
+        <tr key={fee.id} className="border-y">
           <td className="py-4 px-5">
-            <h6>{policy.id}</h6>
+            <h6>{fee.id}</h6>
           </td>
           <td className="py-4 px-5">
-            <p>{policy.name}</p>
+            <p>{fee.name}</p>
           </td>
           <td className="py-4 px-5">
-            <p>${policy.price}</p>
+            <p>${fee.base}</p>
           </td>
           <td className="py-4 px-5">
-            <p>${policy.amountCovered}</p>
+            <p>${fee.perKm}</p>
           </td>
           <td className="py-4 px-6">
             <Toggle
-              handleClick={() => handleToggle(policy)}
-              isToggleOn={activePolicies.has(policy.id)}
+              handleClick={() => handleToggle(fee)}
+              isToggleOn={activeFees.has(fee.id)}
             />
           </td>
           <td className="py-4 px-6">
             <Link
-              href={`polizas/${policy.id}`}
+              href={`tarifas/${fee.id}`}
               className="hover:text-brand-500 transition ease-out"
             >
               <PencilIcon width={20} height={20} />
