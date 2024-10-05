@@ -9,16 +9,16 @@ const existingCost: AdditionalCost = {
 };
 
 export const metadata = {
-  title: 'Editar grúa | Grúas UCAB',
-  description: 'Edita los datos de la grúa seleccionada.',
+  title: 'Editar vehículo | Grúas UCAB',
+  description: 'Edita los datos de la vehículo seleccionada.',
 };
 
-export default function EditTrucksPage() {
+export default function EditVehiclesPage() {
   return (
     <Section
       title="Grúas"
-      subtitle="Editar una grúa."
-      description="Edita los datos de la grúa seleccionada."
+      subtitle="Editar una vehículo."
+      description="Edita los datos de la vehículo seleccionada."
     >
       <AdditionalCostForm additionalCost={existingCost} />
     </Section>

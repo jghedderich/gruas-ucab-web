@@ -15,24 +15,47 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Truck } from '@/types';
+import { Vehicle } from '@/types';
 import { FormWrapper } from '../ui/FormWrapper';
-import { useTruckForm } from '@/hooks/vehicles/useTruckForm';
+import { useVehicleForm } from '@/hooks/vehicles/useTruckForm';
 
-interface TruckFormProps {
-  truck?: Truck;
+interface VehicleFormProps {
+  vehicle?: Vehicle;
 }
 
-export default function TruckForm({ truck }: TruckFormProps) {
-  const { form, onSubmit, back, isSubmitting } = useTruckForm({ truck });
+export default function VehicleForm({ vehicle }: VehicleFormProps) {
+  const { form, onSubmit, back, isSubmitting } = useVehicleForm({ vehicle });
   return (
     <FormWrapper
       form={form}
       isSubmitting={isSubmitting}
       onSubmit={onSubmit}
       back={back}
-      isEditing={!!truck}
+      isEditing={!!vehicle}
     >
+      <FormField
+        control={form.control}
+        name="type"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Tipo</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Seleccione el tipo" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="heavyTruck">Pesado</SelectItem>
+                <SelectItem value="mediumTruck">Mediano</SelectItem>
+                <SelectItem value="lightTruck">Liviano</SelectItem>
+                <SelectItem value="motorcycle">Moto</SelectItem>
+              </SelectContent>
+            </Select>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
       <FormField
         control={form.control}
         name="brand"
@@ -68,6 +91,7 @@ export default function TruckForm({ truck }: TruckFormProps) {
             <FormControl>
               <Input
                 type="number"
+                placeholder="2024"
                 {...field}
                 onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
               />

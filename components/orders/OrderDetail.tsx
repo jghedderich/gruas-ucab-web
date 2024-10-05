@@ -11,7 +11,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Order } from '@/types';
 import { ClientDetail } from './ClientDetail';
-import { DriverAndTowTruckDetail } from './DriverAndTruckDetail';
+import { DriverAndTowVehicleDetail } from './DriverAndVehicleDetail';
 import { ExtraPaymentRequestDetail } from './ExtraPaymentRequestDetail';
 
 // Note: You would need to implement or import an actual map component
@@ -84,9 +84,9 @@ export default function OrderDetail({ order }: OrderDetailProps) {
         </CardContent>
       </Card>
       <ClientDetail client={order.client} />
-      <DriverAndTowTruckDetail
+      <DriverAndTowVehicleDetail
         driver={order.driver}
-        towTruck={order.towTruck}
+        vehicle={order.vehicle}
       />
       <ExtraPaymentRequestDetail
         extraPaymentRequest={order.extraPaymentRequest}

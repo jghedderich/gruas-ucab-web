@@ -3,7 +3,6 @@
 import React from 'react';
 import SideBarLink from './SidebarLink';
 import { UsersIcon } from '../icons/UsersIcon';
-import { TruckIcon } from '../icons/TruckIcon';
 import { OrderIcon } from '../icons/OrderIcon';
 import Image from 'next/image';
 import UserPopover from '../profile/UserPopover';
@@ -11,6 +10,7 @@ import { ProviderIcon } from '../icons/ProviderIcon';
 import { PolicyIcon } from '../icons/PolicyIcon';
 import { TarifasIcon } from '../icons/TarifasIcon';
 import { CostsIcon } from '../icons/CostsIcon';
+import { VehicleIcon } from '../icons/TruckIcon';
 
 // Assuming you'll get the user type from a prop or context
 type UserType = 'admin' | 'operator' | 'provider';
@@ -24,6 +24,7 @@ const adminLinks = [
   { name: 'Ordenes', href: '/ordenes-de-servicio', icon: OrderIcon },
   { name: 'Pólizas', href: '/polizas', icon: PolicyIcon },
   { name: 'Departamentos', href: '/departamentos', icon: ProviderIcon },
+  { name: 'Vehículos', href: '/vehiculos', icon: VehicleIcon },
   { name: 'Tarifas', href: '/tarifas', icon: TarifasIcon },
   { name: 'Costos adicionales', href: '/costos-adicionales', icon: CostsIcon },
 ];
@@ -36,7 +37,7 @@ const operatorLinks = [
 
 const providerLinks = [
   { name: 'Ordenes', href: '/ordenes-de-servicio', icon: OrderIcon },
-  { name: 'Grúas', href: '/gruas', icon: TruckIcon },
+  { name: 'Vehículos', href: '/vehiculos', icon: VehicleIcon },
   { name: 'Conductores', href: '/conductores', icon: UsersIcon },
   { name: 'Proveedores', href: '/proveedores', icon: ProviderIcon },
   // { name: 'Pólizas', href: '/polizas', icon: PolicyIcon },

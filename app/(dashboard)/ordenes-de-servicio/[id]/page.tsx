@@ -55,7 +55,7 @@ const orderData: Order = {
     email: 'mike.smith@towservice.com',
     provider: 'Gruas Meru',
   },
-  towTruck: {
+  vehicle: {
     model: 'F-450',
     brand: 'Ford',
     year: 2020,

@@ -1,20 +1,20 @@
 import React from 'react';
-import { Truck } from '@/types';
+import { Vehicle } from '@/types';
 
-export const useTrucksTable = () => {
-  const [activeTrucks, setActiveTrucks] = React.useState(new Set());
+export const useVehiclesTable = () => {
+  const [activeVehicles, setActiveVehicles] = React.useState(new Set());
 
-  const handleToggle = (vehicle: Truck) => {
-    if (activeTrucks.has(vehicle.id)) {
-      activeTrucks.delete(vehicle.id);
+  const handleToggle = (vehicle: Vehicle) => {
+    if (activeVehicles.has(vehicle.id)) {
+      activeVehicles.delete(vehicle.id);
     } else {
-      activeTrucks.add(vehicle.id);
+      activeVehicles.add(vehicle.id);
     }
-    setActiveTrucks(new Set(activeTrucks));
+    setActiveVehicles(new Set(activeVehicles));
   };
 
   return {
-    activeTrucks,
+    activeVehicles,
     handleToggle,
   };
 };

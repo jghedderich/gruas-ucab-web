@@ -1,16 +1,17 @@
-import { Driver, TowTruck } from '@/types';
-import { User, Phone, Mail, IdCard, Truck } from 'lucide-react';
+import { Driver, Vehicle } from '@/types';
+import { User, Phone, Mail, IdCard } from 'lucide-react';
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
-interface DriverAndTowTruckDetailProps {
+import { VehicleIcon } from '../icons/TruckIcon';
+interface DriverAndVehicleDetailProps {
   driver: Driver;
-  towTruck: TowTruck;
+  vehicle: Vehicle;
 }
 
-export const DriverAndTowTruckDetail = ({
+export const DriverAndVehicleDetail = ({
   driver,
-  towTruck,
-}: DriverAndTowTruckDetailProps) => {
+  vehicle,
+}: DriverAndVehicleDetailProps) => {
   return (
     <Card>
       <CardHeader>
@@ -34,12 +35,12 @@ export const DriverAndTowTruckDetail = ({
         </div>
         <hr />
         <div>
-          <h3 className="text-gray-500 text-sm mb-2">GRÚA</h3>
+          <h3 className="text-gray-500 text-sm mb-2">VEHÍCULO</h3>
           <p className="flex items-center">
-            <Truck className="mr-2" size={16} /> {towTruck.brand}{' '}
-            {towTruck.model} ({towTruck.year})
+            <VehicleIcon className="mr-2 size-6" /> {vehicle.brand}{' '}
+            {vehicle.model} ({vehicle.year})
           </p>
-          <p>Matricula: {towTruck.licensePlate}</p>
+          <p>Matricula: {vehicle.licensePlate}</p>
         </div>
       </CardContent>
     </Card>

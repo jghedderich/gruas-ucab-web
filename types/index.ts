@@ -31,7 +31,7 @@ export interface Address {
 export interface ClientVehicle {
   brand: string;
   model: string;
-  type: 'car' | 'motorcycle' | 'truck' | 'sedan' | 'suv' | 'van';
+  type: 'car' | 'motorcycle' | 'vehicle' | 'sedan' | 'suv' | 'van';
   year: number;
   licensePlate: string;
   color: string;
@@ -52,11 +52,12 @@ export interface AdditionalCost {
   description: string;
 }
 
-export interface Truck {
+export interface Vehicle {
   id: number;
   brand: string;
   model: string;
   year: number;
+  type: 'lightTruck' | 'heavyTruck' | 'mediumTruck' | 'motorcycle';
   licensePlate: string;
   color: string;
   owner: string;
@@ -82,7 +83,7 @@ export interface Order {
   status: string;
   client: Client;
   driver: Driver;
-  towTruck: TowTruck;
+  vehicle: Vehicle;
   extraPaymentRequest: {
     amount: number;
     reason: string;
@@ -103,18 +104,9 @@ export interface Provider {
   id: number;
   name: string;
   admin: string;
-  fleet: TowTruck[];
+  fleet: Vehicle[];
   drivers: User[];
   isActive: boolean;
-}
-
-export interface TowTruck {
-  id?: number;
-  brand: string;
-  model: string;
-  year: number;
-  licensePlate: string;
-  color: string;
 }
 
 export enum Role {

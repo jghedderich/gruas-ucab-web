@@ -1,5 +1,5 @@
 import Section from '@/components/ui/Section';
-import VehicleForm from '@/components/trucks/TrucksForm';
+import VehicleForm from '@/components/vehicles/VehicleForm';
 
 export const metadata = {
   title: 'Crear vehículo | Grúas UCAB',

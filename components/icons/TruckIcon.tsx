@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const TruckIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const VehicleIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
