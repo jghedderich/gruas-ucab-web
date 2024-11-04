@@ -1,4 +1,5 @@
-import Sidebar from '@/components/navigation/Sidebar';
+import { AppSidebar } from '@/components/navigation/AppSidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 
 export default function DashboardLayout({
   children,
@@ -6,11 +7,11 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex">
-      <Sidebar userType="admin" />
-      <div className="max-w-screen-lg mx-auto mt-6 pl-24 pr-6 w-full">
-        {children}
-      </div>
-    </section>
+    <SidebarProvider>
+      <AppSidebar userType="admin" />
+      <section className="w-full">
+        <div className="max-w-screen-lg mx-auto mt-6 px-6 ">{children}</div>
+      </section>
+    </SidebarProvider>
   );
 }

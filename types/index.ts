@@ -1,20 +1,13 @@
-export interface IPageInfo {
-  page: number;
-  perPage: number;
-  itemCount: number;
-  pageCount: number;
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
-}
-
 export interface IColumn {
   title: string;
   field: string;
 }
 
 export interface IPagination<T> {
-  items: T[];
-  pageInfo: IPageInfo;
+  data: T[];
+  count: number;
+  pageIndex: number;
+  pageSize: number;
 }
 
 export interface Address {

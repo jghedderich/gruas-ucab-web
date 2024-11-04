@@ -8,7 +8,6 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import Link from 'next/link';
-import Image from 'next/image';
 import { UserCircle } from '../icons/UserCircle';
 import { Badge } from '../ui/badge';
 
