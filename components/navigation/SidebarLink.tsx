@@ -1,30 +1,32 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar';
 
 interface SideBarLinkProps {
-  href: string;
-  icon: React.ReactNode;
-  name: string;
+  userType: 'admin' | 'operator' | 'provider';
+  link: {
+    name: string;
+    href: string;
+    icon: React.FC<React.SVGProps<SVGSVGElement>>;
+    roles: string[];
+  };
 }
 
-function SideBarLink({ href, icon, name }: SideBarLinkProps) {
+function SideBarLink({ link, userType }: SideBarLinkProps) {
   const path = usePathname();
-  return (
-    <div className="relative group">
-      <Link
-        href={href}
-        className={`font-semibold text-gray-500 transition ease-out  hover:text-teal-500 flex gap-3 ${
-          path.includes(href) ? 'text-teal-500' : ''
-        }`}
-      >
-        {icon}
-      </Link>
-      <div className="group-hover:block hidden absolute -top-1 left-8 bg-teal-500 py-1 px-2 rounded min-w-max z-50">
-        <span className="font-semibold text-white">{name}</span>
-      </div>
-    </div>
-  );
+  if (link.roles.includes(userType)) {
+    return (
+      <SidebarMenuItem key={link.name}>
+        <SidebarMenuButton asChild isActive={path === link.href}>
+          <Link href={link.href}>
+            <link.icon />
+            <span className="ml-1">{link.name}</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    );
+  }
 }
 
 export default SideBarLink;

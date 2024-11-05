@@ -81,6 +81,19 @@ export default function DriverForm({
       />
       <FormField
         control={form.control}
+        name="phone"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Teléfono</FormLabel>
+            <FormControl>
+              <Input placeholder="0412123456" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
         name="email"
         render={({ field }) => (
           <FormItem>
@@ -119,7 +132,7 @@ export default function DriverForm({
         name="providerId"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Vehículo</FormLabel>
+            <FormLabel>Proveedor</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>

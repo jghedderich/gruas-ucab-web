@@ -23,7 +23,7 @@ interface AppSidebarFooterProps {
 
 export function AppSidebarFooter({ state, user }: AppSidebarFooterProps) {
   return (
-    <SidebarFooter>
+    <SidebarFooter className="mb-3">
       <SidebarMenu>
         <SidebarMenuItem>
           <DropdownMenu>
