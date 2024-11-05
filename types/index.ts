@@ -59,12 +59,18 @@ export interface Vehicle extends IEntity {
 }
 
 export interface Driver extends IEntity {
-  name: string;
-  lastName: string;
-  email: string;
+  name: {
+    firstName: string;
+    lastName: string;
+  };
   phone: string;
-  dni: string;
-  provider: string;
+  dni: {
+    type: string;
+    number: string;
+  };
+  email: string;
+  providerId: string;
+  vehicleId: string;
 }
 
 export interface ExtraPaymentRequest {
