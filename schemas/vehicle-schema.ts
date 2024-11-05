@@ -7,14 +7,14 @@ export const vehicleSchema = z.object({
   brand: z.string().min(2, {
     message: 'Brand must be at least 2 characters.',
   }),
-  type: z.enum(['heavyTruck', 'lightTruck', 'mediumTruck', 'motorcycle']),
-  year: z
-    .number()
-    .int()
-    .min(1900)
-    .max(new Date().getFullYear() + 1),
-  owner: z.string().min(1, {
-    message: 'Please select an owner.',
+  type: z.string().min(4, {
+    message: 'Year must be at least 4 characters.',
+  }),
+  year: z.string().min(4, {
+    message: 'Year must be at least 4 characters.',
+  }),
+  providerId: z.string().min(1, {
+    message: 'Please select a provider.',
   }),
 });
 

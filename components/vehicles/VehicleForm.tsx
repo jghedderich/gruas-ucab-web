@@ -15,15 +15,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Vehicle } from '@/types';
+import { IPagination, Provider, Vehicle } from '@/types';
 import { FormWrapper } from '../ui/FormWrapper';
 import { useVehicleForm } from '@/hooks/vehicles/useVehicleForm';
 
 interface VehicleFormProps {
   vehicle?: Vehicle;
+  providers: IPagination<Provider>;
 }
 
-export default function VehicleForm({ vehicle }: VehicleFormProps) {
+export default function VehicleForm({ vehicle, providers }: VehicleFormProps) {
   const { form, onSubmit, back, isSubmitting } = useVehicleForm({ vehicle });
   return (
     <FormWrapper
@@ -46,10 +47,10 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                <SelectItem value="heavyTruck">Pesado</SelectItem>
-                <SelectItem value="mediumTruck">Mediano</SelectItem>
-                <SelectItem value="lightTruck">Liviano</SelectItem>
-                <SelectItem value="motorcycle">Moto</SelectItem>
+                <SelectItem value="Light">Liviano</SelectItem>
+                <SelectItem value="Medium">Mediano</SelectItem>
+                <SelectItem value="Heavy">Pesado</SelectItem>
+                <SelectItem value="Motorcycle">Moto</SelectItem>
               </SelectContent>
             </Select>
             <FormMessage />
@@ -89,12 +90,7 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
           <FormItem>
             <FormLabel>Año</FormLabel>
             <FormControl>
-              <Input
-                type="number"
-                placeholder="2024"
-                {...field}
-                onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
-              />
+              <Input type="number" placeholder="2024" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -102,20 +98,22 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
       />
       <FormField
         control={form.control}
-        name="owner"
+        name="providerId"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Dueño</FormLabel>
+            <FormLabel>Proveedor</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Seleccione el dueño" />
+                  <SelectValue placeholder="Seleccione el proveedor" />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                <SelectItem value="john">John Doe</SelectItem>
-                <SelectItem value="jane">Jane Smith</SelectItem>
-                <SelectItem value="bob">Bob Johnson</SelectItem>
+                {providers.data.map((provider) => (
+                  <SelectItem key={provider.id} value={provider.id}>
+                    {provider.company.name}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
             <FormMessage />
