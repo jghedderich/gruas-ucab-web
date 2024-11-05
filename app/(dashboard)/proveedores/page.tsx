@@ -11,7 +11,9 @@ export const metadata = {
 };
 
 export default async function ProvidersPage() {
-  const response = await fetchData('/providers-service/providers');
+  const response = await fetchData('/providers-service/providers', {
+    cache: 'no-store',
+  });
   return (
     <Section
       title="Proveedores"

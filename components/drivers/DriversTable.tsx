@@ -35,7 +35,7 @@ export const DriversTable = ({ drivers }: DriversTableProps) => {
   return (
     <Table
       columns={columns}
-      count={drivers.count}
+      count={activeDrivers.length}
       pageSize={drivers.pageSize}
       pageIndex={drivers.pageIndex}
     >

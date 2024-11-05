@@ -38,7 +38,7 @@ export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
       columns={columns}
       pageIndex={providers.pageIndex}
       pageSize={10}
-      count={providers.count}
+      count={activeProviders.length}
     >
       {activeProviders.map((provider) => (
         <tr key={provider.id} className="border-y">

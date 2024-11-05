@@ -31,7 +31,7 @@ export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
   return (
     <Table
       columns={columns}
-      count={vehicles.count}
+      count={activeVehicles.length}
       pageSize={vehicles.pageSize}
       pageIndex={vehicles.pageIndex}
     >

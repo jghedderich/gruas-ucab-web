@@ -1,10 +1,11 @@
 import { Provider } from '@/types';
 import { useToast } from '../use-toast';
 import { fetchData } from '@/lib/fetchData';
+import { useRouter } from 'next/navigation';
 
 export const useProvidersTable = (providers: Provider[]) => {
   const activeProviders = providers.filter((provider) => provider.isActive);
-
+  const { refresh } = useRouter();
   const { toast } = useToast();
   const handleDelete = async (provider: Provider) => {
     try {
@@ -14,6 +15,11 @@ export const useProvidersTable = (providers: Provider[]) => {
           'Content-Type': 'application/json',
         },
       });
+      toast({
+        title: 'Proveedor eliminado',
+        description: 'Se ha eliminado el proveedor correctamente.',
+      });
+      refresh();
     } catch (error) {
       console.log(error);
       toast({
@@ -22,10 +28,6 @@ export const useProvidersTable = (providers: Provider[]) => {
         variant: 'destructive',
       });
     }
-    toast({
-      title: 'Proveedor eliminado',
-      description: 'Se ha eliminado el proveedor correctamente.',
-    });
   };
 
   return {

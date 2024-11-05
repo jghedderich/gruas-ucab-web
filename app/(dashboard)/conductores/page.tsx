@@ -11,7 +11,9 @@ export const metadata = {
 };
 
 export default async function DriversPage() {
-  const response = await fetchData('/providers-service/drivers');
+  const response = await fetchData('/providers-service/drivers', {
+    cache: 'no-store',
+  });
 
   return (
     <Section

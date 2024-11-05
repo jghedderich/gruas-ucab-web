@@ -7,10 +7,12 @@ import { useForm } from 'react-hook-form';
 import { Provider } from '@/types';
 import { useToast } from '../use-toast';
 import { ProviderFormData, providerSchema } from '@/schemas/provider-schema';
+import { fetchData } from '@/lib/fetchData';
+import { parseProviderData } from '@/lib/parseProviderData';
 
 export const useProviderForm = ({ provider }: { provider?: Provider }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { back } = useRouter();
+  const { back, refresh } = useRouter();
   const { toast } = useToast();
 
   const form = useForm<ProviderFormData>({
@@ -32,16 +34,23 @@ export const useProviderForm = ({ provider }: { provider?: Provider }) => {
 
   useEffect(() => {
     if (provider) {
-      form.reset(provider);
+      form.reset(provider as unknown as ProviderFormData);
     }
   }, [provider, form]);
 
-  function onSubmit(values: ProviderFormData) {
-    setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      console.log(values);
-      setIsSubmitting(false);
+  async function onSubmit(values: ProviderFormData) {
+    try {
+      setIsSubmitting(true);
+      const parsedData = parseProviderData(values);
+      await fetchData('/providers-service/providers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(parsedData),
+      });
+      back();
+      refresh();
       if (provider) {
         toast({
           title: 'Proveedor actualizado',
@@ -53,7 +62,15 @@ export const useProviderForm = ({ provider }: { provider?: Provider }) => {
           description: 'El proveedor se ha creado correctamente.',
         });
       }
-    }, 2000);
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: 'Error al crear el proveedor',
+        description: 'El proveedor no se ha creado correctamente.',
+        variant: 'destructive',
+      });
+    }
+    setIsSubmitting(false);
   }
   return {
     // state

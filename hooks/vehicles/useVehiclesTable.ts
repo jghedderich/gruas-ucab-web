@@ -1,10 +1,12 @@
 import { Vehicle } from '@/types';
 import { useToast } from '../use-toast';
 import { fetchData } from '@/lib/fetchData';
+import { useRouter } from 'next/navigation';
 
 export const useVehiclesTable = (vehicles: Vehicle[]) => {
   const activeVehicles = vehicles.filter((vehicle) => vehicle.isActive);
   const { toast } = useToast();
+  const router = useRouter();
   const handleDelete = async (vehicle: Vehicle) => {
     try {
       await fetchData(`/providers-service/vehicles/${vehicle.id}`, {
@@ -13,6 +15,11 @@ export const useVehiclesTable = (vehicles: Vehicle[]) => {
           'Content-Type': 'application/json',
         },
       });
+      toast({
+        title: 'Vehículo eliminado',
+        description: 'Se ha eliminado el vehículo correctamente.',
+      });
+      router.refresh();
     } catch (error) {
       console.log(error);
       toast({
@@ -21,10 +28,6 @@ export const useVehiclesTable = (vehicles: Vehicle[]) => {
         variant: 'destructive',
       });
     }
-    toast({
-      title: 'Vehículo eliminado',
-      description: 'Se ha eliminado el vehículo correctamente.',
-    });
   };
 
   return {

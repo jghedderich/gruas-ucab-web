@@ -11,7 +11,9 @@ export const metadata = {
 };
 
 export default async function VehiclesPage() {
-  const response = await fetchData('/providers-service/vehicles');
+  const response = await fetchData('/providers-service/vehicles', {
+    cache: 'no-store',
+  });
 
   return (
     <Section

@@ -27,6 +27,10 @@ function Table({ columns, pageIndex, pageSize, count, children }: ITableProps) {
     hasPreviousPage: pageIndex > 1,
     hasNextPage: pageIndex < Math.round(count / pageSize) || false,
   };
+
+  if (count === 0) {
+    return <h2 className="text-center mt-10 text-xl">No hay resultados</h2>;
+  }
   return (
     <div className="border rounded-md min-w-max">
       <table className="table-auto border-b min-w-full">
