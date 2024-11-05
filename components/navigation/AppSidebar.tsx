@@ -1,4 +1,6 @@
 'use client';
+import React from 'react';
+import Link from 'next/link';
 
 import {
   Sidebar,
@@ -13,8 +15,6 @@ import {
   SidebarTrigger,
   useSidebar,
 } from '@/components/ui/sidebar';
-import React from 'react';
-import Link from 'next/link';
 import { UsersIcon } from '../icons/UsersIcon';
 import { OrderIcon } from '../icons/OrderIcon';
 import { ProviderIcon } from '../icons/ProviderIcon';
@@ -24,26 +24,71 @@ import { CostsIcon } from '../icons/CostsIcon';
 import { VehicleIcon } from '../icons/TruckIcon';
 import { AppSidebarFooter } from './SidebarFooter';
 
+// Assuming you'll get the user type from a prop or context
+type UserType = 'admin' | 'operator' | 'provider';
+
 const orderLinks = [
-  { name: 'Ordenes', href: '/ordenes-de-servicio', icon: OrderIcon },
-  { name: 'Pólizas', href: '/polizas', icon: PolicyIcon },
-  { name: 'Operadores', href: '/operadores', icon: UsersIcon },
+  {
+    name: 'Ordenes',
+    href: '/ordenes-de-servicio',
+    icon: OrderIcon,
+    roles: ['operator', 'admin', 'provider'],
+  },
+  {
+    name: 'Pólizas',
+    href: '/polizas',
+    icon: PolicyIcon,
+    roles: ['operator', 'admin'],
+  },
+  {
+    name: 'Operadores',
+    href: '/operadores',
+    icon: UsersIcon,
+    roles: ['admin'],
+  },
 ];
 
 const providerLinks = [
-  { name: 'Proveedores', href: '/proveedores', icon: ProviderIcon },
-  { name: 'Vehículos', href: '/vehiculos', icon: VehicleIcon },
-  { name: 'Conductores', href: '/conductores', icon: UsersIcon },
+  {
+    name: 'Proveedores',
+    href: '/proveedores',
+    icon: ProviderIcon,
+    roles: ['admin'],
+  },
+  {
+    name: 'Vehículos',
+    href: '/vehiculos',
+    icon: VehicleIcon,
+    roles: ['provider', 'admin'],
+  },
+  {
+    name: 'Conductores',
+    href: '/conductores',
+    icon: UsersIcon,
+    roles: ['provider', 'admin'],
+  },
 ];
 
 const administrationLinks = [
-  { name: 'Departamentos', href: '/departamentos', icon: ProviderIcon },
-  { name: 'Tarifas', href: '/tarifas', icon: TarifasIcon },
-  { name: 'Costos adicionales', href: '/costos-adicionales', icon: CostsIcon },
+  {
+    name: 'Departamentos',
+    href: '/departamentos',
+    icon: ProviderIcon,
+    roles: ['admin'],
+  },
+  {
+    name: 'Tarifas',
+    href: '/tarifas',
+    icon: TarifasIcon,
+    roles: ['admin', 'operator'],
+  },
+  {
+    name: 'Costos adicionales',
+    href: '/costos-adicionales',
+    icon: CostsIcon,
+    roles: ['admin'],
+  },
 ];
-
-// Assuming you'll get the user type from a prop or context
-type UserType = 'admin' | 'operator' | 'provider';
 
 interface AppSidebarProps {
   userType: UserType;
@@ -77,16 +122,20 @@ export function AppSidebar({ userType }: AppSidebarProps) {
           <SidebarGroupLabel>Ordenes de servicio</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {orderLinks.map((link) => (
-                <SidebarMenuItem key={link.name}>
-                  <SidebarMenuButton asChild>
-                    <Link href={link.href}>
-                      <link.icon className="w-6 h-6" />
-                      <span className="ml-2">{link.name}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {orderLinks.map((link) => {
+                if (link.roles.includes(userType)) {
+                  return (
+                    <SidebarMenuItem key={link.name}>
+                      <SidebarMenuButton asChild>
+                        <Link href={link.href}>
+                          <link.icon className="w-6 h-6" />
+                          <span className="ml-2">{link.name}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                }
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

@@ -2,26 +2,16 @@ import Section from '@/components/ui/Section';
 import { PlusIcon } from '@/components/icons/PlusIcon';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Provider } from '@/types';
 import { ProvidersTable } from '@/components/providers/ProvidersTable';
+import { fetchData } from '@/lib/fetchData';
 
 export const metadata = {
   title: 'Proveedores | Grúas UCAB',
   description: 'Lista de proveedores gestionados por Grúas Ucab',
 };
 
-const proveedoresData: Provider[] = [
-  {
-    id: 1,
-    name: 'Super Grus',
-    admin: 'Juan',
-    fleet: [],
-    drivers: [],
-    isActive: true,
-  },
-];
-
-export default function ProvidersPage() {
+export default async function ProvidersPage() {
+  const response = await fetchData('/providers-service/providers');
   return (
     <Section
       title="Proveedores"
@@ -36,7 +26,7 @@ export default function ProvidersPage() {
         </Link>
       }
     >
-      <ProvidersTable providers={proveedoresData} />
+      <ProvidersTable providers={response.providers} />
     </Section>
   );
 }

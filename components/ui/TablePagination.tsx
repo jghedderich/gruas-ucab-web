@@ -2,7 +2,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from './button';
-import { IPageInfo } from '@/types';
+import { IPageInfo } from './Table';
 
 interface ITablePaginationProps {
   pageInfo: IPageInfo;

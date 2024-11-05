@@ -3,6 +3,11 @@ export interface IColumn {
   field: string;
 }
 
+export interface IEntity {
+  id: string;
+  isActive: boolean;
+}
+
 export interface IPagination<T> {
   data: T[];
   count: number;
@@ -45,18 +50,15 @@ export interface AdditionalCost {
   description: string;
 }
 
-export interface Vehicle {
-  id: number;
+export interface Vehicle extends IEntity {
   brand: string;
   model: string;
   year: number;
-  type: 'lightTruck' | 'heavyTruck' | 'mediumTruck' | 'motorcycle';
-  licensePlate: string;
-  color: string;
-  owner: string;
+  type: string;
+  providerId: string;
 }
 
-export interface Driver {
+export interface Driver extends IEntity {
   name: string;
   lastName: string;
   email: string;
@@ -71,8 +73,7 @@ export interface ExtraPaymentRequest {
   status: string;
 }
 
-export interface Order {
-  id: string;
+export interface Order extends IEntity {
   status: string;
   client: Client;
   driver: Driver;
@@ -92,14 +93,20 @@ export interface Order {
   description: string;
 }
 
-// admin might need to be of type User, or maybe create adminId
-export interface Provider {
-  id: number;
-  name: string;
-  admin: string;
-  fleet: Vehicle[];
+export interface Provider extends IEntity {
+  name: {
+    firstName: string;
+    lastName: string;
+  };
+  company: {
+    name: string;
+    description: string;
+    rif: string;
+    state: string;
+    city: string;
+  };
+  vehicles: Vehicle[];
   drivers: User[];
-  isActive: boolean;
 }
 
 export enum Role {

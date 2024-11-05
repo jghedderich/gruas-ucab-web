@@ -10,7 +10,7 @@ export default function DashboardLayout({
     <SidebarProvider>
       <AppSidebar userType="admin" />
       <section className="w-full">
-        <div className="max-w-screen-lg mx-auto mt-6 px-6 ">{children}</div>
+        <div className="max-w-screen-lg mt-6 px-10">{children}</div>
       </section>
     </SidebarProvider>
   );

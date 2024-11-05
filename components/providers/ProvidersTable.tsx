@@ -3,15 +3,11 @@ import React from 'react';
 import Table from '../ui/Table';
 import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
-import Toggle from '../ui/Toggle';
-import { Provider } from '@/types';
+import { IPagination, Provider } from '@/types';
 import { useProvidersTable } from '@/hooks/providers/useProvidersTable';
+import { Trash2 } from 'lucide-react';
 
 const columns = [
-  {
-    title: 'ID',
-    field: 'id',
-  },
   {
     title: 'Nombre',
     field: 'nombre',
@@ -24,48 +20,49 @@ const columns = [
     title: 'Flota',
     field: 'flota',
   },
+  {
+    title: 'Ubicación',
+    field: 'ubicacion',
+  },
 ];
 
-const pageInfo = {
-  page: 1,
-  perPage: 10,
-  itemCount: 100,
-  pageCount: 10,
-  hasPreviousPage: true,
-  hasNextPage: true,
-};
-
 interface ProvidersTableProps {
-  providers: Provider[];
+  providers: IPagination<Provider>;
 }
 
 export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
-  const { handleToggle, activeProviders } = useProvidersTable();
+  const { handleDelete, activeProviders } = useProvidersTable(providers.data);
 
   return (
-    <Table columns={columns} pageInfo={pageInfo}>
-      {providers.map((provider) => (
+    <Table
+      columns={columns}
+      pageIndex={providers.pageIndex}
+      pageSize={10}
+      count={providers.count}
+    >
+      {activeProviders.map((provider) => (
         <tr key={provider.id} className="border-y">
           <td className="py-4 px-5">
-            <h6>{provider.id}</h6>
+            <b>{provider.company.name}</b>
           </td>
           <td className="py-4 px-5">
-            <p>{provider.name}</p>
-          </td>
-          <td className="py-4 px-5">
-            <p>{provider.admin}</p>
+            <p>
+              {provider.name.lastName}, {provider.name.firstName}
+            </p>
           </td>
 
           <td className="py-4 px-5">
-            <p>{provider.fleet.length} vehículos</p>
+            <p>
+              {provider.vehicles.length} vehículos, {provider.drivers.length}{' '}
+              conductores
+            </p>
+          </td>
+          <td className="py-4 px-5">
+            <p>
+              {provider.company.city}, {provider.company.state}
+            </p>
           </td>
 
-          <td className="py-4 px-6">
-            <Toggle
-              handleClick={() => handleToggle(provider)}
-              isToggleOn={activeProviders.has(provider.id)}
-            />
-          </td>
           <td className="px-6">
             <Link
               href={`empresas-proveedoras/${provider.id}`}
@@ -73,6 +70,14 @@ export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
             >
               <PencilIcon width={20} height={20} />
             </Link>
+          </td>
+          <td className="py-4 px-6">
+            <button
+              className="hover:text-red-500 transition ease-out"
+              onClick={() => handleDelete(provider)}
+            >
+              <Trash2 className="w-5 h-5" />
+            </button>
           </td>
         </tr>
       ))}
