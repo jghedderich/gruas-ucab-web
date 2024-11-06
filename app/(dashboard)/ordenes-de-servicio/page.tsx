@@ -1,6 +1,7 @@
 import { PlusIcon } from '@/components/icons/PlusIcon';
 import { Button } from '@/components/ui/button';
 import Section from '@/components/ui/Section';
+import { fetchData } from '@/lib/fetchData';
 import Link from 'next/link';
 
 export const metadata = {
@@ -8,7 +9,10 @@ export const metadata = {
   description: 'Lista de ordenes de servicio gestionados por Grúas Ucab',
 };
 
-export default function OrdenesDeServicioPage() {
+export default async function OrdenesDeServicioPage() {
+  // const response = await fetchData('/orders-service/orders', {
+  //   cache: 'no-store',
+  // });
   return (
     <Section
       title="Ordenes de servicio"

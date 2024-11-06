@@ -10,9 +10,7 @@ export const vehicleSchema = z.object({
   type: z.string().min(4, {
     message: 'Year must be at least 4 characters.',
   }),
-  year: z.string().min(4, {
-    message: 'Year must be at least 4 characters.',
-  }),
+  year: z.any(),
   providerId: z.string().min(1, {
     message: 'Please select a provider.',
   }),

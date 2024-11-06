@@ -1,6 +1,7 @@
 import { PoliciesTable } from '@/components/policies/PoliciesTable';
 import { Button } from '@/components/ui/button';
 import Section from '@/components/ui/Section';
+import { fetchData } from '@/lib/fetchData';
 import { Policy } from '@/types';
 import { PlusIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
@@ -34,7 +35,11 @@ export const metadata = {
   description: 'Lista de tarifas gestionados por Grúas Ucab',
 };
 
-export default function PoliciesPage() {
+export default async function PoliciesPage() {
+  const response = await fetchData('/orders-service/policies', {
+    cache: 'no-store',
+  });
+
   return (
     <Section
       title="Pólizas"

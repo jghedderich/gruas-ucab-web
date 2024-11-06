@@ -8,8 +8,7 @@ export const metadata = {
 };
 
 export default async function CreateVehiclesPage() {
-
-  const response = await fetchData('/providers-service/providers', {
+  const { providers } = await fetchData('/providers-service/providers', {
     cache: 'no-store',
   });
   return (
@@ -18,7 +17,7 @@ export default async function CreateVehiclesPage() {
       subtitle="Crear un vehículo."
       description="Ingresa los datos del vehículo que deseas crear."
     >
-      <VehicleForm providers={response.providers} />
+      <VehicleForm providers={providers} />
     </Section>
   );
 }

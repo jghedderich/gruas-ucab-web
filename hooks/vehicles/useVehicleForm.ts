@@ -11,11 +11,11 @@ export const useVehicleForm = ({ vehicle }: { vehicle?: Vehicle }) => {
   const form = useForm<VehicleFormData>({
     resolver: zodResolver(vehicleSchema),
     defaultValues: {
-      model: '',
-      brand: '',
-      providerId: '',
-      type: '',
-      year: '',
+      model: vehicle?.model || '',
+      brand: vehicle?.brand || '',
+      providerId: vehicle?.providerId || '',
+      type: vehicle?.type || '',
+      year: vehicle?.year || '',
     },
   });
   const { mutate, back, isSubmitting } = useMutation();
@@ -29,8 +29,8 @@ export const useVehicleForm = ({ vehicle }: { vehicle?: Vehicle }) => {
   async function onSubmit(values: VehicleFormData) {
     if (vehicle) {
       await mutate({
-        body: { vehicle: values },
-        route: `/providers-service/vehicles/${vehicle.id}`,
+        body: { vehicle: { ...values, id: vehicle.id } },
+        route: '/providers-service/vehicles',
         method: 'PUT',
       });
     } else {

@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 export default async function VehiclesPage() {
-  const response = await fetchData('/providers-service/vehicles', {
+  const { vehicles } = await fetchData('/providers-service/vehicles', {
     cache: 'no-store',
   });
 
@@ -29,7 +29,7 @@ export default async function VehiclesPage() {
         </Link>
       }
     >
-      <VehiclesTable vehicles={response.vehicles} />
+      <VehiclesTable vehicles={vehicles} />
     </Section>
   );
 }
