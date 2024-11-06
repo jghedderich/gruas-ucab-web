@@ -1,31 +1,34 @@
+import DriverForm from '@/components/drivers/DriverForm';
 import Section from '@/components/ui/Section';
-import VehicleForm from '@/components/vehicles/VehicleForm';
-import { Vehicle } from '@/types';
-
-const existingVehicle: Vehicle = {
-  id: 1,
-  model: 'Model 3',
-  brand: 'Tesla',
-  year: 2022,
-  owner: 'john',
-  type: 'motorcycle',
-  licensePlate: 'AC-1234',
-  color: 'blue',
-};
+import { fetchData } from '@/lib/fetchData';
 
 export const metadata = {
-  title: 'Editar vehículo | Grúas UCAB',
-  description: 'Edita los datos de la vehículo seleccionado.',
+  title: 'Editar conductor | Grúas UCAB',
+  description: 'Edita los datos de la conductor seleccionado.',
 };
 
-export default function EditVehiclesPage() {
+export default async function EditVehiclesPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const { driver } = await fetchData(
+    `/providers-service/drivers/${params.id}`,
+    {
+      cache: 'no-store',
+    }
+  );
+  const { providers } = await fetchData('/providers-service/providers', {
+    cache: 'no-store',
+  });
+
   return (
     <Section
-      title="Grúas"
-      subtitle="Editar un vehículo."
-      description="Edita los datos de la vehículo seleccionado."
+      title="Conductores"
+      subtitle="Editar un conductor."
+      description="Edita los datos de la conductor seleccionado."
     >
-      <VehicleForm vehicle={existingVehicle} />
+      <DriverForm driver={driver} providers={providers} />
     </Section>
   );
 }

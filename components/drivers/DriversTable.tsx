@@ -60,7 +60,7 @@ export const DriversTable = ({ drivers }: DriversTableProps) => {
           </td>
           <td className="py-4 px-6">
             <Link
-              href={`vehiculos/${driver.id}`}
+              href={`conductores/${driver.id}`}
               className="hover:text-primary transition ease-out"
             >
               <PencilIcon width={20} height={20} />

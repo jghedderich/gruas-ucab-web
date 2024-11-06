@@ -16,21 +16,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Driver, IPagination, Provider, Vehicle } from '@/types';
+import { Driver, IPagination, Provider } from '@/types';
 import { FormWrapper } from '../ui/FormWrapper';
 import { useDriverForm } from '@/hooks/drivers/useDriverForm';
 
 interface DriverFormProps {
   driver?: Driver;
-  vehicles: IPagination<Vehicle>;
   providers: IPagination<Provider>;
 }
 
-export default function DriverForm({
-  driver,
-  vehicles,
-  providers,
-}: DriverFormProps) {
+export default function DriverForm({ driver, providers }: DriverFormProps) {
   const { form, onSubmit, back, isSubmitting } = useDriverForm({ driver });
   return (
     <FormWrapper
@@ -164,11 +159,14 @@ export default function DriverForm({
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                {vehicles.data.map((vehicle) => (
-                  <SelectItem key={vehicle.id} value={vehicle.id}>
-                    {vehicle.brand} {vehicle.model} ({vehicle.year})
-                  </SelectItem>
-                ))}
+                {providers.data.map((provider) =>
+                  provider.vehicles.map((vehicle) => (
+                    <SelectItem key={vehicle.id} value={vehicle.id}>
+                      {vehicle.brand} {vehicle.model} ({vehicle.year}) -{' '}
+                      {provider.company.name}
+                    </SelectItem>
+                  ))
+                )}
               </SelectContent>
             </Select>
             <FormMessage />

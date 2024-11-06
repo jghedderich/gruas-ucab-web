@@ -7,27 +7,33 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-export const useDriverForm = ({ driver }: { driver?: Driver }) => {
+interface DriverFormProps {
+  driver?: Driver;
+}
+
+export const useDriverForm = ({ driver }: DriverFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { back } = useRouter();
 
   const form = useForm<DriverFormData>({
     resolver: zodResolver(driverSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      dni: '',
-      phone: '',
-      email: '',
-      password: '',
-      vehicleId: '',
-      providerId: '',
+      firstName: driver?.name.firstName || '',
+      lastName: driver?.name.lastName || '',
+      phone: driver?.phone || '',
+      dni: driver ? `${driver.dni.type + driver.dni.number}` : '',
+      email: driver?.email || '',
+      providerId: driver?.providerId || '',
+      vehicleId: driver?.vehicleId || '',
     },
   });
 
   useEffect(() => {
     if (driver) {
-      form.reset(driver);
+      form.reset({
+        ...driver,
+        dni: `${driver.dni.type + driver.dni.number}`,
+      } as unknown as DriverFormData);
     }
   }, [driver, form]);
 
