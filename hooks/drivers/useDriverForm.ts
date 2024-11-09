@@ -3,18 +3,17 @@
 import { DriverFormData, driverSchema } from '@/schemas/driver-schema';
 import { Driver } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useMutation } from '../useMutation';
+import { parseDriverData } from '@/lib/parse-driver-data';
 
 interface DriverFormProps {
   driver?: Driver;
 }
 
 export const useDriverForm = ({ driver }: DriverFormProps) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { back } = useRouter();
-
+  const { mutate, back, isSubmitting } = useMutation();
   const form = useForm<DriverFormData>({
     resolver: zodResolver(driverSchema),
     defaultValues: {
@@ -23,6 +22,7 @@ export const useDriverForm = ({ driver }: DriverFormProps) => {
       phone: driver?.phone || '',
       dni: driver ? `${driver.dni.type + driver.dni.number}` : '',
       email: driver?.email || '',
+      password: driver?.password || '',
       providerId: driver?.providerId || '',
       vehicleId: driver?.vehicleId || '',
     },
@@ -37,13 +37,21 @@ export const useDriverForm = ({ driver }: DriverFormProps) => {
     }
   }, [driver, form]);
 
-  function onSubmit(values: DriverFormData) {
-    setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      console.log(values);
-      setIsSubmitting(false);
-    }, 2000);
+  async function onSubmit(values: DriverFormData) {
+    const parsedBody = parseDriverData(values);
+    if (driver) {
+      await mutate({
+        body: { driver: { ...values, id: driver.id } },
+        route: '/providers-service/drivers',
+        method: 'PUT',
+      });
+    } else {
+      await mutate({
+        body: { driver: parsedBody },
+        route: '/providers-service/drivers',
+        method: 'POST',
+      });
+    }
   }
   return {
     // state

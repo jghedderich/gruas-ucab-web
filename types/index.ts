@@ -69,6 +69,8 @@ export interface Driver extends IEntity {
     number: string;
   };
   email: string;
+  password: string;
+  status: 'Available' | 'Unavailable';
   providerId: string;
   vehicleId: string;
 }
@@ -104,6 +106,13 @@ export interface Provider extends IEntity {
     firstName: string;
     lastName: string;
   };
+  email: string;
+  password: string;
+  phone: string;
+  dni: {
+    type: string;
+    number: string;
+  };
   company: {
     name: string;
     description: string;
@@ -112,7 +121,7 @@ export interface Provider extends IEntity {
     city: string;
   };
   vehicles: Vehicle[];
-  drivers: User[];
+  drivers: Driver[];
 }
 
 export enum Role {
@@ -120,22 +129,6 @@ export enum Role {
   Operator = 'operador',
   Provider = 'proveedor',
   Driver = 'conductor',
-}
-
-export interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  password: string;
-  phone: string;
-  dni: string;
-  email: string;
-  role: Role;
-  companyName?: string;
-  rif?: string;
-  companyAddress?: string;
-  companyPhone?: string;
-  isActive: boolean;
 }
 
 export interface Policy {

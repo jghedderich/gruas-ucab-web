@@ -1,76 +1,57 @@
 'use client';
 
+import React from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Provider } from '@/types';
-import { useToast } from '../use-toast';
 import { ProviderFormData, providerSchema } from '@/schemas/provider-schema';
-import { fetchData } from '@/lib/fetchData';
 import { parseProviderData } from '@/lib/parseProviderData';
+import { useMutation } from '../useMutation';
 
 export const useProviderForm = ({ provider }: { provider?: Provider }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { back, refresh } = useRouter();
-  const { toast } = useToast();
-
+  const { mutate, back, isSubmitting } = useMutation();
   const form = useForm<ProviderFormData>({
     resolver: zodResolver(providerSchema),
     defaultValues: {
       firstName: provider?.name.firstName || '',
       lastName: provider?.name.lastName || '',
-      dni: '',
-      phone: '',
-      email: '',
-      password: '',
-      companyName: '',
-      description: '',
-      rif: '',
-      state: '',
-      city: '',
+      dni: provider ? `${provider.dni.type + provider.dni.number}` : '',
+      phone: provider?.phone || '',
+      email: provider?.email || '',
+      password: provider?.password || '',
+      companyName: provider?.company.name || '',
+      description: provider?.company.description || '',
+      rif: provider?.company.rif || '',
+      state: provider?.company.state || '',
+      city: provider?.company.city || '',
     },
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (provider) {
-      form.reset(provider as unknown as ProviderFormData);
+      form.reset({
+        ...provider,
+        dni: `${provider.dni.type + provider.dni.number}`,
+      } as unknown as ProviderFormData);
     }
   }, [provider, form]);
 
   async function onSubmit(values: ProviderFormData) {
-    try {
-      setIsSubmitting(true);
-      const parsedData = parseProviderData(values);
-      await fetchData('/providers-service/providers', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(parsedData),
+    const parsedData = parseProviderData(values);
+    if (provider) {
+      await mutate({
+        body: { provider: { ...values, id: provider.id } },
+        route: '/providers-service/providers',
+        method: 'PUT',
       });
-      back();
-      refresh();
-      if (provider) {
-        toast({
-          title: 'Proveedor actualizado',
-          description: 'El proveedor se ha actualizado correctamente.',
-        });
-      } else {
-        toast({
-          title: 'Proveedor creado',
-          description: 'El proveedor se ha creado correctamente.',
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      toast({
-        title: 'Error al crear el proveedor',
-        description: 'El proveedor no se ha creado correctamente.',
-        variant: 'destructive',
+    } else {
+      console.log({ provider: parsedData });
+      await mutate({
+        body: { provider: parsedData },
+        route: '/providers-service/providers',
+        method: 'POST',
       });
     }
-    setIsSubmitting(false);
   }
   return {
     // state
