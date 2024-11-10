@@ -65,7 +65,7 @@ export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
 
           <td className="px-6">
             <Link
-              href={`empresas-proveedoras/${provider.id}`}
+              href={`proveedores/${provider.id}`}
               className="hover:text-brand-500 transition ease-out"
             >
               <PencilIcon width={20} height={20} />

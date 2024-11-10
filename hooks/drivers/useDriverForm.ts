@@ -41,7 +41,7 @@ export const useDriverForm = ({ driver }: DriverFormProps) => {
     const parsedBody = parseDriverData(values);
     if (driver) {
       await mutate({
-        body: { driver: { ...values, id: driver.id } },
+        body: { driver: { ...parsedBody, id: driver.id } },
         route: '/providers-service/drivers',
         method: 'PUT',
       });

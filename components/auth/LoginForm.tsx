@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '../ui/input';
 import { useRouter } from 'next/navigation';
+import { availableRoles } from './available-roles';
 
 const formSchema = z.object({
   email: z.string().email({
@@ -33,7 +34,11 @@ const formSchema = z.object({
   }),
 });
 
-export default function LoginForm() {
+interface LoginFormProps {
+  userType: string;
+}
+
+export default function LoginForm({ userType }: LoginFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { push } = useRouter();
 
@@ -58,7 +63,7 @@ export default function LoginForm() {
   return (
     <Card className="w-[350px]">
       <CardHeader>
-        <CardTitle className="text-2xl">Ingresar a Grúas Ucab</CardTitle>
+        <CardTitle className="text-2xl capitalize">{userType} login</CardTitle>
         <CardDescription>
           Ingrese sus credenciales para acceder al sistema.
         </CardDescription>
@@ -98,13 +103,28 @@ export default function LoginForm() {
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="flex justify-center">
+      <CardFooter className="flex flex-col justify-center">
         <p className="text-sm text-muted-foreground">
           ¿Olvidó su contraseña?{' '}
           <a href="#" className="underline">
             Recuperar
           </a>
         </p>
+        <div className="flex justify-evenly w-full mt-3">
+          {availableRoles.map((role) => {
+            if (role !== userType) {
+              return (
+                <a
+                  key={role}
+                  href={`/login/${role}`}
+                  className="w-fit underline capitalize text-sm text-muted-foreground"
+                >
+                  {role} Login
+                </a>
+              );
+            }
+          })}
+        </div>
       </CardFooter>
     </Card>
   );

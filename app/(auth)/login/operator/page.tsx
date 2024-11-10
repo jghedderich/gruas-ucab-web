@@ -1,14 +1,10 @@
 import LoginForm from '@/components/auth/LoginForm';
 
 export const metadata = {
-  title: 'Grúas Ucab | Login',
+  title: 'Grúas Ucab | Operator Login',
   description: 'Ingresa a tu cuenta de Grúas Ucab',
 };
 
-export default function LoginPage() {
-  return (
-    <div>
-      <LoginForm />
-    </div>
-  );
+export default function OperatorLoginPage() {
+  return <LoginForm userType="operator" />;
 }
