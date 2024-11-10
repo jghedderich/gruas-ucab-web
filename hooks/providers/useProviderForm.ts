@@ -40,7 +40,7 @@ export const useProviderForm = ({ provider }: { provider?: Provider }) => {
     const parsedData = parseProviderData(values);
     if (provider) {
       await mutate({
-        body: { provider: { ...values, id: provider.id } },
+        body: { provider: { ...parsedData, id: provider.id } },
         route: '/providers-service/providers',
         method: 'PUT',
       });
