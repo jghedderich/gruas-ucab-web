@@ -2,7 +2,6 @@
 import React from 'react';
 import { FormWrapper } from '../ui/FormWrapper';
 import { useProfileForm } from '@/hooks/profile/useProfileForm';
-import { User } from '@/types';
 import {
   FormControl,
   FormField,
@@ -12,14 +11,8 @@ import {
 } from '../ui/form';
 import { Input } from '../ui/input';
 
-interface ProfileFormProps {
-  currentUser: User;
-}
-
-export const ProfileForm = ({ currentUser }: ProfileFormProps) => {
-  const { form, onSubmit, back, isSubmitting } = useProfileForm({
-    currentUser,
-  });
+export const ProfileForm = () => {
+  const { form, onSubmit, back, isSubmitting } = useProfileForm();
   return (
     <FormWrapper
       form={form}
@@ -62,6 +55,19 @@ export const ProfileForm = ({ currentUser }: ProfileFormProps) => {
             <FormLabel>Cédula o Rif</FormLabel>
             <FormControl>
               <Input placeholder="DNI" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="phone"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Teléfono</FormLabel>
+            <FormControl>
+              <Input placeholder="Teléfono" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

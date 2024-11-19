@@ -10,6 +10,9 @@ export const profileSchema = z.object({
   dni: z.string().min(2, {
     message: 'Dni must be at least 2 characters.',
   }),
+  phone: z.string().min(2, {
+    message: 'Phone must be at least 2 characters.',
+  }),
 });
 
 export type ProfileFormData = z.infer<typeof profileSchema>;

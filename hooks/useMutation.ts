@@ -45,7 +45,7 @@ export const useMutation = () => {
         back();
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast({
         title: 'Error',
         description: 'Los datos no se han guardado correctamente.',

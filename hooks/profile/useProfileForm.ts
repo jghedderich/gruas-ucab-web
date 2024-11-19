@@ -1,43 +1,42 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { useToast } from '../use-toast';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { ProfileFormData, profileSchema } from '@/schemas/profile-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { User } from '@/types';
+import { useAuth } from '../auth/use-auth';
 import { useRouter } from 'next/navigation';
+import { useMutation } from '../useMutation';
 
-export const useProfileForm = ({ currentUser }: { currentUser: User }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+export const useProfileForm = () => {
+  const { user } = useAuth();
+  const { mutate, isSubmitting } = useMutation();
   const { back } = useRouter();
-  const { toast } = useToast();
 
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      dni: '',
+      firstName: user?.name?.firstName,
+      lastName: user?.name?.lastName || '',
+      phone: user?.phone || '',
+      dni: user ? `${user.dni.type + user.dni.number}` : '',
     },
   });
 
-  useEffect(() => {
-    if (currentUser) {
-      form.reset(currentUser);
+  React.useEffect(() => {
+    if (user) {
+      form.reset({
+        ...user,
+        dni: `${user.dni.type + user.dni.number}`,
+      } as unknown as ProfileFormData);
     }
-  }, [currentUser, form]);
+  }, [user, form]);
 
-  function onSubmit(values: ProfileFormData) {
-    setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      console.log(values);
-      setIsSubmitting(false);
-      toast({
-        title: 'Perfil actualizado',
-        description: 'Tus datos se ha actualizado correctamente.',
-      });
-    }, 2000);
+  async function onSubmit(values: ProfileFormData) {
+    await mutate({
+      body: { user: { ...values, id: user?.id } },
+      route: `/${user?.userType}s-service/${user?.userType}s`,
+      method: 'PUT',
+    });
   }
   return {
     // state

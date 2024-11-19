@@ -163,6 +163,7 @@ export interface User {
     lastName: string;
   };
   email: string;
+  password: string;
   phone: string;
   dni: {
     type: string;

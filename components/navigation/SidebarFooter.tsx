@@ -16,10 +16,11 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { User } from '@/types';
+import Link from 'next/link';
 
 interface AppSidebarFooterProps {
   state: string;
-  user: User;
+  user?: User;
   logout: () => void;
 }
 
@@ -38,7 +39,7 @@ export function AppSidebarFooter({
                 <UserIcon className="" />
                 {state === 'expanded' && (
                   <span className="font-medium">
-                    {user.name.firstName} {user.name.lastName}
+                    {user?.name.firstName} {user?.name.lastName}
                   </span>
                 )}
               </SidebarMenuButton>
@@ -50,14 +51,14 @@ export function AppSidebarFooter({
                     <div>
                       <div className="flex gap-2 items-center">
                         <h4 className="font-semibold">
-                          {user.name.firstName} {user.name.lastName}
+                          {user?.name.firstName} {user?.name.lastName}
                         </h4>
                         <Badge variant={'secondary'} className="px-2">
-                          {user.userType}
+                          {user?.userType}
                         </Badge>
                       </div>
                       <p className="font-normal text-sm text-gray-500">
-                        {user.email}
+                        {user?.email}
                       </p>
                     </div>
                   </div>
@@ -65,8 +66,13 @@ export function AppSidebarFooter({
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <UserIcon className="w-4 h-4 mr-2" />
-                <span>Perfil</span>
+                <Link
+                  href="/perfil"
+                  className="w-full flex items-center space-x-2"
+                >
+                  <UserIcon className="w-4 h-4 mr-2" />
+                  <span>Perfil</span>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={logout}>
                 <LogOut className="w-4 h-4 mr-2" />

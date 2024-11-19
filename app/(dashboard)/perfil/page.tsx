@@ -1,24 +1,12 @@
 import { ProfileForm } from '@/components/profile/ProfileForm';
 import { Button } from '@/components/ui/button';
 import Section from '@/components/ui/Section';
-import { Role, User } from '@/types';
 import { LockIcon } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata = {
   title: 'Perfil | Grúas UCAB',
   description: 'Perfil de usuario',
-};
-
-const user: User = {
-  id: 1,
-  firstName: 'Juan',
-  lastName: 'Hedderich',
-  email: 'juan@gruas.com',
-  role: Role.Admin,
-  dni: 'V1029302',
-  password: '123456',
-  isActive: false,
 };
 
 export default function ProfilePage() {
@@ -37,7 +25,7 @@ export default function ProfilePage() {
         </Link>
       }
     >
-      <ProfileForm currentUser={user} />
+      <ProfileForm />
     </Section>
   );
 }
