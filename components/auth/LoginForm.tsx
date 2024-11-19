@@ -22,8 +22,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '../ui/input';
-import { useRouter } from 'next/navigation';
 import { availableRoles } from './available-roles';
+import { fetchData } from '@/lib/fetchData';
+import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/use-auth';
+import { UserType } from '@/types';
 
 const formSchema = z.object({
   email: z.string().email({
@@ -35,12 +38,13 @@ const formSchema = z.object({
 });
 
 interface LoginFormProps {
-  userType: string;
+  userType: UserType;
 }
 
 export default function LoginForm({ userType }: LoginFormProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const { push } = useRouter();
+  const { login } = useAuth();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,14 +54,33 @@ export default function LoginForm({ userType }: LoginFormProps) {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      console.log(values);
-      setIsLoading(false);
-    }, 2000);
-    push('/');
+    try {
+      const userData = await fetchData(
+        `/${userType}s-service/${userType}s/authenticate`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        }
+      );
+      login(userData[userType], userType);
+      toast({
+        title: 'Ingreso exitoso',
+        description: 'Has ingresado correctamente.',
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: 'Error',
+        description: 'Las credenciales no son correctas.',
+        variant: 'destructive',
+      });
+    }
+    setIsLoading(false);
   }
 
   return (

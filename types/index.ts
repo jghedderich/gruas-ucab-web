@@ -153,3 +153,20 @@ export interface Department {
   description: string;
   employees: number;
 }
+
+export type UserType = 'provider' | 'admin' | 'operator';
+
+export interface User {
+  id: string;
+  name: {
+    firstName: string;
+    lastName: string;
+  };
+  email: string;
+  phone: string;
+  dni: {
+    type: string;
+    number: string;
+  };
+  userType: UserType;
+}

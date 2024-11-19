@@ -16,17 +16,17 @@ import {
 import { AppSidebarFooter } from './SidebarFooter';
 import { administrationLinks, orderLinks, providerLinks } from './links';
 import SideBarLink from './SidebarLink';
+import { useAuth } from '@/hooks/use-auth';
+import { UserType } from '@/types';
 
 interface AppSidebarProps {
-  userType: 'admin' | 'operator' | 'provider';
+  userType: UserType;
 }
 
 export function AppSidebar({ userType }: AppSidebarProps) {
   const { state } = useSidebar();
-  const user = {
-    name: 'Juan Hedderich',
-    email: 'juan@hedderich.com',
-  };
+  const { user, logout } = useAuth();
+  console.log(user);
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -76,7 +76,7 @@ export function AppSidebar({ userType }: AppSidebarProps) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <AppSidebarFooter state={state} user={user} />
+      <AppSidebarFooter state={state} user={user!} logout={logout} />
     </Sidebar>
   );
 }

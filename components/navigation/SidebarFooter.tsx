@@ -5,7 +5,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '../ui/sidebar';
-import { User, LogOut } from 'lucide-react';
+import { User as UserIcon, LogOut } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import {
   DropdownMenu,
@@ -15,13 +15,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
+import { User } from '@/types';
 
 interface AppSidebarFooterProps {
   state: string;
-  user: any;
+  user: User;
+  logout: () => void;
 }
 
-export function AppSidebarFooter({ state, user }: AppSidebarFooterProps) {
+export function AppSidebarFooter({
+  state,
+  user,
+  logout,
+}: AppSidebarFooterProps) {
   return (
     <SidebarFooter className="mb-3">
       <SidebarMenu>
@@ -29,9 +35,11 @@ export function AppSidebarFooter({ state, user }: AppSidebarFooterProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton>
-                <User className="" />
+                <UserIcon className="" />
                 {state === 'expanded' && (
-                  <span className="font-medium">Juan Hedderich</span>
+                  <span className="font-medium">
+                    {user.name.firstName} {user.name.lastName}
+                  </span>
                 )}
               </SidebarMenuButton>
             </DropdownMenuTrigger>
@@ -41,9 +49,11 @@ export function AppSidebarFooter({ state, user }: AppSidebarFooterProps) {
                   <div className="flex items-center space-x-4">
                     <div>
                       <div className="flex gap-2 items-center">
-                        <h4 className="font-semibold">{user.name}</h4>
+                        <h4 className="font-semibold">
+                          {user.name.firstName} {user.name.lastName}
+                        </h4>
                         <Badge variant={'secondary'} className="px-2">
-                          Admin
+                          {user.userType}
                         </Badge>
                       </div>
                       <p className="font-normal text-sm text-gray-500">
@@ -55,10 +65,10 @@ export function AppSidebarFooter({ state, user }: AppSidebarFooterProps) {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <User className="w-4 h-4 mr-2" />
+                <UserIcon className="w-4 h-4 mr-2" />
                 <span>Perfil</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={logout}>
                 <LogOut className="w-4 h-4 mr-2" />
                 <span>Cerrar sesión</span>
               </DropdownMenuItem>
