@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const profileSchema = z.object({
+const baseSchema = z.object({
   firstName: z.string().min(2, {
     message: 'Nombre must be at least 2 characters.',
   }),
@@ -14,5 +14,39 @@ export const profileSchema = z.object({
     message: 'Phone must be at least 2 characters.',
   }),
 });
+
+const providerSchema = z.object({
+  companyName: z.string().min(2, {
+    message: 'Nombre de la empresa must be at least 2 characters.',
+  }),
+  companyDescription: z.string().min(2, {
+    message: 'Descripción de la empresa must be at least 2 characters.',
+  }),
+  rif: z.string().min(2, {
+    message: 'RIF must be at least 2 characters.',
+  }),
+  state: z.string().min(2, {
+    message: 'Estado must be at least 2 characters.',
+  }),
+  city: z.string().min(2, {
+    message: 'Ciudad must be at least 2 characters.',
+  }),
+});
+
+export const profileSchema = z.discriminatedUnion('userType', [
+  z.object({
+    userType: z.literal('admin'),
+    ...baseSchema.shape,
+  }),
+  z.object({
+    userType: z.literal('operator'),
+    ...baseSchema.shape,
+  }),
+  z.object({
+    userType: z.literal('provider'),
+    ...baseSchema.shape,
+    ...providerSchema.shape,
+  }),
+]);
 
 export type ProfileFormData = z.infer<typeof profileSchema>;

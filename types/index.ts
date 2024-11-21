@@ -169,5 +169,12 @@ export interface User {
     type: string;
     number: string;
   };
+  company?: {
+    name: string;
+    description: string;
+    rif: string;
+    state: string;
+    city: string;
+  };
   userType: UserType;
 }

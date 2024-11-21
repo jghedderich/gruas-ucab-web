@@ -19,19 +19,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | undefined>(undefined);
   const router = useRouter();
 
-  const login = useCallback((userData: User, userType: UserType) => {
-    const userWithType = { ...userData, userType };
-    setUser(userWithType);
-    Cookies.set('auth', 'true', { expires: 7 });
-    const encodedUserData = encodeURIComponent(JSON.stringify(userWithType));
-    Cookies.set('userData', encodedUserData, { expires: 7 });
-  }, []);
+  const login = useCallback(
+    (userData: User, userType: UserType) => {
+      const userWithType = { ...userData, userType };
+      setUser(userWithType);
+      Cookies.set('auth', 'true', { expires: 7 });
+      const encodedUserData = encodeURIComponent(JSON.stringify(userWithType));
+      Cookies.set('userData', encodedUserData, { expires: 7 });
+      router.push('/dashboard');
+    },
+    [router]
+  );
 
   const logout = useCallback(() => {
     setUser(undefined);
     Cookies.remove('auth');
     Cookies.remove('userData');
-    router.replace('/login/auth');
+    router.replace('/login/admin');
   }, [router]);
 
   useEffect(() => {
