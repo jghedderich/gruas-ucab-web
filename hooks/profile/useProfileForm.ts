@@ -74,8 +74,6 @@ export const useProfileForm = () => {
       [userType]: parsedValues,
     };
 
-    console.log(requestBody);
-
     await mutate({
       body: requestBody,
       route: `/${userType}s-service/${userType}s`,

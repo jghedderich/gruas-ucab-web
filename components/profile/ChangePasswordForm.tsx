@@ -28,7 +28,7 @@ export const ChangePasswordForm = () => {
           <FormItem>
             <FormLabel>Contraseña actual</FormLabel>
             <FormControl>
-              <Input {...field} />
+              <Input type="password" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -42,7 +42,11 @@ export const ChangePasswordForm = () => {
           <FormItem>
             <FormLabel>Nueva contraseña</FormLabel>
             <FormControl>
-              <Input placeholder="Mínimo 6 caracteres" {...field} />
+              <Input
+                type="password"
+                placeholder="Mínimo 6 caracteres"
+                {...field}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -55,7 +59,11 @@ export const ChangePasswordForm = () => {
           <FormItem>
             <FormLabel>Repita la nueva contraseña</FormLabel>
             <FormControl>
-              <Input placeholder="Mínimo 6 caracteres" {...field} />
+              <Input
+                type="password"
+                placeholder="Mínimo 6 caracteres"
+                {...field}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>

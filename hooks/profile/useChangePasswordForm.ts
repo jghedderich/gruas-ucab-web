@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import { useToast } from '../use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,10 +8,11 @@ import {
   changePasswordSchema,
 } from '@/schemas/change-password-schema';
 import { useAuth } from '../auth/use-auth';
+import { useMutation } from '../useMutation';
 
 export const useChangePasswordForm = () => {
   const { user } = useAuth();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { mutate, isSubmitting } = useMutation();
   const { back } = useRouter();
   const { toast } = useToast();
 
@@ -25,24 +25,37 @@ export const useChangePasswordForm = () => {
     },
   });
 
-  function onSubmit(values: ChangePasswordData) {
-    if (values.currentPassword !== user?.password) {
-      toast({
-        title: 'Contraseña incorrecta',
-        description: 'La contraseña actual no es correcta.',
+  async function onSubmit(values: ChangePasswordData) {
+    try {
+      const userType = user!.userType;
+      if (values.newPassword !== values.confirmPassword) {
+        toast({
+          title: 'Error',
+          description: 'Las contraseñas no coinciden',
+          variant: 'destructive',
+        });
+        return;
+      }
+      const requestBody = {
+        [userType]: {
+          id: user!.id,
+          password: values.currentPassword,
+          newPassword: values.newPassword,
+        },
+      };
+      await mutate({
+        body: requestBody,
+        route: `/${userType}s-service/${userType}s/password`,
+        method: 'PUT',
       });
-      return;
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: 'Error',
+        description: 'Error al cambiar la contraseña',
+        variant: 'destructive',
+      });
     }
-    setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      console.log(values);
-      setIsSubmitting(false);
-      toast({
-        title: 'Contraseña actualizada',
-        description: 'Tu contraseña se ha actualizado correctamente.',
-      });
-    }, 2000);
   }
   return {
     // state

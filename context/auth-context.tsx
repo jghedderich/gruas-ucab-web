@@ -26,7 +26,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       Cookies.set('auth', 'true', { expires: 7 });
       const encodedUserData = encodeURIComponent(JSON.stringify(userWithType));
       Cookies.set('userData', encodedUserData, { expires: 7 });
-      router.push('/dashboard');
+      router.push('/');
     },
     [router]
   );
