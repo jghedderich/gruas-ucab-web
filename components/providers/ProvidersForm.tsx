@@ -9,10 +9,17 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Provider } from '@/types';
+import { dniTypes, Provider } from '@/types';
 import { FormWrapper } from '../ui/FormWrapper';
 import { useProviderForm } from '@/hooks/providers/useProviderForm';
 import { Textarea } from '../ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
 
 interface ProviderFormProps {
   provider?: Provider;
@@ -32,7 +39,7 @@ export default function ProviderForm({ provider }: ProviderFormProps) {
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
           control={form.control}
-          name="firstName"
+          name="name.firstName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nombre</FormLabel>
@@ -45,7 +52,7 @@ export default function ProviderForm({ provider }: ProviderFormProps) {
         />
         <FormField
           control={form.control}
-          name="lastName"
+          name="name.lastName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Apellido</FormLabel>
@@ -69,19 +76,49 @@ export default function ProviderForm({ provider }: ProviderFormProps) {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="dni"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Cédula</FormLabel>
-              <FormControl>
-                <Input placeholder="V29123456" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex gap-2 items-end relative">
+          <FormField
+            control={form.control}
+            name="dni.type"
+            render={({ field }) => (
+              <FormItem className="max-w-20 w-full">
+                <FormLabel className="absolute top-1">
+                  Cédula de identidad
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Tipo" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {dniTypes.map((type) => (
+                      <SelectItem key={type} value={type}>
+                        {type}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="dni.number"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Input placeholder="12345678" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <FormField
           control={form.control}
@@ -123,7 +160,7 @@ export default function ProviderForm({ provider }: ProviderFormProps) {
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
           control={form.control}
-          name="companyName"
+          name="company.name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nombre</FormLabel>
@@ -136,7 +173,7 @@ export default function ProviderForm({ provider }: ProviderFormProps) {
         />
         <FormField
           control={form.control}
-          name="description"
+          name="company.description"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Descripción</FormLabel>
@@ -153,7 +190,7 @@ export default function ProviderForm({ provider }: ProviderFormProps) {
 
         <FormField
           control={form.control}
-          name="rif"
+          name="company.rif"
           render={({ field }) => (
             <FormItem>
               <FormLabel>RIF</FormLabel>
@@ -166,7 +203,7 @@ export default function ProviderForm({ provider }: ProviderFormProps) {
         />
         <FormField
           control={form.control}
-          name="state"
+          name="company.state"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Estado</FormLabel>
@@ -179,7 +216,7 @@ export default function ProviderForm({ provider }: ProviderFormProps) {
         />
         <FormField
           control={form.control}
-          name="city"
+          name="company.city"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Ciudad</FormLabel>

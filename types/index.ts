@@ -178,3 +178,5 @@ export interface User {
   };
   userType: UserType;
 }
+
+export const dniTypes = ['V', 'E', 'J'];

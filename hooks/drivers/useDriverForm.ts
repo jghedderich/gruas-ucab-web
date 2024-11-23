@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { DriverFormData, driverSchema } from '@/schemas/driver-schema';
@@ -6,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '../useMutation';
-import { parseDriverData } from '@/lib/parse-driver-data';
 
 interface DriverFormProps {
   driver?: Driver;
@@ -16,38 +16,27 @@ export const useDriverForm = ({ driver }: DriverFormProps) => {
   const { mutate, back, isSubmitting } = useMutation();
   const form = useForm<DriverFormData>({
     resolver: zodResolver(driverSchema),
-    defaultValues: {
-      firstName: driver?.name.firstName || '',
-      lastName: driver?.name.lastName || '',
-      phone: driver?.phone || '',
-      dni: driver ? `${driver.dni.type + driver.dni.number}` : '',
-      email: driver?.email || '',
-      password: driver?.password || '',
-      providerId: driver?.providerId || '',
-      vehicleId: driver?.vehicleId || '',
-    },
+    defaultValues: { ...driver } as DriverFormData,
   });
 
   useEffect(() => {
     if (driver) {
-      form.reset({
-        ...driver,
-        dni: `${driver.dni.type + driver.dni.number}`,
-      } as unknown as DriverFormData);
+      form.reset(driver);
     }
   }, [driver, form]);
 
   async function onSubmit(values: DriverFormData) {
-    const parsedBody = parseDriverData(values);
     if (driver) {
+      // Remove email and password when updating a driver
+      const { email, password, ...rest } = values;
       await mutate({
-        body: { driver: { ...parsedBody, id: driver.id } },
+        body: { driver: { ...rest, id: driver.id } },
         route: '/providers-service/drivers',
         method: 'PUT',
       });
     } else {
       await mutate({
-        body: { driver: parsedBody },
+        body: { driver: values },
         route: '/providers-service/drivers',
         method: 'POST',
       });

@@ -7,7 +7,6 @@ import { useAuth } from '../auth/use-auth';
 import { User } from '@/types';
 import { ProfileFormData, profileSchema } from '@/schemas/profile-schema';
 import { useMutation } from '../useMutation';
-import { parseProfileFormValues } from '@/lib/parse-profile-form-values';
 
 export const useProfileForm = () => {
   const { user } = useAuth() as { user: User | null };
@@ -16,49 +15,33 @@ export const useProfileForm = () => {
 
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
-    defaultValues: React.useMemo(() => {
-      if (!user) return {} as ProfileFormData;
-
-      const baseValues = {
-        userType: user.userType,
-        firstName: user.name?.firstName || '',
-        lastName: user.name?.lastName || '',
-        phone: user.phone || '',
-        dni: `${user.dni.type}${user.dni.number}`,
-      };
-
-      if (user.userType === 'provider') {
-        return {
-          ...baseValues,
-          companyName: user.company?.name || '',
-          companyDescription: user.company?.description || '',
-          rif: user.company?.rif || '',
-          state: user.company?.state || '',
-          city: user.company?.city || '',
-        } as ProfileFormData;
-      }
-
-      return baseValues as ProfileFormData;
-    }, [user]),
+    defaultValues: { ...user } as ProfileFormData,
   });
 
   React.useEffect(() => {
     if (user) {
       const resetData: Partial<ProfileFormData> = {
         userType: user.userType,
-        firstName: user.name?.firstName || '',
-        lastName: user.name?.lastName || '',
+        name: {
+          firstName: user.name?.firstName || '',
+          lastName: user.name?.lastName || '',
+        },
+        dni: {
+          type: user.dni.type || '',
+          number: user.dni.number || '',
+        },
         phone: user.phone || '',
-        dni: `${user.dni.type}${user.dni.number}`,
       };
 
       if (user.userType === 'provider') {
         Object.assign(resetData, {
-          companyName: user.company?.name || '',
-          companyDescription: user.company?.description || '',
-          rif: user.company?.rif || '',
-          state: user.company?.state || '',
-          city: user.company?.city || '',
+          company: {
+            name: user.company?.name || '',
+            description: user.company?.description || '',
+            rif: user.company?.rif || '',
+            state: user.company?.state || '',
+            city: user.company?.city || '',
+          },
         });
       }
 
@@ -68,11 +51,14 @@ export const useProfileForm = () => {
 
   async function onSubmit(values: ProfileFormData) {
     const userType = values.userType;
-    const parsedValues = parseProfileFormValues(values, user!);
+
+    const { userType: _, ...dataWithoutUserType } = values;
 
     const requestBody = {
-      [userType]: parsedValues,
+      [userType]: { ...dataWithoutUserType, id: user!.id },
     };
+
+    console.log(requestBody);
 
     await mutate({
       body: requestBody,
@@ -80,7 +66,6 @@ export const useProfileForm = () => {
       method: 'PUT',
     });
   }
-
   return {
     form,
     isSubmitting,

@@ -10,13 +10,7 @@ import { useMutation } from '../useMutation';
 export const useVehicleForm = ({ vehicle }: { vehicle?: Vehicle }) => {
   const form = useForm<VehicleFormData>({
     resolver: zodResolver(vehicleSchema),
-    defaultValues: {
-      model: vehicle?.model || '',
-      brand: vehicle?.brand || '',
-      providerId: vehicle?.providerId || '',
-      type: vehicle?.type || '',
-      year: vehicle?.year || '',
-    },
+    defaultValues: { ...vehicle } as VehicleFormData,
   });
   const { mutate, back, isSubmitting } = useMutation();
 

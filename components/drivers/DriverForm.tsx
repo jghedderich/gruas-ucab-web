@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Driver, IPagination, Provider } from '@/types';
+import { dniTypes, Driver, IPagination, Provider } from '@/types';
 import { FormWrapper } from '../ui/FormWrapper';
 import { useDriverForm } from '@/hooks/drivers/useDriverForm';
 
@@ -37,7 +37,7 @@ export default function DriverForm({ driver, providers }: DriverFormProps) {
     >
       <FormField
         control={form.control}
-        name="firstName"
+        name="name.firstName"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Nombre</FormLabel>
@@ -50,7 +50,7 @@ export default function DriverForm({ driver, providers }: DriverFormProps) {
       />
       <FormField
         control={form.control}
-        name="lastName"
+        name="name.lastName"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Apellido</FormLabel>
@@ -61,19 +61,46 @@ export default function DriverForm({ driver, providers }: DriverFormProps) {
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name="dni"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Cédula</FormLabel>
-            <FormControl>
-              <Input placeholder="V12345678" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      <div className="flex gap-2 items-end relative">
+        <FormField
+          control={form.control}
+          name="dni.type"
+          render={({ field }) => (
+            <FormItem className="max-w-20 w-full">
+              <FormLabel className="absolute top-1">
+                Cédula de identidad
+              </FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Tipo" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {dniTypes.map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {type}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="dni.number"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormControl>
+                <Input placeholder="12345678" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
       <FormField
         control={form.control}
         name="phone"
@@ -87,41 +114,51 @@ export default function DriverForm({ driver, providers }: DriverFormProps) {
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name="email"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Correo electrónico</FormLabel>
-            <FormControl>
-              <Input placeholder="juan@gmail.com" type="email" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      {!driver ? (
+        <>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Correo electrónico</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="juan@gmail.com"
+                    type="email"
+                    required
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-      <FormField
-        control={form.control}
-        name="password"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Contraseña</FormLabel>
-            <FormControl>
-              <Input
-                type="password"
-                placeholder="Mínimo 6 caracteres"
-                {...field}
-              />
-            </FormControl>
-            <FormDescription>
-              Esta clave es temporal. El usuario debe actualizarla después de
-              iniciar sesión.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Contraseña</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Mínimo 6 caracteres"
+                    required
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>
+                  Esta clave es temporal. El usuario debe actualizarla después
+                  de iniciar sesión.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </>
+      ) : null}
       <FormField
         control={form.control}
         name="providerId"

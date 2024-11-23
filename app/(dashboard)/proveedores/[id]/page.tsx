@@ -21,7 +21,7 @@ export default async function EditProviderPage({
 
   return (
     <Section
-      title="Conductores"
+      title="Proveedores"
       subtitle="Editar un proveedor."
       description="Edita los datos de la proveedor seleccionado."
     >

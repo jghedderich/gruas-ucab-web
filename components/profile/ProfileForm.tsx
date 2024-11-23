@@ -10,6 +10,14 @@ import {
   FormMessage,
 } from '../ui/form';
 import { Input } from '../ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
+import { dniTypes } from '@/types';
 
 export const ProfileForm = () => {
   const { form, onSubmit, back, isSubmitting } = useProfileForm();
@@ -26,7 +34,7 @@ export const ProfileForm = () => {
       <section className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
         <FormField
           control={form.control}
-          name="firstName"
+          name="name.firstName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nombre</FormLabel>
@@ -39,7 +47,7 @@ export const ProfileForm = () => {
         />
         <FormField
           control={form.control}
-          name="lastName"
+          name="name.lastName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Apellido</FormLabel>
@@ -50,19 +58,49 @@ export const ProfileForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="dni"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Cédula o Rif</FormLabel>
-              <FormControl>
-                <Input placeholder="DNI" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex gap-2 items-end relative">
+          <FormField
+            control={form.control}
+            name="dni.type"
+            render={({ field }) => (
+              <FormItem className="max-w-20 w-full">
+                <FormLabel className="absolute top-1">
+                  Cédula de identidad
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Tipo" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {dniTypes.map((type) => (
+                      <SelectItem key={type} value={type}>
+                        {type}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="dni.number"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Input placeholder="12345678" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
           name="phone"
@@ -84,7 +122,7 @@ export const ProfileForm = () => {
           <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
             <FormField
               control={form.control}
-              name="companyName"
+              name="company.name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nombre</FormLabel>
@@ -97,7 +135,7 @@ export const ProfileForm = () => {
             />
             <FormField
               control={form.control}
-              name="companyDescription"
+              name="company.description"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Descripción</FormLabel>
@@ -110,7 +148,7 @@ export const ProfileForm = () => {
             />
             <FormField
               control={form.control}
-              name="rif"
+              name="company.rif"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>RIF</FormLabel>
@@ -123,7 +161,7 @@ export const ProfileForm = () => {
             />
             <FormField
               control={form.control}
-              name="state"
+              name="company.state"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Estado</FormLabel>
@@ -136,7 +174,7 @@ export const ProfileForm = () => {
             />
             <FormField
               control={form.control}
-              name="city"
+              name="company.city"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Ciudad</FormLabel>
