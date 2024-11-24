@@ -52,13 +52,11 @@ export const useProfileForm = () => {
   async function onSubmit(values: ProfileFormData) {
     const userType = values.userType;
 
-    const { userType: _, ...dataWithoutUserType } = values;
+    const { userType: _, ...rest } = values;
 
     const requestBody = {
-      [userType]: { ...dataWithoutUserType, id: user!.id },
+      [userType]: { ...rest, id: user!.id },
     };
-
-    console.log(requestBody);
 
     await mutate({
       body: requestBody,

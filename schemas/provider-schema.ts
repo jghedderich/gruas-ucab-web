@@ -13,7 +13,7 @@ export const providerSchema = z.object({
     type: z.string().min(1, {
       message: 'El tipo de DNI es obligatorio.',
     }),
-    number: z.string().min(8, {
+    number: z.string().min(7, {
       message: 'El número de DNI es obligatorio.',
     }),
   }),

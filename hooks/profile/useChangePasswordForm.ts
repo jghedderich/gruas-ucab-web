@@ -18,11 +18,6 @@ export const useChangePasswordForm = () => {
 
   const form = useForm<ChangePasswordData>({
     resolver: zodResolver(changePasswordSchema),
-    defaultValues: {
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: '',
-    },
   });
 
   async function onSubmit(values: ChangePasswordData) {

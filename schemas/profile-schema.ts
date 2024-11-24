@@ -13,7 +13,7 @@ const baseSchema = z.object({
     type: z.string().min(1, {
       message: 'Tipo de DNI is required.',
     }),
-    number: z.string().min(8, {
+    number: z.string().min(7, {
       message: 'Numero de DNI is required.',
     }),
   }),

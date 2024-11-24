@@ -20,10 +20,10 @@ import { useAuth } from '@/hooks/auth/use-auth';
 import { UserType } from '@/types';
 
 interface AppSidebarProps {
-  userType: UserType;
+  userType?: UserType;
 }
 
-export function AppSidebar({ userType }: AppSidebarProps) {
+export function AppSidebar({ userType = 'admin' }: AppSidebarProps) {
   const { state } = useSidebar();
   const { user, logout } = useAuth();
   return (
