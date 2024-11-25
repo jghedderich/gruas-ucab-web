@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
 import { IPagination, Operator } from '@/types';
 import { Trash2 } from 'lucide-react';
-import { useOperatorsTable } from '@/hooks/operators/use-operators-table';
+import { useTable } from '@/hooks/use-table';
 
 const columns = [
   {
@@ -31,15 +31,18 @@ interface OperatorsTableProps {
 }
 
 export const OperatorsTable = ({ operators }: OperatorsTableProps) => {
-  const { handleDelete, activeOperators } = useOperatorsTable(operators.data);
+  const { handleDelete, activeItems } = useTable(
+    operators.data,
+    '/orders-service/operators'
+  );
   return (
     <Table
       columns={columns}
-      count={activeOperators.length}
+      count={activeItems.length}
       pageSize={operators.pageSize}
       pageIndex={operators.pageIndex}
     >
-      {activeOperators.map((operator) => (
+      {activeItems.map((operator) => (
         <tr key={operator.id} className="border-y">
           <td className="py-3 px-4">
             <p>

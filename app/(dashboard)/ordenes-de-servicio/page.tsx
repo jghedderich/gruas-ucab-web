@@ -1,4 +1,5 @@
 import { PlusIcon } from '@/components/icons/PlusIcon';
+import { OrdersTable } from '@/components/orders/OrdersTable';
 import { Button } from '@/components/ui/button';
 import Section from '@/components/ui/Section';
 import { fetchData } from '@/lib/fetchData';
@@ -10,9 +11,9 @@ export const metadata = {
 };
 
 export default async function OrdenesDeServicioPage() {
-  // const response = await fetchData('/orders-service/orders', {
-  //   cache: 'no-store',
-  // });
+  const { orders } = await fetchData('/orders-service/orders', {
+    cache: 'no-store',
+  });
   return (
     <Section
       title="Ordenes de servicio"
@@ -29,7 +30,7 @@ export default async function OrdenesDeServicioPage() {
         </Link>
       }
     >
-      A table
+      <OrdersTable orders={orders} />
     </Section>
   );
 }

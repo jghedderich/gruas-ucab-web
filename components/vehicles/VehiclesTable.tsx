@@ -4,8 +4,8 @@ import Table from '../ui/Table';
 import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
 import { IPagination, Vehicle } from '@/types';
-import { useVehiclesTable } from '@/hooks/vehicles/useVehiclesTable';
 import { Trash2 } from 'lucide-react';
+import { useTable } from '@/hooks/use-table';
 
 const columns = [
   {
@@ -27,15 +27,18 @@ interface VehiclesTableProps {
 }
 
 export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
-  const { handleDelete, activeVehicles } = useVehiclesTable(vehicles.data);
+  const { handleDelete, activeItems } = useTable(
+    vehicles.data,
+    '/providers-service/vehicles'
+  );
   return (
     <Table
       columns={columns}
-      count={activeVehicles.length}
+      count={activeItems.length}
       pageSize={vehicles.pageSize}
       pageIndex={vehicles.pageIndex}
     >
-      {activeVehicles.map((vehicle) => (
+      {activeItems.map((vehicle) => (
         <tr key={vehicle.id} className="border-y">
           <td className="py-3 px-4">
             <p>

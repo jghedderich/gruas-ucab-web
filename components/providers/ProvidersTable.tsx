@@ -4,8 +4,8 @@ import Table from '../ui/Table';
 import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
 import { IPagination, Provider } from '@/types';
-import { useProvidersTable } from '@/hooks/providers/useProvidersTable';
 import { Trash2 } from 'lucide-react';
+import { useTable } from '@/hooks/use-table';
 
 const columns = [
   {
@@ -31,16 +31,19 @@ interface ProvidersTableProps {
 }
 
 export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
-  const { handleDelete, activeProviders } = useProvidersTable(providers.data);
+  const { handleDelete, activeItems } = useTable(
+    providers.data,
+    '/providers-service/providers'
+  );
 
   return (
     <Table
       columns={columns}
       pageIndex={providers.pageIndex}
       pageSize={10}
-      count={activeProviders.length}
+      count={activeItems.length}
     >
-      {activeProviders.map((provider) => (
+      {activeItems.map((provider) => (
         <tr key={provider.id} className="border-y">
           <td className="py-3 px-4">
             <b>{provider.company.name}</b>

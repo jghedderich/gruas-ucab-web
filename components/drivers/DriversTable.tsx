@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
 import { IPagination, Driver } from '@/types';
 import { Trash2 } from 'lucide-react';
-import { useDriversTable } from '@/hooks/drivers/useDriversTable';
+import { useTable } from '@/hooks/use-table';
 
 const columns = [
   {
@@ -31,15 +31,18 @@ interface DriversTableProps {
 }
 
 export const DriversTable = ({ drivers }: DriversTableProps) => {
-  const { handleDelete, activeDrivers } = useDriversTable(drivers.data);
+  const { handleDelete, activeItems } = useTable(
+    drivers.data,
+    '/providers-service/drivers'
+  );
   return (
     <Table
       columns={columns}
-      count={activeDrivers.length}
+      count={activeItems.length}
       pageSize={drivers.pageSize}
       pageIndex={drivers.pageIndex}
     >
-      {activeDrivers.map((driver) => (
+      {activeItems.map((driver) => (
         <tr key={driver.id} className="border-y">
           <td className="py-3 px-4">
             <p>

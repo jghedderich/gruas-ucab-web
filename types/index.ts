@@ -16,32 +16,26 @@ export interface IPagination<T> {
 }
 
 export interface Address {
-  street: string;
-  urbanization: string;
-  municipality: string;
-  zipCode: string;
+  addressLine1: string;
+  addressLine2: string;
   city: string;
   state: string;
-  latitude: number;
-  longitude: number;
-}
-
-export interface ClientVehicle {
-  brand: string;
-  model: string;
-  type: 'car' | 'motorcycle' | 'vehicle' | 'sedan' | 'suv' | 'van';
-  year: number;
-  licensePlate: string;
-  color: string;
+  zip: string;
 }
 
 export interface Client {
-  name: string;
-  lastName: string;
+  name: {
+    firstName: string;
+    lastName: string;
+  };
+  clientVehicle: Vehicle;
   email: string;
   phone: string;
-  dni: string;
-  vehicle: ClientVehicle;
+  dni: {
+    type: string;
+    number: string;
+  };
+  vehicle: Vehicle;
 }
 
 export interface AdditionalCost {
@@ -54,8 +48,8 @@ export interface Vehicle extends IEntity {
   brand: string;
   model: string;
   year: string;
-  type: 'Light' | 'Medium' | 'Heavy' | 'Motorcycle' | '';
-  providerId: string;
+  type: string;
+  providerId?: string;
 }
 
 export interface Driver extends IEntity {
@@ -82,22 +76,21 @@ export interface ExtraPaymentRequest {
 }
 
 export interface Order extends IEntity {
-  status: string;
+  orderStatus: string;
   client: Client;
   driver: Driver;
-  vehicle: Vehicle;
   extraPaymentRequest: {
     amount: number;
     reason: string;
     status: string;
   };
-  extraCosts: {
+  costDetails: {
     amount: number;
     reason: string;
   };
   totalDistance: number;
-  location: Address;
-  destination: Address;
+  incidentAddress: Address;
+  destinationAddress: Address;
   description: string;
 }
 
