@@ -37,19 +37,19 @@ export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
     >
       {activeVehicles.map((vehicle) => (
         <tr key={vehicle.id} className="border-y">
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>
               <b>{vehicle.brand}</b> {vehicle.model} ({vehicle.year})
             </p>
           </td>
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>{vehicle.type}</p>
           </td>
 
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>{vehicle.providerId}</p>
           </td>
-          <td className="py-4 px-6">
+          <td className="p-3">
             <Link
               href={`vehiculos/${vehicle.id}`}
               className="hover:text-primary transition ease-out"
@@ -57,7 +57,7 @@ export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
               <PencilIcon width={20} height={20} />
             </Link>
           </td>
-          <td className="py-4 px-6">
+          <td className="p-3">
             <button
               className="hover:text-red-500 transition ease-out"
               onClick={() => handleDelete(vehicle)}

@@ -39,14 +39,14 @@ function Table({ columns, pageIndex, pageSize, count, children }: ITableProps) {
             {columns.map((column) => (
               <th
                 key={column.title}
-                className="font-normal text-sm text-text-600 py-4 px-6 "
+                className="font-normal text-xs text-text-600 p-3 "
               >
                 <div className="flex items-center gap-2">{column.title}</div>
               </th>
             ))}
           </tr>
         </thead>
-        <tbody>{children}</tbody>
+        <tbody className="text-sm">{children}</tbody>
       </table>
       <TablePagination pageInfo={pageInfo} />
     </div>

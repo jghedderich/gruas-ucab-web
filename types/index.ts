@@ -154,6 +154,21 @@ export interface Department {
   employees: number;
 }
 
+export interface Operator extends IEntity {
+  name: {
+    firstName: string;
+    lastName: string;
+  };
+  email: string;
+  password: string;
+  phone: string;
+  dni: {
+    type: string;
+    number: string;
+  };
+  orders: unknown[];
+}
+
 export type UserType = 'provider' | 'admin' | 'operator';
 
 export interface User {

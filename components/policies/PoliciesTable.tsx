@@ -46,25 +46,25 @@ export const PoliciesTable = ({ policies }: PoliciesTableProps) => {
     <Table columns={columns} pageInfo={pageInfo}>
       {policies.map((policy) => (
         <tr key={policy.id} className="border-y">
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <h6>{policy.id}</h6>
           </td>
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>{policy.name}</p>
           </td>
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>${policy.price}</p>
           </td>
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>${policy.amountCovered}</p>
           </td>
-          <td className="py-4 px-6">
+          <td className="p-3">
             <Toggle
               handleClick={() => handleToggle(policy)}
               isToggleOn={activePolicies.has(policy.id)}
             />
           </td>
-          <td className="py-4 px-6">
+          <td className="p-3">
             <Link
               href={`polizas/${policy.id}`}
               className="hover:text-brand-500 transition ease-out"

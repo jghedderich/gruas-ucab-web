@@ -46,25 +46,25 @@ export const FeesTable = ({ fees }: FeesTableProps) => {
     <Table columns={columns} pageInfo={pageInfo}>
       {fees.map((fee) => (
         <tr key={fee.id} className="border-y">
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <h6>{fee.id}</h6>
           </td>
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>{fee.name}</p>
           </td>
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>${fee.base}</p>
           </td>
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>${fee.perKm}</p>
           </td>
-          <td className="py-4 px-6">
+          <td className="p-3">
             <Toggle
               handleClick={() => handleToggle(fee)}
               isToggleOn={activeFees.has(fee.id)}
             />
           </td>
-          <td className="py-4 px-6">
+          <td className="p-3">
             <Link
               href={`tarifas/${fee.id}`}
               className="hover:text-brand-500 transition ease-out"

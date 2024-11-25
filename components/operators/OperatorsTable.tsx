@@ -3,9 +3,9 @@ import React from 'react';
 import Table from '../ui/Table';
 import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
-import { IPagination, Driver } from '@/types';
+import { IPagination, Operator } from '@/types';
 import { Trash2 } from 'lucide-react';
-import { useDriversTable } from '@/hooks/drivers/useDriversTable';
+import { useOperatorsTable } from '@/hooks/operators/use-operators-table';
 
 const columns = [
   {
@@ -17,59 +17,57 @@ const columns = [
     field: 'telefono',
   },
   {
-    title: 'Cédula',
-    field: 'cedula',
-  },
-  {
     title: 'Correo electrónico',
     field: 'email',
   },
+  {
+    title: 'Órdenes',
+    field: 'orders',
+  },
 ];
 
-interface DriversTableProps {
-  drivers: IPagination<Driver>;
+interface OperatorsTableProps {
+  operators: IPagination<Operator>;
 }
 
-export const DriversTable = ({ drivers }: DriversTableProps) => {
-  const { handleDelete, activeDrivers } = useDriversTable(drivers.data);
+export const OperatorsTable = ({ operators }: OperatorsTableProps) => {
+  const { handleDelete, activeOperators } = useOperatorsTable(operators.data);
   return (
     <Table
       columns={columns}
-      count={activeDrivers.length}
-      pageSize={drivers.pageSize}
-      pageIndex={drivers.pageIndex}
+      count={activeOperators.length}
+      pageSize={operators.pageSize}
+      pageIndex={operators.pageIndex}
     >
-      {activeDrivers.map((driver) => (
-        <tr key={driver.id} className="border-y">
+      {activeOperators.map((operator) => (
+        <tr key={operator.id} className="border-y">
           <td className="py-3 px-4">
             <p>
-              {driver.name.lastName}, {driver.name.firstName}
+              {operator.name.lastName}, {operator.name.firstName}
             </p>
           </td>
           <td className="py-3 px-4">
-            <p>{driver.phone}</p>
+            <p>{operator.phone}</p>
           </td>
           <td className="py-3 px-4">
-            <p>
-              {driver.dni.type}-{driver.dni.number}
-            </p>
+            <p>{operator.email}</p>
+          </td>
+          <td className="py-3 px-4">
+            <p>{operator.orders.length}</p>
           </td>
 
-          <td className="py-3 px-4">
-            <p>{driver.email}</p>
-          </td>
           <td className="p-3">
             <Link
-              href={`conductores/${driver.id}`}
+              href={`operadores/${operator.id}`}
               className="hover:text-primary transition ease-out"
             >
-              <PencilIcon width={20} height={20} />
+              <PencilIcon width={12} height={12} />
             </Link>
           </td>
           <td className="p-3">
             <button
               className="hover:text-red-500 transition ease-out"
-              onClick={() => handleDelete(driver)}
+              onClick={() => handleDelete(operator)}
             >
               <Trash2 className="w-5 h-5" />
             </button>

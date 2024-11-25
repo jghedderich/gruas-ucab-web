@@ -14,6 +14,7 @@ export const usePoliciesForm = ({ policy }: { policy?: Policy }) => {
 
   const form = useForm<PolicyFormData>({
     resolver: zodResolver(policyFormSchema),
+    defaultValues: policy,
   });
 
   useEffect(() => {

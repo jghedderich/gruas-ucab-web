@@ -16,7 +16,17 @@ export const useDriverForm = ({ driver }: DriverFormProps) => {
   const { mutate, back, isSubmitting } = useMutation();
   const form = useForm<DriverFormData>({
     resolver: zodResolver(driverSchema),
-    defaultValues: { ...driver } as DriverFormData,
+    defaultValues: {
+      name: {
+        firstName: driver?.name?.firstName || '',
+        lastName: driver?.name?.lastName || '',
+      },
+      phone: driver?.phone || '',
+      email: driver?.email || '',
+      password: driver?.password || '',
+      providerId: driver?.providerId || '',
+      vehicleId: driver?.vehicleId || '',
+    },
   });
 
   useEffect(() => {

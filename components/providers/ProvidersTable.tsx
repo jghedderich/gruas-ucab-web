@@ -42,22 +42,22 @@ export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
     >
       {activeProviders.map((provider) => (
         <tr key={provider.id} className="border-y">
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <b>{provider.company.name}</b>
           </td>
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>
               {provider.name.lastName}, {provider.name.firstName}
             </p>
           </td>
 
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>
               {provider.vehicles.length} vehículos, {provider.drivers.length}{' '}
               conductores
             </p>
           </td>
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>
               {provider.company.city}, {provider.company.state}
             </p>
@@ -71,7 +71,7 @@ export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
               <PencilIcon width={20} height={20} />
             </Link>
           </td>
-          <td className="py-4 px-6">
+          <td className="p-3">
             <button
               className="hover:text-red-500 transition ease-out"
               onClick={() => handleDelete(provider)}

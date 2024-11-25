@@ -43,17 +43,17 @@ export const AdditionalCostsTable = ({
     <Table columns={columns} pageInfo={pageInfo}>
       {additionalCosts.map((department) => (
         <tr key={department.id} className="border-y">
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <h6>{department.id}</h6>
           </td>
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>{department.name}</p>
           </td>
-          <td className="py-4 px-5">
+          <td className="py-3 px-4">
             <p>{department.description}</p>
           </td>
 
-          <td className="py-4 px-6">
+          <td className="p-3">
             <Toggle
               handleClick={() => handleToggle(department)}
               isToggleOn={activeAdditionalCosts.has(department.id)}

@@ -6,10 +6,8 @@ const testPolicy: Policy = {
   id: 1,
   name: 'Bronce Prueba',
   price: 20,
-  kilometersCovered: 25,
-  tripsCovered: 2,
-  extraPerKm: 1,
   isActive: true,
+  amountCovered: 0,
 };
 
 export const metadata = {

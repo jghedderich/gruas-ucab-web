@@ -7,7 +7,7 @@ export const metadata = {
   description: 'Edita los datos de la conductor seleccionado.',
 };
 
-export default async function EditVehiclesPage({
+export default async function EditProvidersPage({
   params,
 }: {
   params: { id: string };
