@@ -32,16 +32,25 @@ export const useLoginForm = ({ userType }: { userType: UserType }) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-      const userData = await fetchData(
-        `/${userType}s-service/${userType}s/authenticate`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(values),
-        }
-      );
+      let url;
+
+      if (userType === 'admin') {
+        url = '/admin-service/admins';
+      } else if (userType === 'operator') {
+        url = '/orders-service/operators';
+      } else if (userType === 'provider') {
+        url = '/providers-service/providers';
+      } else {
+        throw new Error('Invalid user type');
+      }
+
+      const userData = await fetchData(url + '/authenticate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
       login(userData[userType], userType);
       toast({
         title: 'Ingreso exitoso',

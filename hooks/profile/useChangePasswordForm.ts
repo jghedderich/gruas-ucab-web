@@ -18,6 +18,11 @@ export const useChangePasswordForm = () => {
 
   const form = useForm<ChangePasswordData>({
     resolver: zodResolver(changePasswordSchema),
+    defaultValues: {
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    },
   });
 
   async function onSubmit(values: ChangePasswordData) {
@@ -38,9 +43,20 @@ export const useChangePasswordForm = () => {
           newPassword: values.newPassword,
         },
       };
+      let url;
+      if (userType === 'provider') {
+        url = '/providers-service/providers';
+      } else if (userType === 'admin') {
+        url = '/admin-service/admins';
+      } else if (userType === 'operator') {
+        url = '/orders-service/operators';
+      } else {
+        throw new Error('Invalid user type');
+      }
+
       await mutate({
         body: requestBody,
-        route: `/${userType}s-service/${userType}s/password`,
+        route: url + '/password',
         method: 'PUT',
       });
     } catch (err) {

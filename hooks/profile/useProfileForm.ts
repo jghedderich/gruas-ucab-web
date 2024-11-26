@@ -58,9 +58,20 @@ export const useProfileForm = () => {
       [userType]: { ...rest, id: user!.id },
     };
 
+    let url;
+    if (userType === 'provider') {
+      url = '/providers-service/providers';
+    } else if (userType === 'admin') {
+      url = '/admin-service/admins';
+    } else if (userType === 'operator') {
+      url = '/orders-service/operators';
+    } else {
+      throw new Error('Invalid user type');
+    }
+
     await mutate({
       body: requestBody,
-      route: `/${userType}s-service/${userType}s`,
+      route: url,
       method: 'PUT',
     });
   }
