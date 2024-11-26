@@ -124,12 +124,17 @@ export enum Role {
   Driver = 'conductor',
 }
 
-export interface Policy {
-  id: number;
+export interface Policy extends IEntity {
   name: string;
-  price: number;
   amountCovered: number;
-  isActive: boolean;
+  price: {
+    annualPrice: number;
+    monthlyPrice: number;
+  };
+  fees: {
+    baseFee: number;
+    perKm: number;
+  };
 }
 
 export interface Fee {

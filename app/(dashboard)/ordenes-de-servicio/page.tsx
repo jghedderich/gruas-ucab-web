@@ -23,9 +23,7 @@ export default async function OrdenesDeServicioPage() {
         <Link href="ordenes-de-servicio/crear">
           <Button className="min-w-max flex gap-2">
             <PlusIcon className="w-5 h-5" />
-            <span className="hidden md:flex shrink-0">
-              Crear Ordenes de servicio
-            </span>
+            <span className="hidden md:flex shrink-0">Crear orden</span>
           </Button>
         </Link>
       }

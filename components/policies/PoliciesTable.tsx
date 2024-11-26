@@ -3,74 +3,79 @@ import React from 'react';
 import Table from '../ui/Table';
 import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
-import { Policy } from '@/types';
-import Toggle from '../ui/Toggle';
-import { usePoliciesTable } from '@/hooks/policies/usePoliciesTable';
+import { IPagination, Policy } from '@/types';
+import { useTable } from '@/hooks/use-table';
+import { Trash2 } from 'lucide-react';
 
 const columns = [
-  {
-    title: 'ID',
-    field: 'id',
-  },
   {
     title: 'Nombre',
     field: 'nombre',
   },
   {
-    title: 'Costo Anual',
-    field: 'costo anual',
-  },
-  {
     title: 'Cobertura',
     field: 'cobertura',
   },
+  {
+    title: 'Costo',
+    field: 'costo',
+  },
+  {
+    title: 'Tarifas',
+    field: 'tarifas',
+  },
 ];
 
-const pageInfo = {
-  page: 1,
-  perPage: 10,
-  itemCount: 100,
-  pageCount: 10,
-  hasPreviousPage: true,
-  hasNextPage: true,
-};
-
 interface PoliciesTableProps {
-  policies: Policy[];
+  policies: IPagination<Policy>;
 }
 
 export const PoliciesTable = ({ policies }: PoliciesTableProps) => {
-  const { handleToggle, activePolicies } = usePoliciesTable();
+  const { activeItems, handleDelete } = useTable(
+    policies.data,
+    '/orders-service/policies'
+  );
 
   return (
-    <Table columns={columns} pageInfo={pageInfo}>
-      {policies.map((policy) => (
+    <Table
+      columns={columns}
+      count={policies.data.length}
+      pageSize={policies.pageSize}
+      pageIndex={policies.pageIndex}
+    >
+      {policies.data.map((policy) => (
         <tr key={policy.id} className="border-y">
           <td className="py-3 px-4">
-            <h6>{policy.id}</h6>
+            <h6>{policy.name}</h6>
           </td>
           <td className="py-3 px-4">
-            <p>{policy.name}</p>
+            <p>{policy.amountCovered} Km</p>
           </td>
           <td className="py-3 px-4">
-            <p>${policy.price}</p>
+            <p>
+              ${policy.price.annualPrice}/Año ${policy.price.monthlyPrice}/Mes
+            </p>
           </td>
           <td className="py-3 px-4">
-            <p>${policy.amountCovered}</p>
-          </td>
-          <td className="p-3">
-            <Toggle
-              handleClick={() => handleToggle(policy)}
-              isToggleOn={activePolicies.has(policy.id)}
-            />
+            <p>
+              ${policy.fees.baseFee} Base ${policy.fees.perKm} por Km
+            </p>
           </td>
           <td className="p-3">
             <Link
               href={`polizas/${policy.id}`}
-              className="hover:text-brand-500 transition ease-out"
+              className="hover:text-primary transition ease-out"
             >
               <PencilIcon width={20} height={20} />
             </Link>
+          </td>
+          <td className="p-3">
+            <button
+              className="hover:text-red-500 transition ease-out"
+              onClick={() => handleDelete(policy)}
+            >
+              <Trash2 className="w-5 h-5" />
+            </button>
           </td>
         </tr>
       ))}
