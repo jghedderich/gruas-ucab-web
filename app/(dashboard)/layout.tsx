@@ -11,7 +11,7 @@ export default function DashboardLayout({
   const { user } = useAuth();
   return (
     <SidebarProvider>
-      <AppSidebar userType={user?.userType} />
+      <AppSidebar userType={'admin'} />
       <section className="w-full">
         <div className="max-w-screen-lg mt-6 px-10">{children}</div>
       </section>

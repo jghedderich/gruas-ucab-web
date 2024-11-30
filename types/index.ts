@@ -38,8 +38,7 @@ export interface Client {
   vehicle: Vehicle;
 }
 
-export interface AdditionalCost {
-  id: number;
+export interface AdditionalCost extends IEntity {
   name: string;
   description: string;
 }

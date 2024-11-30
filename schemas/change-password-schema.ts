@@ -15,7 +15,7 @@ export const changePasswordSchema = z
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: 'Las contraseñas no coinciden.',
-    path: ['confirmPassword'], // Attach the error to the confirmPassword field
+    path: ['confirmPassword'],
   });
 
 export type ChangePasswordData = z.infer<typeof changePasswordSchema>;

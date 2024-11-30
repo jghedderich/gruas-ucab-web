@@ -74,7 +74,10 @@ export default function LoginForm({ userType }: LoginFormProps) {
       <CardFooter className="flex flex-col justify-center">
         <p className="text-sm text-muted-foreground">
           ¿Olvidó su contraseña?{' '}
-          <a href="#" className="underline">
+          <a
+            href={`/login/password-recovery?step=request&userType=${userType}`}
+            className="underline"
+          >
             Recuperar
           </a>
         </p>

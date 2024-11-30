@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useToast } from '../use-toast';
 import { UserType } from '@/types';
+import { calculateRoute } from '@/lib/calculate-route';
 
 const formSchema = z.object({
   email: z.string().email({
@@ -32,17 +33,7 @@ export const useLoginForm = ({ userType }: { userType: UserType }) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-      let url;
-
-      if (userType === 'admin') {
-        url = '/admin-service/admins';
-      } else if (userType === 'operator') {
-        url = '/orders-service/operators';
-      } else if (userType === 'provider') {
-        url = '/providers-service/providers';
-      } else {
-        throw new Error('Invalid user type');
-      }
+      const url = calculateRoute(userType);
 
       const userData = await fetchData(url + '/authenticate', {
         method: 'POST',

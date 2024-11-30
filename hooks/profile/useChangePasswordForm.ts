@@ -9,6 +9,7 @@ import {
 } from '@/schemas/change-password-schema';
 import { useAuth } from '../auth/use-auth';
 import { useMutation } from '../useMutation';
+import { calculateRoute } from '@/lib/calculate-route';
 
 export const useChangePasswordForm = () => {
   const { user } = useAuth();
@@ -36,23 +37,21 @@ export const useChangePasswordForm = () => {
         });
         return;
       }
+      if (values.currentPassword !== user!.password) {
+        toast({
+          title: 'Error',
+          description: 'La contraseña actual no es correcta',
+          variant: 'destructive',
+        });
+        return;
+      }
       const requestBody = {
         [userType]: {
           id: user!.id,
-          password: values.currentPassword,
           newPassword: values.newPassword,
         },
       };
-      let url;
-      if (userType === 'provider') {
-        url = '/providers-service/providers';
-      } else if (userType === 'admin') {
-        url = '/admin-service/admins';
-      } else if (userType === 'operator') {
-        url = '/orders-service/operators';
-      } else {
-        throw new Error('Invalid user type');
-      }
+      const url = calculateRoute(userType);
 
       await mutate({
         body: requestBody,
