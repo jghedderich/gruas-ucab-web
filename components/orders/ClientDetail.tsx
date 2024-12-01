@@ -13,9 +13,10 @@ export const ClientDetail = ({ client }: ClientDetailProps) => {
       <CardHeader>
         <CardTitle>Información del Cliente</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="">
         <p className="flex items-center">
-          <User className="mr-2" size={16} /> {client.name}
+          <User className="mr-2" size={16} /> {client.name.firstName}{' '}
+          {client.name.lastName}
         </p>
         <p className="flex items-center">
           <Phone className="mr-2" size={16} /> {client.phone}
@@ -24,18 +25,14 @@ export const ClientDetail = ({ client }: ClientDetailProps) => {
           <Mail className="mr-2" size={16} /> {client.email}
         </p>
         <p className="flex items-center">
-          <IdCard className="mr-2" size={16} /> {client.dni}
+          <IdCard className="mr-2" size={16} /> {client.dni.type}-
+          {client.dni.number}
         </p>
-        <div>
-          <h3 className="font-semibold mb-2">Vehículo</h3>
-          <p className="flex items-center">
-            <CarIcon className="mr-2" size={16} /> {client.vehicle.brand}{' '}
-            {client.vehicle.model} ({client.vehicle.year}) -{' '}
-            {client.vehicle.color}
-          </p>
-          <p>Matricula: {client.vehicle.licensePlate}</p>
-          <p>Tipo: {client.vehicle.type}</p>
-        </div>
+        <p className="flex items-center">
+          <CarIcon className="mr-2" size={16} /> {client.clientVehicle.brand}{' '}
+          {client.clientVehicle.model} ({client.clientVehicle.year}) -{' '}
+          {client.clientVehicle.type}
+        </p>
       </CardContent>
     </Card>
   );

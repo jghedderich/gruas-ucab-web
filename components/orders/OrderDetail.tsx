@@ -27,12 +27,12 @@ interface OrderDetailProps {
 
 export default function OrderDetail({ order }: OrderDetailProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <Card>
         <CardHeader>
           <div className="flex justify-between gap-3 items-center">
             <CardTitle>Información de la orden</CardTitle>
-            <Badge>{order.status}</Badge>
+            <Badge variant={'secondary'}>{order.orderStatus}</Badge>
           </div>
           <CardDescription>Detalles sobre la orden de servicio</CardDescription>
         </CardHeader>
@@ -40,19 +40,19 @@ export default function OrderDetail({ order }: OrderDetailProps) {
           <div>
             <span className="font-semibold">Ubicación:</span>
             <p className="flex items-baseline">
-              <MapPin className="mr-2" size={16} /> {order.location.street}{' '}
-              {order.location.urbanization}, {order.location.municipality},{' '}
-              {order.location.zipCode}, {order.location.city},{' '}
-              {order.location.state}
+              <MapPin className="mr-2" size={16} />{' '}
+              {order.incidentAddress.addressLine1}{' '}
+              {order.incidentAddress.addressLine2}, {order.incidentAddress.zip},{' '}
+              {order.incidentAddress.city}, {order.incidentAddress.state}
             </p>
           </div>
           <div>
             <span className="font-semibold">Destino:</span>
             <p className="flex items-baseline">
-              <MapPin className="mr-2" size={16} /> {order.destination.street}{' '}
-              {order.destination.urbanization}, {order.destination.municipality}
-              , {order.destination.zipCode}, {order.destination.city},{' '}
-              {order.destination.state}
+              <MapPin className="mr-2" size={16} />{' '}
+              {order.destinationAddress.addressLine1}{' '}
+              {order.destinationAddress.addressLine2},{' '}
+              {order.destinationAddress.zip},{' '}
             </p>
           </div>
           <div>
@@ -63,12 +63,16 @@ export default function OrderDetail({ order }: OrderDetailProps) {
             <span className="font-semibold">Distancia total:</span>
             <p>{order.totalDistance}Km</p>
           </div>
-          <div>
-            <span className="font-semibold">Tarifas extra:</span>
-            <p>
-              ${order.extraCosts.amount}, {order.extraCosts.reason}
-            </p>
-          </div>
+          {order.costDetails.length > 0 && (
+            <div>
+              <span className="font-semibold">Tarifas extra:</span>
+              {order.costDetails.map((detail, index) => (
+                <p key={index}>
+                  {detail.amount}, {detail.reason}
+                </p>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
 
@@ -78,19 +82,19 @@ export default function OrderDetail({ order }: OrderDetailProps) {
         </CardHeader>
         <CardContent>
           <MapComponent
-            location={order.location}
-            destination={order.destination}
+            location={order.incidentAddress}
+            destination={order.destinationAddress}
           />
         </CardContent>
       </Card>
       <ClientDetail client={order.client} />
-      <DriverAndTowVehicleDetail
+      {/* <DriverAndTowVehicleDetail
         driver={order.driver}
         vehicle={order.vehicle}
-      />
-      <ExtraPaymentRequestDetail
+      /> */}
+      {/* <ExtraPaymentRequestDetail
         extraPaymentRequest={order.extraPaymentRequest}
-      />
+      /> */}
     </div>
   );
 }

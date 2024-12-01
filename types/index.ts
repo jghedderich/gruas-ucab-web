@@ -18,6 +18,10 @@ export interface IPagination<T> {
 export interface Address {
   addressLine1: string;
   addressLine2: string;
+  coordinates: {
+    latitude: string;
+    longitude: string;
+  };
   city: string;
   state: string;
   zip: string;
@@ -35,7 +39,6 @@ export interface Client {
     type: string;
     number: string;
   };
-  vehicle: Vehicle;
 }
 
 export interface AdditionalCost extends IEntity {
@@ -76,6 +79,8 @@ export interface ExtraPaymentRequest {
 
 export interface Order extends IEntity {
   orderStatus: string;
+  policyId: string;
+  operatorId: string;
   client: Client;
   driver: Driver;
   extraPaymentRequest: {
@@ -86,7 +91,7 @@ export interface Order extends IEntity {
   costDetails: {
     amount: number;
     reason: string;
-  };
+  }[];
   totalDistance: number;
   incidentAddress: Address;
   destinationAddress: Address;

@@ -9,11 +9,18 @@ const mapContainerStyle = {
 };
 
 const center = {
-  lat: 10.4806,
-  lng: -66.9036, // Caracas, Venezuela
+  lat: '10.4806',
+  lng: '-66.9036', // Caracas, Venezuela
 };
 
-export const MapComponent = ({ onLocationSelect }) => {
+interface MapComponentProps {
+  onLocationSelect: (coordinates: {
+    latitude: string;
+    longitude: string;
+  }) => void;
+}
+
+export const MapComponent = ({ onLocationSelect }: MapComponentProps) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   });
