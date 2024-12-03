@@ -1,5 +1,7 @@
 import OrderForm from '@/components/orders/OrderForm';
 import Section from '@/components/ui/Section';
+import { fetchData } from '@/lib/fetchData';
+import { parseProvidersList } from '@/lib/parse-providers-list';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -7,7 +9,9 @@ export const metadata: Metadata = {
   description: 'Crear una orden de servicio.',
 };
 
-export default function CreateOrdenesDeServicioPage() {
+export default async function CreateOrdenesDeServicioPage() {
+  const { providers } = await fetchData('/providers-service/providers');
+  const drivers = parseProvidersList(providers);
   return (
     <Section
       title="Ordenes de Servicio"
@@ -15,7 +19,7 @@ export default function CreateOrdenesDeServicioPage() {
       description="Ingresa los datos de la orden de servicio que deseas crear."
     >
       <div className="pb-20">
-        <OrderForm />
+        <OrderForm drivers={drivers} />
       </div>
     </Section>
   );

@@ -9,10 +9,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Order } from '@/types';
+import { Driver, Order, Vehicle } from '@/types';
 import { ClientDetail } from './ClientDetail';
-import { DriverAndTowVehicleDetail } from './DriverAndVehicleDetail';
 import { ExtraPaymentRequestDetail } from './ExtraPaymentRequestDetail';
+import { DriverAndVehicleDetail } from './DriverAndVehicleDetail';
 
 // Note: You would need to implement or import an actual map component
 const MapComponent = ({ location, destination }) => (
@@ -23,9 +23,15 @@ const MapComponent = ({ location, destination }) => (
 
 interface OrderDetailProps {
   order: Order;
+  driver: Driver;
+  driverVehicle: Vehicle;
 }
 
-export default function OrderDetail({ order }: OrderDetailProps) {
+export default function OrderDetail({
+  order,
+  driver,
+  driverVehicle,
+}: OrderDetailProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <Card>
@@ -88,10 +94,7 @@ export default function OrderDetail({ order }: OrderDetailProps) {
         </CardContent>
       </Card>
       <ClientDetail client={order.client} />
-      {/* <DriverAndTowVehicleDetail
-        driver={order.driver}
-        vehicle={order.vehicle}
-      /> */}
+      <DriverAndVehicleDetail driver={driver} vehicle={driverVehicle} />
       {/* <ExtraPaymentRequestDetail
         extraPaymentRequest={order.extraPaymentRequest}
       /> */}

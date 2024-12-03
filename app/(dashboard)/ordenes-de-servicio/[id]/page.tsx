@@ -14,13 +14,20 @@ export default async function OrdenesDeServicioPage({
   params: { id: string };
 }) {
   const { order } = await fetchData('/orders-service/orders/' + params.id);
+  const { driver } = await fetchData(
+    '/providers-service/drivers/' + order.driverId
+  );
+  const { vehicle } = await fetchData(
+    '/providers-service/vehicles/' + driver.vehicleId
+  );
+
   return (
     <Section
       title="Ordenes de servicio"
       subtitle={`Orden ${order.id}`}
       description="Detalle de una Orden de Servicio gestionada por Grúas Ucab."
     >
-      <OrderDetail order={order} />
+      <OrderDetail order={order} driver={driver} driverVehicle={vehicle} />
     </Section>
   );
 }

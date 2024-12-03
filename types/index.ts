@@ -64,11 +64,12 @@ export interface Driver extends IEntity {
     type: string;
     number: string;
   };
+  location: Address;
   email: string;
   password: string;
   status: 'Available' | 'Unavailable';
   providerId: string;
-  vehicleId: string;
+  vehicleId?: string;
 }
 
 export interface ExtraPaymentRequest {
@@ -83,6 +84,7 @@ export interface Order extends IEntity {
   operatorId: string;
   client: Client;
   driver: Driver;
+  driverId: string;
   extraPaymentRequest: {
     amount: number;
     reason: string;
@@ -197,3 +199,9 @@ export interface User {
 }
 
 export const dniTypes = ['V', 'E', 'J'];
+
+export interface DriverWithVehicle {
+  driver: Driver;
+  provider: Provider;
+  vehicle: Vehicle;
+}
