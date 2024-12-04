@@ -1,38 +1,40 @@
-# Aplicación web de Gruas UCAB
+![Nextjs 14 logo in black brackground](https://nextjs.org/static/blog/next-14/twitter-card.png)
 
-Este documento proporciona instrucciones sobre cómo ejecutar, probar y gestionar tu proyecto de Next.js utilizando `pnpm`, el App Router y Vitest como framework de pruebas.
+# Gruas UCAB Web Application
 
-## Requisitos Previos
+This document provides instructions on how to run, test, and manage your Next.js project using `pnpm`, the App Router, and Vitest as the testing framework.
 
-Asegúrate de tener instalado lo siguiente en tu máquina:
+## Prerequisites
 
-- **Node.js** (v10.13 o superior)
-- **pnpm**: Si no lo tienes instalado, puedes hacerlo ejecutando:
+Make sure you have the following installed on your machine:
+
+- **Node.js** (v10.13 or higher)
+- **pnpm**: If you don't have it installed, you can do so by running:
   ```bash
   npm install -g pnpm
   ```
 
-## Instalación de Dependencias
+## Installing Dependencies
 
-Navega al directorio de tu proyecto y ejecuta el siguiente comando para instalar las dependencias:
+Navigate to your project directory and run the following command to install the dependencies:
 
 ```bash
 pnpm install
 ```
 
-## Ejecutar el Proyecto
+## Running the Project
 
-Para iniciar el servidor de desarrollo, ejecuta:
+To start the development server, execute:
 
 ```bash
 pnpm run dev
 ```
 
-Abre tu navegador y visita `http://localhost:3000` para ver tu aplicación en acción.
+Open your browser and visit `http://localhost:3000` to see your application in action.
 
-## Estructura del Proyecto con App Router
+## Project Structure with App Router
 
-Con el App Router, la estructura del proyecto se organiza dentro de la carpeta `app`. Aquí hay un ejemplo básico de cómo podría verse:
+With the App Router, the project structure is organized within the `app` folder. Here is a basic example of what it might look like:
 
 ```
 gruas-ucab-web/
@@ -49,13 +51,13 @@ gruas-ucab-web/
 └── next.config.js
 ```
 
-- **app/layout.js**: Define la estructura común de las páginas.
-- **app/page.js**: Es la página principal.
-- **app/about/page.js**: Es una página adicional (Acerca de).
+- **app/layout.js**: Defines the common structure for pages.
+- **app/page.js**: This is the main page.
+- **app/about/page.js**: This is an additional page (About).
 
-## Scripts Disponibles
+## Available Scripts
 
-En tu archivo `package.json`, encontrarás los siguientes scripts predefinidos:
+In your `package.json` file, you will find the following predefined scripts:
 
 ```json
 "scripts": {
@@ -66,22 +68,22 @@ En tu archivo `package.json`, encontrarás los siguientes scripts predefinidos:
 }
 ```
 
-- **dev**: Inicia el servidor en modo desarrollo.
-- **build**: Compila la aplicación para producción.
-- **start**: Inicia la aplicación en modo producción.
-- **test**: Ejecuta las pruebas configuradas con Vitest.
+- **dev**: Starts the server in development mode.
+- **build**: Compiles the application for production.
+- **start**: Starts the application in production mode.
+- **test**: Runs tests configured with Vitest.
 
-## Realizar Pruebas
+## Running Tests
 
-Para realizar pruebas en tu proyecto utilizando Vitest, asegúrate de que esté correctamente configurado. Puedes ejecutar tus pruebas con el siguiente comando:
+To run tests in your project using Vitest, ensure it is properly configured. You can execute your tests with the following command:
 
 ```bash
 pnpm run test
 ```
 
-### Ejemplo de Pruebas con Vitest
+### Example Test with Vitest
 
-Aquí tienes un ejemplo básico de cómo estructurar una prueba utilizando Vitest:
+Here’s a basic example of how to structure a test using Vitest:
 
 ```javascript
 import { describe, it, expect } from 'vitest';
@@ -93,32 +95,22 @@ describe('sample test', () => {
 });
 ```
 
-Vitest permite escribir pruebas que se integran fácilmente con tu código, aprovechando su soporte nativo para módulos ES y TypeScript.
+Vitest allows you to write tests that integrate seamlessly with your code, taking advantage of its native support for ES modules and TypeScript.
 
-## Contribuciones
+## Contributions
 
-Si deseas contribuir a este proyecto, por favor sigue estos pasos:
+If you would like to contribute to this project, please follow these steps:
 
-1. Haz un fork del repositorio.
-2. Crea una rama para tu característica (`git checkout -b feature/nueva-caracteristica`).
-3. Realiza tus cambios y haz commit (`git commit -m 'Añadir nueva característica'`).
-4. Sube tus cambios (`git push origin feature/nueva-caracteristica`).
-5. Abre un Pull Request.
+1. Fork the repository.
+2. Create a branch for your feature (`git checkout -b feature/new-feature`).
+3. Make your changes and commit them (`git commit -m 'Add new feature'`).
+4. Push your changes (`git push origin feature/new-feature`).
+5. Open a Pull Request.
 
-## Licencia
+## License
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
+This project is licensed under the MIT License. Please refer to the LICENSE file for more details.
 
 ---
 
-Con este README, tendrás una guía clara y concisa sobre cómo trabajar con tu proyecto Next.js utilizando el App Router, pnpm y Vitest como framework de pruebas.
-
-Citations:
-[1] https://saucelabs.com/resources/blog/vitest-vs-jest-comparison
-[2] https://www.wearecapicua.com/blog/jest-vs-vitest
-[3] https://blog.seancoughlin.me/vitest-vs-jest-the-new-javascript-testing-framework
-[4] https://www.reddit.com/r/reactjs/comments/10zyse3/is_jest_still_faster_than_vitest/
-[5] https://github.com/angular/angular-cli/issues/25217
-[6] https://vitest.dev/guide/comparisons
-[7] https://dev.to/thejaredwilcurt/vitest-vs-jest-benchmarks-on-a-5-year-old-real-work-spa-4mf1
-[8] https://stackoverflow.com/questions/78137788/how-do-i-test-routes-made-with-the-app-router-in-nextjs-im-using-vitest-for-th
+With this README, you will have a clear and concise guide on how to work with your Next.js project using the App Router, pnpm, and Vitest as your testing framework.
