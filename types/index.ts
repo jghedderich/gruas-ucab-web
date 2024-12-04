@@ -205,3 +205,15 @@ export interface DriverWithVehicle {
   provider: Provider;
   vehicle: Vehicle;
 }
+
+export interface AddressDetails {
+  coordinates: {
+    latitude: string;
+    longitude: string;
+  };
+  zip: string;
+  city: string;
+  addressLine1: string;
+  addressLine2: string;
+  state: string;
+}

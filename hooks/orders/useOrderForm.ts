@@ -2,10 +2,10 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Order } from '@/types';
+import { AddressDetails, Order } from '@/types';
 import { OrderFormData, orderFormSchema } from '@/schemas/order-schema';
 import { useToast } from '../use-toast';
 import { useMutation } from '../useMutation';
@@ -69,13 +69,39 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
     }
   }, [order, form]);
 
-  const onLocationSelect = useCallback(
-    (location: { latitude: number; longitude: number }, fieldName: string) => {
-      form.setValue(`${fieldName}.latitude`, location.latitude);
-      form.setValue(`${fieldName}.longitude`, location.longitude);
-    },
-    [form]
-  );
+  const handleIncidentLocationChange = (addressDetails: AddressDetails) => {
+    Object.entries(addressDetails).forEach(([key, value]) => {
+      if (key === 'coordinates') {
+        form.setValue('incidentAddress.coordinates.latitude', value.latitude);
+        form.setValue('incidentAddress.coordinates.longitude', value.longitude);
+      } else {
+        form.setValue(
+          `incidentAddress.${key}` as unknown as keyof OrderFormData,
+          value
+        );
+      }
+    });
+  };
+
+  const handleDestinationLocationChange = (addressDetails: AddressDetails) => {
+    Object.entries(addressDetails).forEach(([key, value]) => {
+      if (key === 'coordinates') {
+        form.setValue(
+          'destinationAddress.coordinates.latitude',
+          value.latitude
+        );
+        form.setValue(
+          'destinationAddress.coordinates.longitude',
+          value.longitude
+        );
+      } else {
+        form.setValue(
+          `destinationAddress.${key}` as unknown as keyof OrderFormData,
+          value
+        );
+      }
+    });
+  };
 
   async function onSubmit(values: OrderFormData) {
     console.log(values);
@@ -109,6 +135,7 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
     // actions
     back,
     onSubmit,
-    onLocationSelect,
+    handleDestinationLocationChange,
+    handleIncidentLocationChange,
   };
 };

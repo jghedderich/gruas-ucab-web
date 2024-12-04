@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from '../ui/form';
 import { Input } from '../ui/input';
-import { MapComponent } from './MapComponent';
+import { MapComponent } from './Map';
 import {
   Select,
   SelectContent,
@@ -21,6 +21,7 @@ import {
 import { useOrderForm } from '@/hooks/orders/useOrderForm';
 import { Badge } from '../ui/badge';
 import { Car, MapPin } from 'lucide-react';
+import { RouteMap } from './RouteMap';
 
 interface OrderFormProps {
   order?: Order;
@@ -28,9 +29,17 @@ interface OrderFormProps {
 }
 
 export default function OrderForm({ order, drivers }: OrderFormProps) {
-  const { form, onSubmit, back, onLocationSelect, isSubmitting } = useOrderForm(
-    { order }
-  );
+  const {
+    form,
+    onSubmit,
+    back,
+    handleDestinationLocationChange,
+    handleIncidentLocationChange,
+    isSubmitting,
+  } = useOrderForm({ order });
+  const incidentLocation = form.watch('incidentAddress.coordinates');
+  const destinationLocation = form.watch('destinationAddress.coordinates');
+
   return (
     <FormWrapper
       form={form}
@@ -230,11 +239,7 @@ export default function OrderForm({ order, drivers }: OrderFormProps) {
             <FormDescription>
               Seleccione la ubicación en el mapa interactivo.
             </FormDescription>
-            <MapComponent
-              onLocationSelect={(location) =>
-                onLocationSelect(location, 'location')
-              }
-            />
+            <MapComponent onCoordinatesChange={handleIncidentLocationChange} />
           </FormItem>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
@@ -337,7 +342,7 @@ export default function OrderForm({ order, drivers }: OrderFormProps) {
           </div>
         </div>
       </section>
-      <section>
+      <section className="border-b pb-5 border-gray-200">
         <h3 className="text-gray-500 mb-5 text-sm">DATOS DEL DESTINO</h3>
         <div className="grid grid-cols-1 gap-6">
           <FormItem>
@@ -346,9 +351,7 @@ export default function OrderForm({ order, drivers }: OrderFormProps) {
               Seleccione la ubicación en el mapa interactivo.
             </FormDescription>
             <MapComponent
-              onLocationSelect={(location) =>
-                onLocationSelect(location, 'destination')
-              }
+              onCoordinatesChange={handleDestinationLocationChange}
             />
           </FormItem>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -446,6 +449,27 @@ export default function OrderForm({ order, drivers }: OrderFormProps) {
             />
           </div>
         </div>
+      </section>
+      <section>
+        {incidentLocation && destinationLocation && (
+          <section>
+            <h3 className="font-semibold mb-1">Ruta de viaje</h3>
+            <p className="text-sm mb-5">
+              Revise la ruta de viaje entre las coordenadas del accidente y el
+              destino.
+            </p>
+            <RouteMap
+              origin={{
+                lat: parseFloat(incidentLocation.latitude),
+                lng: parseFloat(incidentLocation.longitude),
+              }}
+              destination={{
+                lat: parseFloat(destinationLocation.latitude),
+                lng: parseFloat(destinationLocation.longitude),
+              }}
+            />
+          </section>
+        )}
       </section>
     </FormWrapper>
   );

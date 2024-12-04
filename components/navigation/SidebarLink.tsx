@@ -18,7 +18,7 @@ function SideBarLink({ link, userType }: SideBarLinkProps) {
   if (link.roles.includes(userType)) {
     return (
       <SidebarMenuItem key={link.name}>
-        <SidebarMenuButton asChild isActive={path === link.href}>
+        <SidebarMenuButton asChild isActive={path.includes(link.href)}>
           <Link href={link.href}>
             <link.icon />
             <span className="ml-1">{link.name}</span>
