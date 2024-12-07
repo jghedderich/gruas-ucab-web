@@ -9,59 +9,63 @@ import { AddressDetails, Order } from '@/types';
 import { OrderFormData, orderFormSchema } from '@/schemas/order-schema';
 import { useToast } from '../use-toast';
 import { useMutation } from '../useMutation';
+import { useAuth } from '../auth/use-auth';
 
 export const useOrderForm = ({ order }: { order?: Order }) => {
   const { mutate, isSubmitting } = useMutation();
   const { back } = useRouter();
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const form = useForm<z.infer<typeof orderFormSchema>>({
     resolver: zodResolver(orderFormSchema),
     defaultValues: {
-      policyId: order?.policyId,
-      operatorId: order?.operatorId,
+      policyId: '',
       client: {
         name: {
-          firstName: order?.client.name.firstName,
-          lastName: order?.client.name.lastName,
+          firstName: '',
+          lastName: '',
         },
-        email: order?.client.email,
-        phone: order?.client.phone,
+        email: '',
+        phone: '',
         dni: {
-          type: order?.client.dni.type,
-          number: order?.client.dni.number,
+          type: '',
+          number: '',
         },
         clientVehicle: {
-          brand: order?.client.clientVehicle.brand,
-          model: order?.client.clientVehicle.model,
-          year: order?.client.clientVehicle.year,
-          type: order?.client.clientVehicle.type,
+          brand: '',
+          model: '',
+          year: '',
+          type: '',
         },
       },
       incidentAddress: {
-        addressLine1: order?.incidentAddress.addressLine1,
-        addressLine2: order?.incidentAddress.addressLine2,
-        zip: order?.incidentAddress.zip,
-        city: order?.incidentAddress.city,
-        state: order?.incidentAddress.state,
+        addressLine1: '',
+        addressLine2: '',
+        zip: '',
+        city: '',
+        state: '',
         coordinates: {
-          latitude: order?.incidentAddress.coordinates.latitude,
-          longitude: order?.incidentAddress.coordinates.longitude,
+          latitude: '',
+          longitude: '',
         },
       },
       destinationAddress: {
-        addressLine1: order?.destinationAddress.addressLine1,
-        addressLine2: order?.destinationAddress.addressLine2,
-        zip: order?.destinationAddress.zip,
-        city: order?.destinationAddress.city,
-        state: order?.destinationAddress.state,
+        addressLine1: '',
+        addressLine2: '',
+        zip: '',
+        city: '',
+        state: '',
         coordinates: {
-          latitude: order?.destinationAddress.coordinates.latitude,
-          longitude: order?.destinationAddress.coordinates.longitude,
+          latitude: '',
+          longitude: '',
         },
       },
     },
   });
+
+  const incidentLocation = form.watch('incidentAddress.coordinates');
+  const destinationLocation = form.watch('destinationAddress.coordinates');
 
   useEffect(() => {
     if (order) {
@@ -117,7 +121,7 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
       });
     } else {
       await mutate({
-        body: { order: { ...values } },
+        body: { order: { ...values, operatorId: user!.id } },
         route: '/orders-service/orders',
         method: 'POST',
       });
@@ -127,10 +131,13 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
       });
     }
   }
+
   return {
     // state
     form,
     isSubmitting,
+    incidentLocation,
+    destinationLocation,
 
     // actions
     back,

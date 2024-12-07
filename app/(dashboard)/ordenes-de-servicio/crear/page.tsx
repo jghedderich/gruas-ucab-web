@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 
 export default async function CreateOrdenesDeServicioPage() {
   const { providers } = await fetchData('/providers-service/providers');
+  const { policies } = await fetchData('/orders-service/policies');
   const drivers = parseProvidersList(providers);
   return (
     <Section
@@ -19,7 +20,7 @@ export default async function CreateOrdenesDeServicioPage() {
       description="Ingresa los datos de la orden de servicio que deseas crear."
     >
       <div className="pb-20">
-        <OrderForm drivers={drivers} />
+        <OrderForm drivers={drivers} policies={policies} />
       </div>
     </Section>
   );

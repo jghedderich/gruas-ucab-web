@@ -13,7 +13,6 @@ const addressSchema = z.object({
 });
 
 export const orderFormSchema = z.object({
-  operatorId: z.string().min(1, 'El ID del operador es requerido'),
   policyId: z.string().min(1, 'La póliza es requerida'),
   driverId: z.string().min(1, 'El conductor es requerido'),
   client: z.object({

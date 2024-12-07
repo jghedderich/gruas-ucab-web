@@ -32,10 +32,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ onCoordinatesChange }) => {
   const [markerPosition, setMarkerPosition] =
     React.useState<google.maps.LatLngLiteral | null>(null);
 
-  // const { isLoaded: scriptLoaded, loadError } = useJsApiLoader({
-  //   googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
-  // });
-
   const handleMapClick = async (e: google.maps.MapMouseEvent) => {
     if (e.latLng) {
       const lat = e.latLng.lat();
