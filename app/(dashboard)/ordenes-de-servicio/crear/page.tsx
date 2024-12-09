@@ -10,8 +10,12 @@ export const metadata: Metadata = {
 };
 
 export default async function CreateOrdenesDeServicioPage() {
-  const { providers } = await fetchData('/providers-service/providers');
-  const { policies } = await fetchData('/orders-service/policies');
+  const { providers } = await fetchData('/providers-service/providers', {
+    cache: 'no-store',
+  });
+  const { policies } = await fetchData('/orders-service/policies', {
+    cache: 'no-store',
+  });
   const drivers = parseProvidersList(providers);
   return (
     <Section

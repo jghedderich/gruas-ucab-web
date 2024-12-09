@@ -4,6 +4,7 @@ import React from 'react';
 import { GoogleMap, DirectionsRenderer } from '@react-google-maps/api';
 import { Policy } from '@/types';
 import { SummaryDetails } from './SummaryDetails';
+import { useRouteMap } from '@/hooks/use-route-map';
 
 const mapContainerStyle = {
   width: '100%',
@@ -29,36 +30,10 @@ export function SummarySection({
   destination,
   policy,
 }: SummarySectionProps) {
-  const [directions, setDirections] =
-    React.useState<google.maps.DirectionsResult | null>(null);
-  const [distance, setDistance] = React.useState<string>('');
-  const [duration, setDuration] = React.useState<string>('');
-
-  React.useEffect(() => {
-    if (origin && destination) {
-      const directionsService = new google.maps.DirectionsService();
-
-      directionsService.route(
-        {
-          origin: origin,
-          destination: destination,
-          travelMode: google.maps.TravelMode.DRIVING,
-        },
-        (result, status) => {
-          if (status === google.maps.DirectionsStatus.OK && result) {
-            setDirections(result);
-            const route = result.routes[0];
-            if (route && route.legs[0]) {
-              setDistance(route.legs[0].distance?.text || '');
-              setDuration(route.legs[0].duration?.text || '');
-            }
-          } else {
-            console.error(`error fetching directions ${result}`);
-          }
-        }
-      );
-    }
-  }, [origin, destination]);
+  const { directions, distance, duration } = useRouteMap({
+    origin,
+    destination,
+  });
 
   return (
     <section className="border-t border-gray-200 pt-5">

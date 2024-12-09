@@ -11,15 +11,11 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Driver, Order, Vehicle } from '@/types';
 import { ClientDetail } from './ClientDetail';
-import { ExtraPaymentRequestDetail } from './ExtraPaymentRequestDetail';
+import { CostDetailSection } from './CostDetailsSection';
 import { DriverAndVehicleDetail } from './DriverAndVehicleDetail';
-
-// Note: You would need to implement or import an actual map component
-const MapComponent = ({ location, destination }) => (
-  <div className="h-64 bg-gray-200 flex items-center justify-center">
-    <p className="text-gray-500">Map showing route from</p>
-  </div>
-);
+import { RouteMap } from './RouteMap';
+import { parseCoordinates } from '@/lib/parse-coordinates';
+import { useRouteMap } from '@/hooks/use-route-map';
 
 interface OrderDetailProps {
   order: Order;
@@ -62,10 +58,6 @@ export default function OrderDetail({
             </p>
           </div>
           <div>
-            <span className="font-semibold">Descripción:</span>
-            <p>{order.description}</p>
-          </div>
-          <div>
             <span className="font-semibold">Distancia total:</span>
             <p>{order.totalDistance}Km</p>
           </div>
@@ -74,7 +66,7 @@ export default function OrderDetail({
               <span className="font-semibold">Tarifas extra:</span>
               {order.costDetails.map((detail, index) => (
                 <p key={index}>
-                  {detail.amount}, {detail.reason}
+                  {detail.amount}, {detail.description}
                 </p>
               ))}
             </div>
@@ -87,17 +79,15 @@ export default function OrderDetail({
           <CardTitle>Route Map</CardTitle>
         </CardHeader>
         <CardContent>
-          <MapComponent
-            location={order.incidentAddress}
-            destination={order.destinationAddress}
+          <RouteMap
+            origin={parseCoordinates(order.incidentAddress.coordinates)}
+            destination={parseCoordinates(order.destinationAddress.coordinates)}
           />
         </CardContent>
       </Card>
       <ClientDetail client={order.client} />
       <DriverAndVehicleDetail driver={driver} vehicle={driverVehicle} />
-      {/* <ExtraPaymentRequestDetail
-        extraPaymentRequest={order.extraPaymentRequest}
-      /> */}
+      <CostDetailSection costDetails={order.costDetails} />
     </div>
   );
 }

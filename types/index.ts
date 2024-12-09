@@ -72,10 +72,11 @@ export interface Driver extends IEntity {
   vehicleId?: string;
 }
 
-export interface ExtraPaymentRequest {
+export interface CostDetail {
+  id: string;
   amount: number;
-  reason: string;
-  status: string;
+  isApproved: boolean;
+  description: string;
 }
 
 export interface Order extends IEntity {
@@ -85,15 +86,7 @@ export interface Order extends IEntity {
   client: Client;
   driver: Driver;
   driverId: string;
-  extraPaymentRequest: {
-    amount: number;
-    reason: string;
-    status: string;
-  };
-  costDetails: {
-    amount: number;
-    reason: string;
-  }[];
+  costDetails: CostDetail[];
   totalDistance: number;
   incidentAddress: Address;
   destinationAddress: Address;
