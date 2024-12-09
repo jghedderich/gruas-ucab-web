@@ -108,7 +108,6 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
   };
 
   async function onSubmit(values: OrderFormData) {
-    console.log(values);
     if (order) {
       await mutate({
         body: { order: { ...values, id: order.id } },
@@ -120,8 +119,15 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
         description: 'La orden se ha actualizado correctamente.',
       });
     } else {
+      console.log({ ...values, operatorId: user!.id });
       await mutate({
-        body: { order: { ...values, operatorId: user!.id } },
+        body: {
+          order: {
+            ...values,
+            orderStatus: 'ToBeAccepted',
+            operatorId: user!.id,
+          },
+        },
         route: '/orders-service/orders',
         method: 'POST',
       });

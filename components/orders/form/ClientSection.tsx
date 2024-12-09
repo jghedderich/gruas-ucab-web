@@ -204,9 +204,12 @@ export const ClientSection = ({ form, policies }: ClientSectionProps) => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="light">Liviano</SelectItem>
-                  <SelectItem value="medium">Mediano</SelectItem>
-                  <SelectItem value="heavy">Pesado</SelectItem>
+                  <SelectItem value="suv">SUV</SelectItem>
+                  <SelectItem value="van">Van</SelectItem>
+                  <SelectItem value="coupe">Coupe</SelectItem>
+                  <SelectItem value="hatchback">Hatchback</SelectItem>
+                  <SelectItem value="sedan">Sedan</SelectItem>
+                  <SelectItem value="pickup">Pick-up</SelectItem>
                   <SelectItem value="motorcycle">Moto</SelectItem>
                 </SelectContent>
               </Select>
