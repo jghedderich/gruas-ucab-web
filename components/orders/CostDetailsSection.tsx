@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
+import { CostDetail } from '@/types';
 import {
   Card,
+  CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
 } from '../ui/card';
-import { CostDetail } from '@/types';
 
 interface CostDetailSectionProps {
   costDetails: CostDetail[];
@@ -15,11 +15,12 @@ interface CostDetailSectionProps {
 
 export const CostDetailSection = ({ costDetails }: CostDetailSectionProps) => {
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
-        <div className="flex items-center justify-between gap-3">
-          <CardTitle>Costos adicionales</CardTitle>
-        </div>
+        <CardTitle className="flex items-center justify-between gap-3">
+          <h3 className=" mb-2">COSTOS ADICIONALES</h3>
+          <p className="text-sm text-gray-500">{costDetails.length} pedidos</p>
+        </CardTitle>
         <CardDescription>
           Los pedidos de costos adicionales solicitados por el conductor.
         </CardDescription>

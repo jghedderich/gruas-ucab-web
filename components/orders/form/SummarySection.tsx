@@ -36,10 +36,11 @@ export function SummarySection({
   });
 
   return (
+    // remove border-t
     <section className="border-t border-gray-200 pt-5">
       <h4 className="font-semibold text-lg">Resumen de la orden</h4>
       <p className="text-sm mb-5 text-gray-500">
-        Revise los datos de la orden para su confirmación.
+        Todos los datos generales de la orden.
       </p>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
