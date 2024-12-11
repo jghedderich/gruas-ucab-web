@@ -1,5 +1,6 @@
 import { IColumn } from '@/types';
 import TablePagination from './TablePagination';
+import Image from 'next/image';
 
 export interface IPageInfo {
   page: number;
@@ -29,7 +30,19 @@ function Table({ columns, pageIndex, pageSize, count, children }: ITableProps) {
   };
 
   if (count === 0) {
-    return <h2 className="text-center mt-10 text-xl">No hay resultados</h2>;
+    return (
+      <div className="flex flex-col items-center max-w-sm mx-auto mt-16 gap-1">
+        <Image
+          src="/empty.png"
+          width={200}
+          height={200}
+          alt="empty"
+          className="opacity-75"
+        />
+        <h2 className="text-lg">No hay resultados</h2>
+        <p className="text-gray-500 text-center text-sm">Intente más tarde.</p>
+      </div>
+    );
   }
   return (
     <div className="border rounded-md min-w-max">

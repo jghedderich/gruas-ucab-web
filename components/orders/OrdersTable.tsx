@@ -2,11 +2,10 @@
 import React from 'react';
 import Table from '../ui/Table';
 import Link from 'next/link';
-import { PencilIcon } from '../icons/PencilIcon';
 import { IPagination, Order } from '@/types';
-import { Trash2 } from 'lucide-react';
+import { ExternalLink, Trash2 } from 'lucide-react';
 import { useTable } from '@/hooks/use-table';
-import { Badge } from '../ui/badge';
+import { StatusBadge } from './StatusBadge';
 
 const columns = [
   {
@@ -73,22 +72,22 @@ export const OrdersTable = ({ orders }: OrdersTableProps) => {
           </td>
 
           <td className="py-3 px-4">
-            <Badge variant="outline">{order.orderStatus}</Badge>
+            <StatusBadge status={order.orderStatus} />
           </td>
           <td className="p-3">
             <Link
               href={`ordenes-de-servicio/${order.id}`}
               className="hover:text-primary transition ease-out"
             >
-              <PencilIcon width={20} height={20} />
+              <ExternalLink />
             </Link>
           </td>
           <td className="p-3">
             <button
-              className="hover:text-red-500 transition ease-out"
+              className="hover:text-red-500 transition ease-out flex items-center"
               onClick={() => handleDelete(order)}
             >
-              <Trash2 className="w-5 h-5" />
+              <Trash2 />
             </button>
           </td>
         </tr>

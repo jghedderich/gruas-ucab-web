@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/card';
 import { Driver, Order, Policy, Vehicle } from '@/types';
 import { ClientDetail } from './ClientDetail';
-import { CostDetailSection } from './CostDetailsSection';
+import { CostDetailSection } from './additional-costs/CostDetailsSection';
 import { DriverAndVehicleDetail } from './DriverAndVehicleDetail';
 import { SummarySection } from './form/SummarySection';
 

@@ -12,7 +12,7 @@ export const metadata = {
 };
 
 export default async function AdditionalCostsPage() {
-  const { additionalCosts } = await fetchData('/orders-service/costdetails', {
+  const { costDetails } = await fetchData('/orders-service/costdetails', {
     cache: 'no-store',
   });
   return (
@@ -31,7 +31,7 @@ export default async function AdditionalCostsPage() {
         </Link>
       }
     >
-      <AdditionalCostsTable additionalCosts={additionalCosts} />
+      <AdditionalCostsTable additionalCosts={costDetails} />
     </Section>
   );
 }

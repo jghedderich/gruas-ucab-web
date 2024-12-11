@@ -7,7 +7,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../ui/card';
+} from '../../ui/card';
+import { AdditionalCostItem } from './AdditionalCostItem';
 
 interface CostDetailSectionProps {
   costDetails: CostDetail[];
@@ -22,15 +23,19 @@ export const CostDetailSection = ({ costDetails }: CostDetailSectionProps) => {
           <p className="text-sm text-gray-500">{costDetails.length} pedidos</p>
         </CardTitle>
         <CardDescription>
-          Los pedidos de costos adicionales solicitados por el conductor.
+          Los costos adicionales solicitados por el conductor.
         </CardDescription>
       </CardHeader>
       <CardContent>
         {costDetails.length > 0 ? (
           costDetails?.map((cost) => (
-            <div key={cost.id}>
-              {cost.amount} - {cost.description}
-            </div>
+            <AdditionalCostItem
+              key={cost.id}
+              status="pending"
+              amount={cost.amount}
+              description={cost.description}
+              id={cost.id}
+            />
           ))
         ) : (
           <p>No se han solicitado costos adicionales</p>

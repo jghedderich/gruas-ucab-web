@@ -9,10 +9,6 @@ import { Trash2 } from 'lucide-react';
 
 const columns = [
   {
-    title: 'ID',
-    field: 'id',
-  },
-  {
     title: 'Nombre',
     field: 'nombre',
   },
@@ -40,7 +36,7 @@ export const AdditionalCostsTable = ({
       pageSize={additionalCosts.pageSize}
       pageIndex={additionalCosts.pageIndex}
     >
-      {additionalCosts.data.map((cost) => (
+      {activeItems.map((cost) => (
         <tr key={cost.id} className="border-y">
           <td className="py-3 px-4">
             <h6>{cost.id}</h6>

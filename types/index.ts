@@ -74,13 +74,22 @@ export interface Driver extends IEntity {
 
 export interface CostDetail {
   id: string;
+  status: string;
   amount: number;
-  isApproved: boolean;
   description: string;
 }
 
+export enum Status {
+  ToBeAssigned = 'ToBeAssigned',
+  ToBeAccepted = 'ToBeAccepted',
+  Accepted = 'Accepted',
+  InProcess = 'InProcess',
+  Completed = 'Completed',
+  Canceled = 'Canceled',
+}
+
 export interface Order extends IEntity {
-  orderStatus: string;
+  orderStatus: Status;
   policyId: string;
   operatorId: string;
   client: Client;

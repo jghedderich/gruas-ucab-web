@@ -1,14 +1,6 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
-
-enum Status {
-  ToBeAssigned = 'ToBeAssigned',
-  ToBeAccepted = 'ToBeAccepted',
-  Accepted = 'Accepted',
-  InProcess = 'InProcess',
-  Completed = 'Completed',
-  Canceled = 'Canceled',
-}
+import { Status } from '@/types';
 
 interface StatusBadgeProps {
   status: Status;
