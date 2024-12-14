@@ -21,6 +21,10 @@ const columns = [
     field: 'email',
   },
   {
+    title: 'Cédula',
+    field: 'dni',
+  },
+  {
     title: 'Órdenes',
     field: 'orders',
   },
@@ -54,6 +58,11 @@ export const OperatorsTable = ({ operators }: OperatorsTableProps) => {
           </td>
           <td className="py-3 px-4">
             <p>{operator.email}</p>
+          </td>
+          <td className="py-3 px-4">
+            <p>
+              {operator.dni.type}-{operator.dni.number}
+            </p>
           </td>
           <td className="py-3 px-4">
             <p>{operator.orders.length}</p>

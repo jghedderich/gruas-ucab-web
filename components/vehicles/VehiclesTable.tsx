@@ -13,6 +13,10 @@ const columns = [
     field: 'vehiculo',
   },
   {
+    title: 'Año',
+    field: 'year',
+  },
+  {
     title: 'Tipo',
     field: 'tipo',
   },
@@ -21,6 +25,13 @@ const columns = [
     field: 'conductor',
   },
 ];
+
+const vehicleTypeMapping = {
+  Light: 'Liviano',
+  Medium: 'Mediano',
+  Heavy: 'Pesado',
+  Motorcycle: 'Moto',
+};
 
 interface VehiclesTableProps {
   vehicles: IPagination<Vehicle>;
@@ -42,13 +53,15 @@ export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
         <tr key={vehicle.id} className="border-y">
           <td className="py-3 px-4">
             <p>
-              <b>{vehicle.brand}</b> {vehicle.model} ({vehicle.year})
+              <b>{vehicle.brand}</b> {vehicle.model}
             </p>
           </td>
           <td className="py-3 px-4">
-            <p>{vehicle.type}</p>
+            <p>{vehicle.year}</p>
           </td>
-
+          <td className="py-3 px-4">
+            <p>{vehicleTypeMapping[vehicle.type]}</p>
+          </td>
           <td className="py-3 px-4">
             <p>{vehicle.providerId}</p>
           </td>

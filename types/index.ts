@@ -50,7 +50,7 @@ export interface Vehicle extends IEntity {
   brand: string;
   model: string;
   year: string;
-  type: string;
+  type: 'Light' | 'Medium' | 'Heavy' | 'Motorcycle';
   providerId?: string;
 }
 
