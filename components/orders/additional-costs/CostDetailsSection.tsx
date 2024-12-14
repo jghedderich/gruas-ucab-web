@@ -15,23 +15,33 @@ interface CostDetailSectionProps {
 }
 
 export const CostDetailSection = ({ costDetails }: CostDetailSectionProps) => {
+  costDetails.sort((a, b) => {
+    if (a.statusC === 'Pending' && b.statusC !== 'Pending') {
+      return -1;
+    } else if (a.statusC !== 'Pending' && b.statusC === 'Pending') {
+      return 1;
+    }
+    return 0;
+  });
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle className="flex items-center justify-between gap-3">
-          <h3 className=" mb-2">COSTOS ADICIONALES</h3>
-          <p className="text-sm text-gray-500">{costDetails.length} pedidos</p>
+        <CardTitle className="flex items-center justify-between gap-3 text-lg">
+          Costos adicionales
+          <span className="text-sm text-gray-500">
+            {costDetails.length} solicitudes
+          </span>
         </CardTitle>
         <CardDescription>
           Los costos adicionales solicitados por el conductor.
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-4">
         {costDetails.length > 0 ? (
           costDetails?.map((cost) => (
             <AdditionalCostItem
               key={cost.id}
-              status="pending"
+              status={cost.statusC}
               amount={cost.amount}
               description={cost.description}
               id={cost.id}

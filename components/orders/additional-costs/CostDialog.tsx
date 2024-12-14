@@ -24,28 +24,24 @@ export const CostDialog = ({
   onConfirm,
 }: CostDialogProps) => {
   return (
-    <DialogContent className="max-w-sm bg-white">
+    <DialogContent className="max-w-xs bg-white">
       <DialogHeader>
         <DialogTitle>
           ¿{type === 'approve' ? 'Aceptar' : 'Rechazar'} costo adicional?
         </DialogTitle>
         <DialogDescription>Esta acción no se puede deshacer.</DialogDescription>
       </DialogHeader>
-      <section className="flex gap-2 py-3 justify-center">
+      <section className="flex justify-center gap-2 py-3">
         <h6>{description}</h6>
         <Badge variant={'secondary'}>${amount}</Badge>
       </section>
-      <DialogFooter className="flex items-center justify-center gap-2">
-        <Button
-          onClick={onConfirm}
-          variant={type === 'approve' ? 'default' : 'destructive'}
-          className="w-full"
-        >
-          {type === 'approve' ? 'Aprobar' : 'Rechazar'}
-        </Button>
+      <DialogFooter>
         <DialogClose asChild>
-          <Button type="button" variant="outline" className="w-full">
-            Cancelar
+          <Button
+            onClick={onConfirm}
+            variant={type === 'approve' ? 'default' : 'destructive'}
+          >
+            {type === 'approve' ? 'Aprobar' : 'Rechazar'}
           </Button>
         </DialogClose>
       </DialogFooter>

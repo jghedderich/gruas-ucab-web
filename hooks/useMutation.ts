@@ -4,7 +4,7 @@ import { fetchData } from '@/lib/fetchData';
 import { useToast } from './use-toast';
 
 export const useMutation = () => {
-  const { back } = useRouter();
+  const { back, refresh } = useRouter();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const { toast } = useToast();
 
@@ -26,7 +26,6 @@ export const useMutation = () => {
         },
         body: JSON.stringify(body),
       });
-      // refresh();
       if (method === 'PUT') {
         toast({
           title: 'Cambios guardados',
@@ -51,8 +50,10 @@ export const useMutation = () => {
         description: 'Los datos no se han guardado correctamente.',
         variant: 'destructive',
       });
+    } finally {
+      setIsSubmitting(false);
+      refresh();
     }
-    setIsSubmitting(false);
   }
 
   return {

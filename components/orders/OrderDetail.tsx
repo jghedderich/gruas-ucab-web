@@ -29,6 +29,12 @@ export default function OrderDetail({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Resumen de la orden</CardTitle>
+          <CardDescription>
+            Todos los datos generales de la orden.
+          </CardDescription>
+        </CardHeader>
         <CardContent>
           <SummarySection
             origin={{
@@ -40,6 +46,7 @@ export default function OrderDetail({
               lng: parseFloat(order.destinationAddress.coordinates.longitude),
             }}
             policy={policy}
+            additionalCosts={order.costDetails}
           />
         </CardContent>
       </Card>
@@ -56,7 +63,6 @@ export default function OrderDetail({
             <DriverAndVehicleDetail driver={driver} vehicle={driverVehicle} />
           </CardContent>
         </Card>
-
         <CostDetailSection costDetails={order.costDetails} />
       </div>
     </div>

@@ -72,9 +72,15 @@ export interface Driver extends IEntity {
   vehicleId?: string;
 }
 
+export enum StatusC {
+  Pending = 'Pending',
+  Approved = 'Approved',
+  Rejected = 'Rejected',
+}
+
 export interface CostDetail {
   id: string;
-  status: string;
+  statusC: StatusC;
   amount: number;
   description: string;
 }

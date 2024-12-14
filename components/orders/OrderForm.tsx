@@ -51,20 +51,28 @@ export default function OrderForm({
         form={form}
         handleDestinationLocationChange={handleDestinationLocationChange}
       />
+      <hr />
+
       {incidentLocation.latitude &&
         destinationLocation.longitude &&
         selectedPolicy && (
-          <SummarySection
-            origin={{
-              lat: parseFloat(incidentLocation.latitude),
-              lng: parseFloat(incidentLocation.longitude),
-            }}
-            destination={{
-              lat: parseFloat(destinationLocation.latitude),
-              lng: parseFloat(destinationLocation.longitude),
-            }}
-            policy={selectedPolicy}
-          />
+          <section>
+            <h4 className="font-semibold text-lg">Resumen de la orden</h4>
+            <p className="text-sm mb-5 text-gray-500">
+              Todos los datos generales de la orden.
+            </p>
+            <SummarySection
+              origin={{
+                lat: parseFloat(incidentLocation.latitude),
+                lng: parseFloat(incidentLocation.longitude),
+              }}
+              destination={{
+                lat: parseFloat(destinationLocation.latitude),
+                lng: parseFloat(destinationLocation.longitude),
+              }}
+              policy={selectedPolicy}
+            />
+          </section>
         )}
     </FormWrapper>
   );

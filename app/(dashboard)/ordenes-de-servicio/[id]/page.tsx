@@ -14,15 +14,26 @@ export default async function OrdenesDeServicioPage({
 }: {
   params: { id: string };
 }) {
-  const { order } = await fetchData('/orders-service/orders/' + params.id);
+  const { order } = await fetchData('/orders-service/orders/' + params.id, {
+    cache: 'no-store',
+  });
   const { driver } = await fetchData(
-    '/providers-service/drivers/' + order.driverId
+    '/providers-service/drivers/' + order.driverId,
+    {
+      cache: 'no-store',
+    }
   );
   const { vehicle } = await fetchData(
-    '/providers-service/vehicles/' + driver.vehicleId
+    '/providers-service/vehicles/' + driver.vehicleId,
+    {
+      cache: 'no-store',
+    }
   );
   const { policy } = await fetchData(
-    '/orders-service/policies/' + order.policyId
+    '/orders-service/policies/' + order.policyId,
+    {
+      cache: 'no-store',
+    }
   );
 
   return (

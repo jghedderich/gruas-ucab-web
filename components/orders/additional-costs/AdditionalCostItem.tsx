@@ -4,12 +4,15 @@ import { Button } from '../../ui/button';
 import { Check, X } from 'lucide-react';
 import { Dialog, DialogTrigger } from '../../ui/dialog';
 import { CostDialog } from './CostDialog';
+import { useMutation } from '@/hooks/useMutation';
+import { CostStatusBadge } from './CostStatusBadge';
+import { StatusC } from '@/types';
 
 interface AdditionalCostItemProps {
   id: string;
   description: string;
   amount: number;
-  status: string;
+  status: StatusC;
 }
 
 export const AdditionalCostItem = ({
@@ -18,12 +21,22 @@ export const AdditionalCostItem = ({
   amount,
   status,
 }: AdditionalCostItemProps) => {
-  const handleApprove = () => {
-    console.log('approve', id);
+  const { mutate } = useMutation();
+
+  const handleApprove = async () => {
+    await mutate({
+      body: { costdetail: { id, statusC: 'Approved' } },
+      route: '/orders-service/costdetails/status',
+      method: 'PUT',
+    });
   };
 
-  const handleReject = () => {
-    console.log('reject', id);
+  const handleReject = async () => {
+    await mutate({
+      body: { costdetail: { id, statusC: 'Rejected' } },
+      route: '/orders-service/costdetails/status',
+      method: 'PUT',
+    });
   };
 
   return (
@@ -33,7 +46,7 @@ export const AdditionalCostItem = ({
         <Badge variant={'secondary'}>${amount}</Badge>
       </div>
       <div className="flex items-center gap-2">
-        {status === 'pending' ? (
+        {status === 'Pending' ? (
           <>
             <Dialog>
               <DialogTrigger asChild>
@@ -63,9 +76,7 @@ export const AdditionalCostItem = ({
             </Dialog>
           </>
         ) : (
-          <Badge variant="destructive" className="rounded-full">
-            Rechazado
-          </Badge>
+          <CostStatusBadge status={status} />
         )}
       </div>
     </article>
