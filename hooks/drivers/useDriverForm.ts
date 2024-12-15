@@ -45,7 +45,6 @@ export const useDriverForm = ({ driver }: DriverFormProps) => {
         method: 'PUT',
       });
     } else {
-      console.log(values);
       await mutate({
         body: { driver: values },
         route: '/providers-service/drivers',

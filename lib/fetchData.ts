@@ -10,9 +10,9 @@ export async function fetchData(endpoint: string, options: RequestInit = {}) {
     },
   });
 
-  // if (!response.ok) {
-  //   throw new Error(`HTTP error! status: ${response.status}`);
-  // }
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
 
   return response.json();
 }

@@ -159,11 +159,9 @@ export interface Fee {
   isActive: boolean;
 }
 
-export interface Department {
-  id: number;
-  name: string;
+export interface Department extends IEntity {
+  departmentName: string;
   description: string;
-  employees: number;
 }
 
 export interface Operator extends IEntity {

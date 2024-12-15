@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 export default async function OperatorsPage() {
-  const response = await fetchData('/orders-service/operators', {
+  const { operators } = await fetchData('/orders-service/operators', {
     cache: 'no-store',
   });
 
@@ -29,7 +29,7 @@ export default async function OperatorsPage() {
         </Link>
       }
     >
-      <OperatorsTable operators={response.operators} />
+      <OperatorsTable operators={operators} />
     </Section>
   );
 }

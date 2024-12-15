@@ -1,54 +1,59 @@
 'use client';
 
+import React from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Department } from '@/types';
-import { useToast } from '../use-toast';
 import {
   DepartmentFormData,
   departmentSchema,
 } from '@/schemas/department-schema';
+import { useMutation } from '../useMutation';
 
 export const useDepartmentForm = ({
   department,
 }: {
   department?: Department;
 }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { back } = useRouter();
-  const { toast } = useToast();
+  const { mutate, isSubmitting } = useMutation();
 
   const form = useForm<DepartmentFormData>({
     resolver: zodResolver(departmentSchema),
+    defaultValues: {
+      departmentName: department?.departmentName || '',
+      description: department?.description || '',
+    },
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (department) {
       form.reset(department);
     }
   }, [department, form]);
 
-  function onSubmit(values: DepartmentFormData) {
-    setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      console.log(values);
-      setIsSubmitting(false);
+  async function onSubmit(values: DepartmentFormData) {
+    try {
       if (department) {
-        toast({
-          title: 'Departamento actualizado',
-          description: 'El departamento se ha actualizado correctamente.',
+        await mutate({
+          route: '/admin-service/departments',
+          method: 'PUT',
+          body: { department: { ...values, id: department.id } },
         });
       } else {
-        toast({
-          title: 'Departamento creado',
-          description: 'El departamento se ha creado correctamente.',
+        await mutate({
+          route: '/admin-service/departments',
+          method: 'POST',
+          body: { department: values },
         });
+        back();
       }
-    }, 2000);
+    } catch (error) {
+      console.error(error);
+    }
   }
+
   return {
     // state
     form,

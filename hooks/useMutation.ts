@@ -17,8 +17,8 @@ export const useMutation = () => {
     route: string;
     method: string;
   }) {
+    setIsSubmitting(true);
     try {
-      setIsSubmitting(true);
       await fetchData(route, {
         method,
         headers: {
@@ -41,8 +41,8 @@ export const useMutation = () => {
           title: 'Datos guardados',
           description: 'Los datos se han guardado correctamente.',
         });
-        back();
       }
+      refresh();
     } catch (error) {
       console.error(error);
       toast({
@@ -52,7 +52,6 @@ export const useMutation = () => {
       });
     } finally {
       setIsSubmitting(false);
-      refresh();
     }
   }
 

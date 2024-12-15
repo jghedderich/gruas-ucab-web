@@ -30,7 +30,7 @@ export const DepartmentsForm = ({ department }: DepartmentsFormProps) => {
     >
       <FormField
         control={form.control}
-        name="name"
+        name="departmentName"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Nombre</FormLabel>

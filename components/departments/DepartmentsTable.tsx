@@ -1,11 +1,11 @@
 'use client';
-import { Department } from '@/types';
+import { Department, IPagination } from '@/types';
 import React from 'react';
 import Table from '../ui/Table';
-import Toggle from '../ui/Toggle';
 import { PencilIcon } from '../icons/PencilIcon';
 import Link from 'next/link';
-import { useDepartmentsTable } from '@/hooks/departments/useDepartmentsTable';
+import { Trash2 } from 'lucide-react';
+import { useTable } from '@/hooks/use-table';
 
 const columns = [
   {
@@ -22,48 +22,49 @@ const columns = [
   },
 ];
 
-const pageInfo = {
-  page: 1,
-  perPage: 10,
-  itemCount: 100,
-  pageCount: 10,
-  hasPreviousPage: true,
-  hasNextPage: true,
-};
-
 interface DepartmentsTableProps {
-  departments: Department[];
+  departments: IPagination<Department>;
 }
 export const DepartmentsTable = ({ departments }: DepartmentsTableProps) => {
-  const { handleToggle, activeDepartments } = useDepartmentsTable();
+  const { handleDelete } = useTable(
+    departments.data,
+    '/admin-service/departments'
+  );
 
   return (
-    <Table columns={columns} pageInfo={pageInfo}>
-      {departments.map((department) => (
+    <Table
+      columns={columns}
+      count={departments.count}
+      pageSize={departments.pageSize}
+      pageIndex={departments.pageIndex}
+    >
+      {departments.data.map((department) => (
         <tr key={department.id} className="border-y">
           <td className="py-3 px-4">
             <h6>{department.id}</h6>
           </td>
           <td className="py-3 px-4">
-            <p>{department.name}</p>
+            <p>{department.departmentName}</p>
           </td>
           <td className="py-3 px-4">
             <p>{department.description}</p>
           </td>
 
           <td className="p-3">
-            <Toggle
-              handleClick={() => handleToggle(department)}
-              isToggleOn={activeDepartments.has(department.id)}
-            />
-          </td>
-          <td className="px-6">
             <Link
               href={`departamentos/${department.id}`}
-              className="hover:text-brand-500 transition ease-out"
+              className="hover:text-primary transition ease-out"
             >
               <PencilIcon width={20} height={20} />
             </Link>
+          </td>
+          <td className="p-3">
+            <button
+              className="hover:text-red-500 transition ease-out"
+              onClick={() => handleDelete(department)}
+            >
+              <Trash2 className="w-5 h-5" />
+            </button>
           </td>
         </tr>
       ))}

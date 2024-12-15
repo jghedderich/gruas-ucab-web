@@ -1,38 +1,20 @@
 import { DepartmentsTable } from '@/components/departments/DepartmentsTable';
 import { Button } from '@/components/ui/button';
 import Section from '@/components/ui/Section';
-import { Department } from '@/types';
+import { fetchData } from '@/lib/fetchData';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { Metadata } from 'next';
 import Link from 'next/link';
-
-const departmentsData: Department[] = [
-  {
-    id: 1,
-    name: 'Mercadeo',
-    description: 'Departamento de Mercadeo',
-    employees: 10,
-  },
-  {
-    id: 2,
-    name: 'Recursos Humanos',
-    description: 'Departamento de Recursos Humanos',
-    employees: 10,
-  },
-  {
-    id: 3,
-    name: 'Centro de Salud',
-    description: 'Departamento de Centro de Salud',
-    employees: 10,
-  },
-];
 
 export const metadata: Metadata = {
   title: 'Departamentos | Grúas Ucab',
   description: 'Lista de departamentos gestionados por Grúas Ucab',
 };
 
-export default function PoliciesPage() {
+export default async function DepartmentsPage() {
+  const { departments } = await fetchData('/admin-service/departments', {
+    cache: 'no-store',
+  });
   return (
     <Section
       title="Departamentos"
@@ -47,7 +29,7 @@ export default function PoliciesPage() {
         </Link>
       }
     >
-      <DepartmentsTable departments={departmentsData} />
+      <DepartmentsTable departments={departments} />
     </Section>
   );
 }
