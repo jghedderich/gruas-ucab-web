@@ -4,8 +4,8 @@ import Table from '../ui/Table';
 import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
 import { IPagination, Vehicle } from '@/types';
-import { Trash2 } from 'lucide-react';
 import { useTable } from '@/hooks/use-table';
+import { DeleteDialog } from '../ui/DeleteDialog';
 
 const columns = [
   {
@@ -74,12 +74,7 @@ export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
             </Link>
           </td>
           <td className="p-3">
-            <button
-              className="hover:text-red-500 transition ease-out"
-              onClick={() => handleDelete(vehicle)}
-            >
-              <Trash2 className="w-5 h-5" />
-            </button>
+            <DeleteDialog handleDelete={() => handleDelete(vehicle)} />
           </td>
         </tr>
       ))}

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { PencilIcon } from '../icons/PencilIcon';
 import { IPagination, Policy } from '@/types';
 import { useTable } from '@/hooks/use-table';
-import { Trash2 } from 'lucide-react';
+import { DeleteDialog } from '../ui/DeleteDialog';
 
 const columns = [
   {
@@ -39,11 +39,11 @@ export const PoliciesTable = ({ policies }: PoliciesTableProps) => {
   return (
     <Table
       columns={columns}
-      count={policies.data.length}
+      count={activeItems.length}
       pageSize={policies.pageSize}
       pageIndex={policies.pageIndex}
     >
-      {policies.data.map((policy) => (
+      {activeItems.map((policy) => (
         <tr key={policy.id} className="border-y">
           <td className="py-3 px-4">
             <h6>{policy.name}</h6>
@@ -70,12 +70,7 @@ export const PoliciesTable = ({ policies }: PoliciesTableProps) => {
             </Link>
           </td>
           <td className="p-3">
-            <button
-              className="hover:text-red-500 transition ease-out"
-              onClick={() => handleDelete(policy)}
-            >
-              <Trash2 className="w-5 h-5" />
-            </button>
+            <DeleteDialog handleDelete={() => handleDelete(policy)} />
           </td>
         </tr>
       ))}

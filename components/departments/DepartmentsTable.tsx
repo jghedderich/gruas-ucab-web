@@ -1,11 +1,11 @@
 'use client';
-import { Department, IPagination } from '@/types';
 import React from 'react';
-import Table from '../ui/Table';
-import { PencilIcon } from '../icons/PencilIcon';
 import Link from 'next/link';
-import { Trash2 } from 'lucide-react';
+import Table from '../ui/Table';
+import { Department, IPagination } from '@/types';
+import { PencilIcon } from '../icons/PencilIcon';
 import { useTable } from '@/hooks/use-table';
+import { DeleteDialog } from '../ui/DeleteDialog';
 
 const columns = [
   {
@@ -26,7 +26,7 @@ interface DepartmentsTableProps {
   departments: IPagination<Department>;
 }
 export const DepartmentsTable = ({ departments }: DepartmentsTableProps) => {
-  const { handleDelete } = useTable(
+  const { handleDelete, activeItems } = useTable(
     departments.data,
     '/admin-service/departments'
   );
@@ -34,11 +34,11 @@ export const DepartmentsTable = ({ departments }: DepartmentsTableProps) => {
   return (
     <Table
       columns={columns}
-      count={departments.count}
+      count={activeItems.length}
       pageSize={departments.pageSize}
       pageIndex={departments.pageIndex}
     >
-      {departments.data.map((department) => (
+      {activeItems.map((department) => (
         <tr key={department.id} className="border-y">
           <td className="py-3 px-4">
             <h6>{department.id}</h6>
@@ -59,12 +59,7 @@ export const DepartmentsTable = ({ departments }: DepartmentsTableProps) => {
             </Link>
           </td>
           <td className="p-3">
-            <button
-              className="hover:text-red-500 transition ease-out"
-              onClick={() => handleDelete(department)}
-            >
-              <Trash2 className="w-5 h-5" />
-            </button>
+            <DeleteDialog handleDelete={() => handleDelete(department)} />
           </td>
         </tr>
       ))}

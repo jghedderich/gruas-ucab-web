@@ -62,7 +62,7 @@ export const useProfileForm = () => {
     if (userType === 'provider') {
       url = '/providers-service/providers';
     } else if (userType === 'admin') {
-      url = '/admin-service/admins';
+      url = '/admin-service/administrators';
     } else if (userType === 'operator') {
       url = '/orders-service/operators';
     } else {
