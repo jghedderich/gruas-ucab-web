@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (!isAuth) {
-    return NextResponse.redirect(new URL('/login/admin', request.url));
+    return NextResponse.redirect(new URL('/login/administrator', request.url));
   }
 
   return NextResponse.next();

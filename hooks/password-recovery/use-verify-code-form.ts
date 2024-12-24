@@ -35,7 +35,7 @@ export const useVerifyCodeForm = ({
     setIsLoading(true);
 
     let url;
-    if (userType === 'admin') {
+    if (userType === 'administrator') {
       url = '/admin-service';
     } else if (userType === 'operator') {
       url = '/orders-service';

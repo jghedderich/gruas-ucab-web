@@ -38,7 +38,7 @@ export const VerifyCodeForm = ({ userType, email }: VerifyCodeFormProps) => {
         <CardTitle className="text-2xl capitalize">Ingresar código</CardTitle>
         <CardDescription>
           Ingrese el código de recuperación que recibió en su correo para
-          reestablecer su contraseña.
+          restablecer su contraseña.
         </CardDescription>
       </CardHeader>
       <CardContent>

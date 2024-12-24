@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(undefined);
     Cookies.remove('auth');
     Cookies.remove('userData');
-    router.replace('/login/admin');
+    router.replace('/login/administrator');
   }, [router]);
 
   useEffect(() => {

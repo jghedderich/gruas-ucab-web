@@ -2,9 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar';
+import { UserType } from '@/types';
 
 interface SideBarLinkProps {
-  userType: 'admin' | 'operator' | 'provider';
+  userType: UserType;
   link: {
     name: string;
     href: string;

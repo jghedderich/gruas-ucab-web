@@ -44,7 +44,7 @@ const providerSchema = z.object({
 
 export const profileSchema = z.discriminatedUnion('userType', [
   z.object({
-    userType: z.literal('admin'),
+    userType: z.literal('administrator'),
     ...baseSchema.shape,
   }),
   z.object({

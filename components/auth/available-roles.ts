@@ -1,1 +1,7 @@
-export const availableRoles = ['admin', 'operator', 'provider'];
+import { UserType } from '@/types';
+
+export const availableRoles: UserType[] = [
+  'administrator',
+  'operator',
+  'provider',
+];

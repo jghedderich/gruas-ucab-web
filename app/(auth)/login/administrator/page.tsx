@@ -6,5 +6,5 @@ export const metadata = {
 };
 
 export default function AdminLoginPage() {
-  return <LoginForm userType="admin" />;
+  return <LoginForm userType="administrator" />;
 }

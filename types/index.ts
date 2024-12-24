@@ -132,7 +132,7 @@ export interface Provider extends IEntity {
 }
 
 export enum Role {
-  Admin = 'admin',
+  Admin = 'administrator',
   Operator = 'operador',
   Provider = 'proveedor',
   Driver = 'conductor',
@@ -179,7 +179,7 @@ export interface Operator extends IEntity {
   orders: unknown[];
 }
 
-export type UserType = 'provider' | 'admin' | 'operator';
+export type UserType = 'provider' | 'administrator' | 'operator';
 
 export interface User {
   id: string;

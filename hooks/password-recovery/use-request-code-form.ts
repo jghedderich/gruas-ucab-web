@@ -28,7 +28,7 @@ export const useRequestCodeForm = ({ userType }: { userType: UserType }) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     let url;
-    if (userType === 'admin') {
+    if (userType === 'administrator') {
       url = '/admin-service';
     } else if (userType === 'operator') {
       url = '/orders-service';

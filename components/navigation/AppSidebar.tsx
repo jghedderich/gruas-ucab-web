@@ -14,16 +14,16 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { AppSidebarFooter } from './SidebarFooter';
-import { administrationLinks, orderLinks, providerLinks } from './links';
 import SideBarLink from './SidebarLink';
 import { useAuth } from '@/hooks/auth/use-auth';
 import { UserType } from '@/types';
+import { adminLinks, orderLinks, providerLinks } from './links';
 
 interface AppSidebarProps {
   userType?: UserType;
 }
 
-export function AppSidebar({ userType = 'admin' }: AppSidebarProps) {
+export function AppSidebar({ userType = 'administrator' }: AppSidebarProps) {
   const { state } = useSidebar();
   const { user, logout } = useAuth();
   return (
@@ -68,7 +68,7 @@ export function AppSidebar({ userType = 'admin' }: AppSidebarProps) {
           <SidebarGroupLabel>Administración</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {administrationLinks.map((link) => (
+              {adminLinks.map((link) => (
                 <SideBarLink link={link} userType={userType} key={link.name} />
               ))}
             </SidebarMenu>

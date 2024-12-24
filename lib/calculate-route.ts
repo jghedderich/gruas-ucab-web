@@ -1,7 +1,7 @@
 import { UserType } from '@/types';
 
 export function calculateRoute(userType: UserType) {
-  if (userType === 'admin') {
+  if (userType === 'administrator') {
     return '/admin-service/administrators';
   } else if (userType === 'operator') {
     return '/orders-service/operators';

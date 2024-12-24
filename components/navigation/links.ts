@@ -15,19 +15,19 @@ export const orderLinks = [
     name: 'Ordenes',
     href: '/ordenes-de-servicio',
     icon: ClipboardCheck,
-    roles: ['operator', 'admin', 'provider'],
+    roles: ['operator', 'administrator', 'provider'],
   },
   {
     name: 'Pólizas',
     href: '/polizas',
     icon: ShieldCheck,
-    roles: ['operator', 'admin'],
+    roles: ['operator', 'administrator'],
   },
   {
     name: 'Operadores',
     href: '/operadores',
     icon: Headset,
-    roles: ['admin'],
+    roles: ['administrator'],
   },
 ];
 
@@ -36,39 +36,39 @@ export const providerLinks = [
     name: 'Proveedores',
     href: '/proveedores',
     icon: Building,
-    roles: ['admin'],
+    roles: ['administrator'],
   },
   {
     name: 'Vehículos',
     href: '/vehiculos',
     icon: VehicleIcon,
-    roles: ['provider', 'admin'],
+    roles: ['provider', 'administrator'],
   },
   {
     name: 'Conductores',
     href: '/conductores',
     icon: Users,
-    roles: ['provider', 'admin'],
+    roles: ['provider', 'administrator'],
   },
 ];
 
-export const administrationLinks = [
+export const adminLinks = [
   {
     name: 'Departamentos',
     href: '/departamentos',
     icon: ProviderIcon,
-    roles: ['admin'],
+    roles: ['administrator'],
   },
   {
     name: 'Tarifas',
     href: '/tarifas',
     icon: BadgeDollarSign,
-    roles: ['admin', 'operator'],
+    roles: ['administrator', 'operator'],
   },
   {
     name: 'Costos adicionales',
     href: '/costos-adicionales',
     icon: Banknote,
-    roles: ['admin'],
+    roles: ['administrator'],
   },
 ];
