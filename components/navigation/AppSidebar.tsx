@@ -17,7 +17,7 @@ import { AppSidebarFooter } from './SidebarFooter';
 import SideBarLink from './SidebarLink';
 import { useAuth } from '@/hooks/auth/use-auth';
 import { UserType } from '@/types';
-import { adminLinks, orderLinks, providerLinks } from './links';
+import { orderLinks, providerLinks, adminLinks } from './links';
 
 interface AppSidebarProps {
   userType?: UserType;
