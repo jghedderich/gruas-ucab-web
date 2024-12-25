@@ -151,6 +151,13 @@ export interface Policy extends IEntity {
   };
 }
 
+export interface NavigationLink {
+  name: string;
+  href: string;
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  roles: UserType[];
+}
+
 export interface Fee {
   id: number;
   name: string;

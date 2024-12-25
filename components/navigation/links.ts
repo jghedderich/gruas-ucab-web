@@ -9,8 +9,9 @@ import {
 } from 'lucide-react';
 import { ProviderIcon } from '../icons/ProviderIcon';
 import { VehicleIcon } from '../icons/TruckIcon';
+import { NavigationLink } from '@/types';
 
-export const orderLinks = [
+export const orderLinks: NavigationLink[] = [
   {
     name: 'Ordenes',
     href: '/ordenes-de-servicio',
@@ -31,7 +32,7 @@ export const orderLinks = [
   },
 ];
 
-export const providerLinks = [
+export const providerLinks: NavigationLink[] = [
   {
     name: 'Proveedores',
     href: '/proveedores',
@@ -52,7 +53,7 @@ export const providerLinks = [
   },
 ];
 
-export const adminLinks = [
+export const adminLinks: NavigationLink[] = [
   {
     name: 'Departamentos',
     href: '/departamentos',

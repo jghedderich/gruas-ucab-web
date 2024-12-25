@@ -2,16 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar';
-import { UserType } from '@/types';
+import { NavigationLink, UserType } from '@/types';
 
 interface SideBarLinkProps {
   userType: UserType;
-  link: {
-    name: string;
-    href: string;
-    icon: React.FC<React.SVGProps<SVGSVGElement>>;
-    roles: string[];
-  };
+  link: NavigationLink;
 }
 
 function SideBarLink({ link, userType }: SideBarLinkProps) {

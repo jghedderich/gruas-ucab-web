@@ -27,8 +27,8 @@ export const useProfileForm = () => {
           lastName: user.name?.lastName || '',
         },
         dni: {
-          type: user.dni.type || '',
-          number: user.dni.number || '',
+          type: user.dni?.type || '',
+          number: user.dni?.number || '',
         },
         phone: user.phone || '',
       };
