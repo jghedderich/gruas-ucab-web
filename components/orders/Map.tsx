@@ -56,24 +56,30 @@ const MapComponent: React.FC<MapComponentProps> = ({ onCoordinatesChange }) => {
             state: '',
           };
 
+          let administrativeAreaLevel2 = '';
+          let sublocalityLevel1 = '';
+
           addressComponents.forEach((component) => {
             const types = component.types;
             if (types.includes('postal_code')) {
               addressDetails.zip = component.long_name;
             } else if (types.includes('locality')) {
               addressDetails.city = component.long_name;
-            } else if (types.includes('street_number')) {
-              addressDetails.addressLine1 = component.long_name;
+            } else if (types.includes('administrative_area_level_2')) {
+              administrativeAreaLevel2 = component.long_name;
+            } else if (types.includes('sublocality_level_1')) {
+              sublocalityLevel1 = component.long_name;
             } else if (types.includes('route')) {
-              addressDetails.addressLine1 += ' ' + component.long_name;
+              addressDetails.addressLine2 = component.long_name;
             } else if (types.includes('administrative_area_level_1')) {
               addressDetails.state = component.short_name;
             }
           });
 
-          addressDetails.addressLine1 = addressDetails.addressLine1.trim();
-          addressDetails.addressLine2 =
-            result.results[0].formatted_address.split(',')[0];
+          addressDetails.addressLine1 = administrativeAreaLevel2;
+          if (sublocalityLevel1) {
+            addressDetails.addressLine1 += `, ${sublocalityLevel1}`;
+          }
 
           onCoordinatesChange(addressDetails);
         }
