@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 type AuthContextType = {
   user: User | undefined;
-  login: (userData: User, userType: UserType) => void;
+  login: (userData: User, userType: UserType, token: string) => void;
   logout: () => void;
 };
 
@@ -20,13 +20,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   const login = useCallback(
-    (userData: User, userType: UserType) => {
+    (userData: User, userType: UserType, token: string) => {
       const userWithType = { ...userData, userType };
       setUser(userWithType);
-      Cookies.set('auth', 'true', { expires: 7 });
       const encodedUserData = encodeURIComponent(JSON.stringify(userWithType));
       Cookies.set('userData', encodedUserData, { expires: 7 });
       Cookies.set('userType', userType, { expires: 7 });
+      Cookies.set('token', token, { expires: 7 });
       router.push('/');
     },
     [router]
@@ -34,9 +34,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = useCallback(() => {
     setUser(undefined);
-    Cookies.remove('auth');
     Cookies.remove('userData');
     Cookies.remove('userType');
+    Cookies.remove('token');
     router.replace('/login/administrator');
   }, [router]);
 

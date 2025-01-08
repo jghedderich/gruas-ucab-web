@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { VehiclesTable } from '@/components/vehicles/VehiclesTable';
 import { fetchData } from '@/lib/fetchData';
+import { cookies } from 'next/headers';
 
 export const metadata = {
   title: 'Vehículos | Grúas UCAB',
@@ -11,8 +12,12 @@ export const metadata = {
 };
 
 export default async function VehiclesPage() {
+  const token = cookies().get('token')?.value;
   const { vehicles } = await fetchData('/providers-service/vehicles', {
     cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   return (

@@ -42,7 +42,7 @@ export const useLoginForm = ({ userType }: { userType: UserType }) => {
         },
         body: JSON.stringify(values),
       });
-      login(userData[userType], userType);
+      login(userData[userType], userType, userData.token);
       toast({
         title: 'Ingreso exitoso',
         description: 'Has ingresado correctamente.',

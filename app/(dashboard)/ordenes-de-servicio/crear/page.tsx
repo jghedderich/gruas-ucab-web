@@ -3,6 +3,7 @@ import Section from '@/components/ui/Section';
 import { fetchData } from '@/lib/fetchData';
 import { parseProvidersList } from '@/lib/parse-providers-list';
 import { Metadata } from 'next';
+import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
   title: 'Ordenes de Servicio | Grúas UCAB',
@@ -10,11 +11,18 @@ export const metadata: Metadata = {
 };
 
 export default async function CreateOrdenesDeServicioPage() {
+  const token = cookies().get('token')?.value;
   const { providers } = await fetchData('/providers-service/providers', {
     cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   const { policies } = await fetchData('/orders-service/policies', {
     cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   const drivers = parseProvidersList(providers);
   return (

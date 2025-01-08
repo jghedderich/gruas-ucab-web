@@ -2,6 +2,7 @@ import { PoliciesTable } from '@/components/policies/PoliciesTable';
 import Section from '@/components/ui/Section';
 import { ValidatedLink } from '@/components/ui/ValidatedLink';
 import { fetchData } from '@/lib/fetchData';
+import { cookies } from 'next/headers';
 
 export const metadata = {
   title: 'Grúas Ucab | Pólizas',
@@ -9,8 +10,12 @@ export const metadata = {
 };
 
 export default async function PoliciesPage() {
+  const token = cookies().get('token')?.value;
   const { policies } = await fetchData('/orders-service/policies', {
     cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   return (

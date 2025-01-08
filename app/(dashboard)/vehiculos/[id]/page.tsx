@@ -1,6 +1,7 @@
 import Section from '@/components/ui/Section';
 import VehicleForm from '@/components/vehicles/VehicleForm';
 import { fetchData } from '@/lib/fetchData';
+import { cookies } from 'next/headers';
 
 export const metadata = {
   title: 'Editar vehículo | Grúas UCAB',
@@ -13,11 +14,18 @@ export default async function EditVehiclesPage({
   params: { id: string };
 }) {
   const { id } = params;
+  const token = cookies().get('token')?.value;
   const { vehicle } = await fetchData(`/providers-service/vehicles/${id}`, {
     cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   const { providers } = await fetchData('/providers-service/providers', {
     cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   return (

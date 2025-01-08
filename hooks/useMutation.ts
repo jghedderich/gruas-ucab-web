@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { fetchData } from '@/lib/fetchData';
 import { useToast } from './use-toast';
+import Cookies from 'js-cookie';
 
 export const useMutation = () => {
   const { back, refresh } = useRouter();
@@ -23,6 +24,7 @@ export const useMutation = () => {
         method,
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${Cookies.get('token')}`,
         },
         body: JSON.stringify(body),
       });

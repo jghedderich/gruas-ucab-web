@@ -2,6 +2,7 @@ import { OrdersTable } from '@/components/orders/OrdersTable';
 import Section from '@/components/ui/Section';
 import { ValidatedLink } from '@/components/ui/ValidatedLink';
 import { fetchData } from '@/lib/fetchData';
+import { cookies } from 'next/headers';
 
 export const metadata = {
   title: 'Ordenes de Servicio | Grúas UCAB',
@@ -9,8 +10,12 @@ export const metadata = {
 };
 
 export default async function OrdenesDeServicioPage() {
+  const token = cookies().get('token')?.value;
   const { orders } = await fetchData('/orders-service/orders', {
     cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   return (
     <Section

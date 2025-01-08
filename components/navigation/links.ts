@@ -4,8 +4,6 @@ import {
   Headset,
   Building,
   Users,
-  BadgeDollarSign,
-  Banknote,
 } from 'lucide-react';
 import { ProviderIcon } from '../icons/ProviderIcon';
 import { VehicleIcon } from '../icons/TruckIcon';
@@ -58,18 +56,6 @@ export const adminLinks: NavigationLink[] = [
     name: 'Departamentos',
     href: '/departamentos',
     icon: ProviderIcon,
-    roles: ['administrator'],
-  },
-  {
-    name: 'Tarifas',
-    href: '/tarifas',
-    icon: BadgeDollarSign,
-    roles: ['administrator', 'operator'],
-  },
-  {
-    name: 'Costos adicionales',
-    href: '/costos-adicionales',
-    icon: Banknote,
     roles: ['administrator'],
   },
 ];

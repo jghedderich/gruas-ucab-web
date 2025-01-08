@@ -11,7 +11,7 @@ const allLinks = [...orderLinks, ...providerLinks, ...adminLinks];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const isAuth = request.cookies.get('auth')?.value;
+  const isAuth = request.cookies.get('token')?.value;
   const userType = request.cookies.get('userType')?.value;
 
   const isAuthPage = pathname.startsWith('/login/');

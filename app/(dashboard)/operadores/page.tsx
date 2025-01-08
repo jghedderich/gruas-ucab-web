@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { fetchData } from '@/lib/fetchData';
 import { OperatorsTable } from '@/components/operators/OperatorsTable';
+import { cookies } from 'next/headers';
 
 export const metadata = {
   title: 'Operadores | Grúas UCAB',
@@ -11,8 +12,12 @@ export const metadata = {
 };
 
 export default async function OperatorsPage() {
+  const token = cookies().get('token')?.value;
   const { operators } = await fetchData('/orders-service/operators', {
     cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   return (
