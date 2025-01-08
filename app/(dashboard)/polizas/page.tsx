@@ -1,9 +1,7 @@
 import { PoliciesTable } from '@/components/policies/PoliciesTable';
-import { Button } from '@/components/ui/button';
 import Section from '@/components/ui/Section';
+import { ValidatedLink } from '@/components/ui/ValidatedLink';
 import { fetchData } from '@/lib/fetchData';
-import { PlusIcon } from '@radix-ui/react-icons';
-import Link from 'next/link';
 
 export const metadata = {
   title: 'Grúas Ucab | Pólizas',
@@ -20,14 +18,7 @@ export default async function PoliciesPage() {
       title="Pólizas"
       subtitle="Todas las pólizas"
       description="Lista de pólizas gestionadas por Grúas Ucab"
-      trailing={
-        <Link href="polizas/crear">
-          <Button className="min-w-max flex gap-2">
-            <PlusIcon className="w-5 h-5" />
-            <span className="hidden md:flex shrink-0">Crear póliza</span>
-          </Button>
-        </Link>
-      }
+      trailing={<ValidatedLink text="Crear póliza" href="polizas/crear" />}
     >
       <PoliciesTable policies={policies} />
     </Section>

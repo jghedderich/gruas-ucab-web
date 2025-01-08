@@ -18,8 +18,8 @@ export default async function DriversPage() {
   return (
     <Section
       title="Conductores"
-      subtitle="Todos las conductores"
-      description="La lista de conductores gestionados por Grúas Ucab."
+      subtitle="Lista de conductores"
+      description="Revisa y gestiona los conductores registrados en Grúas UCAB"
       trailing={
         <Link href="conductores/crear">
           <Button className="min-w-max flex gap-2">

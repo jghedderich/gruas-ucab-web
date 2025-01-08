@@ -1,9 +1,7 @@
 import Section from '@/components/ui/Section';
-import { PlusIcon } from '@/components/icons/PlusIcon';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { ProvidersTable } from '@/components/providers/ProvidersTable';
 import { fetchData } from '@/lib/fetchData';
+import { ValidatedLink } from '@/components/ui/ValidatedLink';
 
 export const metadata = {
   title: 'Proveedores | Grúas UCAB',
@@ -20,12 +18,7 @@ export default async function ProvidersPage() {
       subtitle="Todos las proveedores"
       description="La lista de proveedores de Grúas Ucab."
       trailing={
-        <Link href="proveedores/crear">
-          <Button className="min-w-max flex gap-2">
-            <PlusIcon className="w-5 h-5" />
-            <span className="hidden md:flex shrink-0">Crear proveedor</span>
-          </Button>
-        </Link>
+        <ValidatedLink href="/proveedores/crear" text="Crear proveedor" />
       }
     >
       <ProvidersTable providers={response.providers} />

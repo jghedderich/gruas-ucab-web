@@ -26,6 +26,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       Cookies.set('auth', 'true', { expires: 7 });
       const encodedUserData = encodeURIComponent(JSON.stringify(userWithType));
       Cookies.set('userData', encodedUserData, { expires: 7 });
+      Cookies.set('userType', userType, { expires: 7 });
       router.push('/');
     },
     [router]
@@ -35,6 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(undefined);
     Cookies.remove('auth');
     Cookies.remove('userData');
+    Cookies.remove('userType');
     router.replace('/login/administrator');
   }, [router]);
 

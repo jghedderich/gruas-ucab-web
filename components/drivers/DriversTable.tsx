@@ -6,6 +6,8 @@ import { PencilIcon } from '../icons/PencilIcon';
 import { IPagination, Driver } from '@/types';
 import { useTable } from '@/hooks/use-table';
 import { DeleteDialog } from '../ui/DeleteDialog';
+import { Badge } from '../ui/badge';
+import { useAuth } from '@/hooks/auth/use-auth';
 
 const columns = [
   {
@@ -24,6 +26,10 @@ const columns = [
     title: 'Correo electrónico',
     field: 'email',
   },
+  {
+    title: 'Status',
+    field: 'status',
+  },
 ];
 
 interface DriversTableProps {
@@ -31,8 +37,11 @@ interface DriversTableProps {
 }
 
 export const DriversTable = ({ drivers }: DriversTableProps) => {
+  const { user } = useAuth();
   const { handleDelete, activeItems } = useTable(
-    drivers.data,
+    user?.userType === 'provider'
+      ? drivers.data.filter((driver) => driver.providerId === user!.id)
+      : drivers.data,
     '/providers-service/drivers'
   );
   return (
@@ -60,6 +69,17 @@ export const DriversTable = ({ drivers }: DriversTableProps) => {
 
           <td className="py-3 px-4">
             <p>{driver.email}</p>
+          </td>
+
+          <td className="py-3 px-4">
+            <Badge
+              className="rounded-full"
+              variant={
+                driver.status === 'Available' ? 'secondary' : 'destructive'
+              }
+            >
+              {driver.status === 'Available' ? 'Disponible' : 'Ocupado'}
+            </Badge>
           </td>
           <td className="p-3">
             <Link

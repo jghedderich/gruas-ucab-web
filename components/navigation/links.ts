@@ -37,7 +37,7 @@ export const providerLinks: NavigationLink[] = [
     name: 'Proveedores',
     href: '/proveedores',
     icon: Building,
-    roles: ['administrator'],
+    roles: ['administrator', 'operator'],
   },
   {
     name: 'Vehículos',

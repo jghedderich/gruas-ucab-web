@@ -6,6 +6,7 @@ import { PencilIcon } from '../icons/PencilIcon';
 import { IPagination, Vehicle } from '@/types';
 import { useTable } from '@/hooks/use-table';
 import { DeleteDialog } from '../ui/DeleteDialog';
+import { useAuth } from '@/hooks/auth/use-auth';
 
 const columns = [
   {
@@ -38,8 +39,11 @@ interface VehiclesTableProps {
 }
 
 export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
+  const { user } = useAuth();
   const { handleDelete, activeItems } = useTable(
-    vehicles.data,
+    user?.userType === 'provider'
+      ? vehicles.data.filter((vehicle) => vehicle.providerId === user!.id)
+      : vehicles.data,
     '/providers-service/vehicles'
   );
   return (
