@@ -38,38 +38,36 @@ export function MultiStepFormWrapper<TFormValues extends FieldValues>({
 
   return (
     <Card className="max-w-3xl">
-      <Form {...form}>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <CardHeader>
-            <div className="flex justify-between items-center">
-              <CardTitle className="text-xl">
-                {steps[currentStep].title}
-              </CardTitle>
-              <p className="text-sm text-gray-500">
-                {currentStep + 1} de {steps.length}
-              </p>
-            </div>
-          </CardHeader>
-          <CardContent>{steps[currentStep].body}</CardContent>
-          <CardFooter className="flex justify-between gap-3 border-t py-5">
-            <Button
-              type="button"
-              variant="link"
-              onClick={previous}
-              disabled={isSubmitting || currentStep === 0}
-            >
-              Anterior
-            </Button>
-            <Button type="button" onClick={handleNext} disabled={isSubmitting}>
-              {currentStep === steps.length - 1
-                ? isSubmitting
-                  ? 'Enviando...'
-                  : 'Enviar'
-                : 'Siguiente'}
-            </Button>
-          </CardFooter>
-        </form>
-      </Form>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <CardHeader>
+          <div className="flex justify-between items-center">
+            <CardTitle className="text-xl">
+              {steps[currentStep].title}
+            </CardTitle>
+            <p className="text-sm text-gray-500">
+              {currentStep + 1} de {steps.length}
+            </p>
+          </div>
+        </CardHeader>
+        <CardContent>{steps[currentStep].body}</CardContent>
+        <CardFooter className="flex justify-between gap-3 border-t py-5">
+          <Button
+            type="button"
+            variant="link"
+            onClick={previous}
+            disabled={isSubmitting || currentStep === 0}
+          >
+            Anterior
+          </Button>
+          <Button type="button" onClick={handleNext} disabled={isSubmitting}>
+            {currentStep === steps.length - 1
+              ? isSubmitting
+                ? 'Enviando...'
+                : 'Enviar'
+              : 'Siguiente'}
+          </Button>
+        </CardFooter>
+      </form>
     </Card>
   );
 }

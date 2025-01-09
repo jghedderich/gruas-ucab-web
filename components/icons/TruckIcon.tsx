@@ -9,7 +9,7 @@ export const VehicleIcon = (props: React.SVGProps<SVGSVGElement>) => {
       strokeWidth={1.5}
       {...props}
       stroke="currentColor"
-      className="size-6"
+      className={props.className}
     >
       <path
         strokeLinecap="round"

@@ -18,13 +18,13 @@ export default async function CreateOrdenesDeServicioPage() {
       Authorization: `Bearer ${token}`,
     },
   });
+  const drivers = parseProvidersList(providers);
   const { policies } = await fetchData('/orders-service/policies', {
     cache: 'no-store',
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  const drivers = parseProvidersList(providers);
   return (
     <Section
       title="Ordenes de Servicio"

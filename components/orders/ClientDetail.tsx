@@ -9,7 +9,6 @@ interface ClientDetailProps {
 export const ClientDetail = ({ client }: ClientDetailProps) => {
   return (
     <section>
-      <h3 className="text-gray-500 mb-2">CLIENTE</h3>
       <p className="flex items-center">
         <User className="mr-2" size={16} /> {client.name.firstName}{' '}
         {client.name.lastName}

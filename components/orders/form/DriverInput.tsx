@@ -18,11 +18,10 @@ import { Car, MapPin } from 'lucide-react';
 import { Badge } from '../../ui/badge';
 import { UseFormReturn } from 'react-hook-form';
 import { DriverWithVehicle } from '@/types';
-import { OrderFormData } from '@/schemas/order-schema';
 
 interface DriverInputProps {
   drivers: DriverWithVehicle[];
-  form: UseFormReturn<OrderFormData>;
+  form: UseFormReturn;
 }
 
 export const DriverInput = ({ drivers, form }: DriverInputProps) => {
@@ -62,7 +61,8 @@ export const DriverInput = ({ drivers, form }: DriverInputProps) => {
                   <div className="flex items-center gap-2 pb-2">
                     <p>
                       {driver.driver.name.firstName}{' '}
-                      {driver.driver.name.lastName}
+                      {driver.driver.name.lastName} -{' '}
+                      {driver.provider.company.name}
                     </p>
                     <Badge variant={'outline'}>{driver.driver.status}</Badge>
                   </div>

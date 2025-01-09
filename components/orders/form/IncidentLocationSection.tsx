@@ -52,7 +52,7 @@ export const IncidentLocationSection = ({
           name="incidentStep.incidentAddress.addressLine2"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Línea 2 (opcional)</FormLabel>
+              <FormLabel>Línea 2</FormLabel>
               <FormControl>
                 <Input placeholder="Apartamento 123" {...field} />
               </FormControl>

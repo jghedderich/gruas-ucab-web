@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const addressSchema = z.object({
   addressLine1: z.string().min(1, 'La línea de dirección 1 es requerida'),
-  addressLine2: z.string().optional(),
+  addressLine2: z.string().min(1, 'La línea de dirección 2 es requerida'),
   zip: z.string().min(1, 'El código postal es requerido'),
   city: z.string().min(1, 'La ciudad es requerida'),
   state: z.string().min(1, 'El estado es requerido'),
