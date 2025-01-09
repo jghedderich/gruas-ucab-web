@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import {
   FormControl,
@@ -28,7 +29,7 @@ export const DriverInput = ({ drivers, form }: DriverInputProps) => {
   return (
     <FormField
       control={form.control}
-      name="driverId"
+      name="incidentStep.driverId"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Conductor</FormLabel>
@@ -76,7 +77,7 @@ export const DriverInput = ({ drivers, form }: DriverInputProps) => {
                     <MapPin className="size-3 text-gray-500" />
                     <p className="text-xs text-gray-500">
                       {driver.driver.location
-                        ? driver.driver.location.addressLine1
+                        ? driver.driver.location.address1
                         : 'Por registrar'}
                     </p>
                   </div>

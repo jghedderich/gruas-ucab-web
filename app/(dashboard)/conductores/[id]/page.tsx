@@ -1,6 +1,7 @@
 import DriverForm from '@/components/drivers/DriverForm';
 import Section from '@/components/ui/Section';
 import { fetchData } from '@/lib/fetchData';
+import { cookies } from 'next/headers';
 
 export const metadata = {
   title: 'Editar conductor | Grúas UCAB',
@@ -12,10 +13,14 @@ export default async function EditProvidersPage({
 }: {
   params: { id: string };
 }) {
+  const token = cookies().get('token');
   const { driver } = await fetchData(
     `/providers-service/drivers/${params.id}`,
     {
       cache: 'no-store',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
   const { providers } = await fetchData('/providers-service/providers', {

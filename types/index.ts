@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 export interface IColumn {
   title: string;
   field: string;
@@ -13,6 +15,12 @@ export interface IPagination<T> {
   count: number;
   pageIndex: number;
   pageSize: number;
+}
+
+export interface IFormStep {
+  title: string;
+  body: ReactElement;
+  fields: string[];
 }
 
 export interface Address {

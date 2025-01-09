@@ -4,6 +4,7 @@ import Section from '@/components/ui/Section';
 import { fetchData } from '@/lib/fetchData';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { Metadata } from 'next';
+import { cookies } from 'next/headers';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -12,8 +13,12 @@ export const metadata: Metadata = {
 };
 
 export default async function DepartmentsPage() {
+  const token = cookies().get('token')?.value;
   const { departments } = await fetchData('/admin-service/departments', {
     cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   return (
     <Section

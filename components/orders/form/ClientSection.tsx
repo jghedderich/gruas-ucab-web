@@ -25,120 +25,78 @@ interface ClientSectionProps {
 
 export const ClientSection = ({ form, policies }: ClientSectionProps) => {
   return (
-    <section className="border-b pb-5 border-gray-200">
-      <h3 className="text-gray-500 mb-5 text-sm">DATOS DEL CLIENTE</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <FormField
+        control={form.control}
+        name="clientStep.client.name.firstName"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Nombre</FormLabel>
+            <FormControl>
+              <Input placeholder="John" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="clientStep.client.name.lastName"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Apellido</FormLabel>
+            <FormControl>
+              <Input placeholder="Doe" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="clientStep.client.phone"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Teléfono</FormLabel>
+            <FormControl>
+              <Input placeholder="04121234567" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="clientStep.client.email"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Correo electrónico</FormLabel>
+            <FormControl>
+              <Input type="email" placeholder="tu@correo.com" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <div className="flex gap-2 items-end relative">
         <FormField
           control={form.control}
-          name="client.name.firstName"
+          name="clientStep.client.dni.type"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nombre</FormLabel>
-              <FormControl>
-                <Input placeholder="John" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="client.name.lastName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Apellido</FormLabel>
-              <FormControl>
-                <Input placeholder="Doe" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="client.phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Teléfono</FormLabel>
-              <FormControl>
-                <Input placeholder="04121234567" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="client.email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Correo electrónico</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="tu@correo.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div className="flex gap-2 items-end relative">
-          <FormField
-            control={form.control}
-            name="client.dni.type"
-            render={({ field }) => (
-              <FormItem className="max-w-20 w-full">
-                <FormLabel className="absolute top-1">
-                  Cédula de identidad
-                </FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Tipo" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {dniTypes.map((type) => (
-                      <SelectItem key={type} value={type}>
-                        {type}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="client.dni.number"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Input placeholder="12345678" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <FormField
-          control={form.control}
-          name="policyId"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Póliza</FormLabel>
+            <FormItem className="max-w-20 w-full">
+              <FormLabel className="absolute top-1">
+                Cédula de identidad
+              </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Seleccione la póliza" />
+                    <SelectValue placeholder="Tipo" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {policies.map((policy) => (
-                    <SelectItem key={policy.id} value={policy.id}>
-                      {policy.name}
+                  {dniTypes.map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {type}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -147,77 +105,43 @@ export const ClientSection = ({ form, policies }: ClientSectionProps) => {
             </FormItem>
           )}
         />
-      </div>
-      <h3 className="text-gray-500 text-sm mt-5 pt-5 border-t pb-2 border-gray-200">
-        DATOS DEL VEHÍCULO
-      </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
           control={form.control}
-          name="client.clientVehicle.brand"
+          name="clientStep.client.dni.number"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Marca</FormLabel>
+            <FormItem className="w-full">
               <FormControl>
-                <Input placeholder="Toyota" {...field} />
+                <Input placeholder="12345678" {...field} />
               </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="client.clientVehicle.model"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Modelo</FormLabel>
-              <FormControl>
-                <Input placeholder="Camry" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="client.clientVehicle.year"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Año</FormLabel>
-              <FormControl>
-                <Input placeholder="2022" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="client.clientVehicle.type"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Tipo</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccione el tipo" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="suv">SUV</SelectItem>
-                  <SelectItem value="van">Van</SelectItem>
-                  <SelectItem value="coupe">Coupe</SelectItem>
-                  <SelectItem value="hatchback">Hatchback</SelectItem>
-                  <SelectItem value="sedan">Sedan</SelectItem>
-                  <SelectItem value="pickup">Pick-up</SelectItem>
-                  <SelectItem value="motorcycle">Moto</SelectItem>
-                </SelectContent>
-              </Select>
               <FormMessage />
             </FormItem>
           )}
         />
       </div>
+      <FormField
+        control={form.control}
+        name="clientStep.policyId"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Póliza</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Seleccione la póliza" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                {policies.map((policy) => (
+                  <SelectItem key={policy.id} value={policy.id}>
+                    {policy.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     </section>
   );
 };

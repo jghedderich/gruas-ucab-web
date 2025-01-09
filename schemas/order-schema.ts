@@ -7,28 +7,31 @@ const addressSchema = z.object({
   city: z.string().min(1, 'La ciudad es requerida'),
   state: z.string().min(1, 'El estado es requerido'),
   coordinates: z.object({
-    latitude: z.string(),
-    longitude: z.string(),
+    latitude: z.string().min(1, 'La latitud es requerida'),
+    longitude: z.string().min(1, 'La longitud es requerida'),
   }),
 });
 
 export const orderFormSchema = z.object({
-  policyId: z.string().min(1, 'La póliza es requerida'),
-  driverId: z.string().min(1, 'El conductor es requerido'),
-  client: z.object({
-    name: z.object({
-      firstName: z.string().min(1, 'El nombre es requerido'),
-      lastName: z.string().min(1, 'El apellido es requerido'),
+  clientStep: z.object({
+    policyId: z.string().min(1, 'La póliza es requerida'),
+    client: z.object({
+      name: z.object({
+        firstName: z.string().min(1, 'El nombre es requerido'),
+        lastName: z.string().min(1, 'El apellido es requerido'),
+      }),
+      email: z
+        .string()
+        .email('Correo electrónico inválido')
+        .min(1, 'El correo electrónico es requerido'),
+      phone: z.string().min(1, 'El teléfono es requerido'),
+      dni: z.object({
+        type: z.string().min(1, 'El tipo de DNI es requerido'),
+        number: z.string().min(1, 'El número de DNI es requerido'),
+      }),
     }),
-    email: z
-      .string()
-      .email('Correo electrónico inválido')
-      .min(1, 'El correo electrónico es requerido'),
-    phone: z.string().min(1, 'El teléfono es requerido'),
-    dni: z.object({
-      type: z.string().min(1, 'El tipo de DNI es requerido'),
-      number: z.string().min(1, 'El número de DNI es requerido'),
-    }),
+  }),
+  vehicleStep: z.object({
     clientVehicle: z.object({
       brand: z.string().min(1, 'La marca del vehículo es requerida'),
       model: z.string().min(1, 'El modelo del vehículo es requerido'),
@@ -36,8 +39,13 @@ export const orderFormSchema = z.object({
       type: z.string().min(1, 'El tipo de vehículo es requerido'),
     }),
   }),
-  incidentAddress: addressSchema,
-  destinationAddress: addressSchema,
+  incidentStep: z.object({
+    driverId: z.string().min(1, 'El conductor es requerido'),
+    incidentAddress: addressSchema,
+  }),
+  destinationStep: z.object({
+    destinationAddress: addressSchema,
+  }),
 });
 
 export type OrderFormData = z.infer<typeof orderFormSchema>;

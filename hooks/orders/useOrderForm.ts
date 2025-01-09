@@ -10,6 +10,8 @@ import { OrderFormData, orderFormSchema } from '@/schemas/order-schema';
 import { useToast } from '../use-toast';
 import { useMutation } from '../useMutation';
 import { useAuth } from '../auth/use-auth';
+import { transformOrderData } from '@/lib/parse-order-schema';
+import { serverOrderFormSchema } from '@/schemas/server-order-schema';
 
 export const useOrderForm = ({ order }: { order?: Order }) => {
   const { mutate, isSubmitting } = useMutation();
@@ -20,18 +22,22 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
   const form = useForm<z.infer<typeof orderFormSchema>>({
     resolver: zodResolver(orderFormSchema),
     defaultValues: {
-      policyId: '',
-      client: {
-        name: {
-          firstName: '',
-          lastName: '',
+      clientStep: {
+        policyId: '',
+        client: {
+          name: {
+            firstName: '',
+            lastName: '',
+          },
+          email: '',
+          phone: '',
+          dni: {
+            type: '',
+            number: '',
+          },
         },
-        email: '',
-        phone: '',
-        dni: {
-          type: '',
-          number: '',
-        },
+      },
+      vehicleStep: {
         clientVehicle: {
           brand: '',
           model: '',
@@ -39,33 +45,41 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
           type: '',
         },
       },
-      incidentAddress: {
-        addressLine1: '',
-        addressLine2: '',
-        zip: '',
-        city: '',
-        state: '',
-        coordinates: {
-          latitude: '',
-          longitude: '',
+      incidentStep: {
+        incidentAddress: {
+          addressLine1: '',
+          addressLine2: '',
+          zip: '',
+          city: '',
+          state: '',
+          coordinates: {
+            latitude: '',
+            longitude: '',
+          },
         },
       },
-      destinationAddress: {
-        addressLine1: '',
-        addressLine2: '',
-        zip: '',
-        city: '',
-        state: '',
-        coordinates: {
-          latitude: '',
-          longitude: '',
+      destinationStep: {
+        destinationAddress: {
+          addressLine1: '',
+          addressLine2: '',
+          zip: '',
+          city: '',
+          state: '',
+          coordinates: {
+            latitude: '',
+            longitude: '',
+          },
         },
       },
     },
   });
 
-  const incidentLocation = form.watch('incidentAddress.coordinates');
-  const destinationLocation = form.watch('destinationAddress.coordinates');
+  const incidentLocation = form.watch(
+    'incidentStep.incidentAddress.coordinates'
+  );
+  const destinationLocation = form.watch(
+    'destinationStep.destinationAddress.coordinates'
+  );
 
   useEffect(() => {
     if (order) {
@@ -76,11 +90,17 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
   const handleIncidentLocationChange = (addressDetails: AddressDetails) => {
     Object.entries(addressDetails).forEach(([key, value]) => {
       if (key === 'coordinates') {
-        form.setValue('incidentAddress.coordinates.latitude', value.latitude);
-        form.setValue('incidentAddress.coordinates.longitude', value.longitude);
+        form.setValue(
+          'incidentStep.incidentAddress.coordinates.latitude',
+          value.latitude
+        );
+        form.setValue(
+          'incidentStep.incidentAddress.coordinates.longitude',
+          value.longitude
+        );
       } else {
         form.setValue(
-          `incidentAddress.${key}` as unknown as keyof OrderFormData,
+          `incidentStep.incidentAddress.${key}` as unknown as keyof OrderFormData,
           value
         );
       }
@@ -91,16 +111,16 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
     Object.entries(addressDetails).forEach(([key, value]) => {
       if (key === 'coordinates') {
         form.setValue(
-          'destinationAddress.coordinates.latitude',
+          'destinationStep.destinationAddress.coordinates.latitude',
           value.latitude
         );
         form.setValue(
-          'destinationAddress.coordinates.longitude',
+          'destinationStep.destinationAddress.coordinates.longitude',
           value.longitude
         );
       } else {
         form.setValue(
-          `destinationAddress.${key}` as unknown as keyof OrderFormData,
+          `destinationStep.destinationAddress.${key}` as unknown as keyof OrderFormData,
           value
         );
       }
@@ -108,6 +128,9 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
   };
 
   async function onSubmit(values: OrderFormData) {
+    const serverData = transformOrderData(values);
+    const validatedData = serverOrderFormSchema.parse(serverData);
+
     if (order) {
       await mutate({
         body: { order: { ...values, id: order.id } },
@@ -119,11 +142,11 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
         description: 'La orden se ha actualizado correctamente.',
       });
     } else {
-      console.log({ ...values, operatorId: user!.id });
+      console.log({ ...validatedData, operatorId: user!.id });
       await mutate({
         body: {
           order: {
-            ...values,
+            ...validatedData,
             orderStatus: 'ToBeAccepted',
             operatorId: user!.id,
           },

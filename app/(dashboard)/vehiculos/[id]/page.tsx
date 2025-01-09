@@ -30,7 +30,7 @@ export default async function EditVehiclesPage({
 
   return (
     <Section
-      title="Grúas"
+      title="Vehículos"
       subtitle="Editar un vehículo."
       description="Edita los datos de la vehículo seleccionado."
     >

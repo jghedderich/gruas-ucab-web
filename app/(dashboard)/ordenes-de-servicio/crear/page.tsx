@@ -1,4 +1,4 @@
-import OrderForm from '@/components/orders/OrderForm';
+import { OrderForm } from '@/components/orders/OrderForm';
 import Section from '@/components/ui/Section';
 import { fetchData } from '@/lib/fetchData';
 import { parseProvidersList } from '@/lib/parse-providers-list';

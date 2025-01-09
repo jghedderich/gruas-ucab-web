@@ -1,66 +1,78 @@
 'use client';
+import React from 'react';
+import { MultiStepFormWrapper } from '../ui/MultiStepFormWrapper';
 import { DriverWithVehicle, IPagination, Order, Policy } from '@/types';
-import { FormWrapper } from '../ui/FormWrapper';
 import { useOrderForm } from '@/hooks/orders/useOrderForm';
-import { SummarySection } from './form/SummarySection';
+import { ClientSection } from './form/ClientSection';
 import { IncidentLocationSection } from './form/IncidentLocationSection';
 import { DestinationLocationSection } from './form/DestinationLocationSection';
-import { ClientSection } from './form/ClientSection';
+import { SummarySection } from './form/SummarySection';
+import { VehicleSection } from './form/VehicleSection';
 
-interface OrderFormProps {
+interface MultiStepOrderFormProps {
   order?: Order;
   drivers?: DriverWithVehicle[];
   policies: IPagination<Policy>;
 }
 
-export default function OrderForm({
+export const OrderForm = ({
   order,
   drivers,
   policies,
-}: OrderFormProps) {
+}: MultiStepOrderFormProps) => {
   const {
     form,
     incidentLocation,
     destinationLocation,
     isSubmitting,
     onSubmit,
-    back,
     handleDestinationLocationChange,
     handleIncidentLocationChange,
   } = useOrderForm({ order });
   const selectedPolicy = policies.data.find(
-    (policy) => policy.id === form.watch('policyId')
+    (policy) => policy.id === form.watch('clientStep.policyId')
   );
 
   return (
-    <FormWrapper
+    <MultiStepFormWrapper
       form={form}
       isSubmitting={isSubmitting}
       onSubmit={onSubmit}
-      back={back}
-      isEditing={!!order}
-      className="grid md:grid-cols-1 gap-6"
-    >
-      <ClientSection form={form} policies={policies.data} />
-      <IncidentLocationSection
-        form={form}
-        drivers={drivers!}
-        handleIncidentLocationChange={handleIncidentLocationChange}
-      />
-      <DestinationLocationSection
-        form={form}
-        handleDestinationLocationChange={handleDestinationLocationChange}
-      />
-      <hr />
-
-      {incidentLocation.latitude &&
-        destinationLocation.longitude &&
-        selectedPolicy && (
-          <section>
-            <h4 className="font-semibold text-lg">Resumen de la orden</h4>
-            <p className="text-sm mb-5 text-gray-500">
-              Todos los datos generales de la orden.
-            </p>
+      steps={[
+        {
+          title: 'Datos del cliente',
+          body: <ClientSection form={form} policies={policies.data} />,
+          fields: ['clientStep'],
+        },
+        {
+          title: 'Vehículo del cliente',
+          body: <VehicleSection form={form} />,
+          fields: ['vehicleStep'],
+        },
+        {
+          title: 'Ubicación del incidente',
+          body: (
+            <IncidentLocationSection
+              form={form}
+              drivers={drivers!}
+              handleIncidentLocationChange={handleIncidentLocationChange}
+            />
+          ),
+          fields: ['incidentStep'],
+        },
+        {
+          title: 'Ubicación del destino',
+          body: (
+            <DestinationLocationSection
+              form={form}
+              handleDestinationLocationChange={handleDestinationLocationChange}
+            />
+          ),
+          fields: ['destinationStep'],
+        },
+        {
+          title: 'Resumen',
+          body: (
             <SummarySection
               origin={{
                 lat: parseFloat(incidentLocation.latitude),
@@ -70,10 +82,12 @@ export default function OrderForm({
                 lat: parseFloat(destinationLocation.latitude),
                 lng: parseFloat(destinationLocation.longitude),
               }}
-              policy={selectedPolicy}
+              policy={selectedPolicy!}
             />
-          </section>
-        )}
-    </FormWrapper>
+          ),
+          fields: [''],
+        },
+      ]}
+    />
   );
-}
+};
