@@ -43,7 +43,7 @@ export const ReAssignDriverDialog = ({
           driverId: data.incidentStep.driverId,
         },
       },
-      route: '/orders-service/orders/driver',
+      route: '/orders-service/orders/drivers',
       method: 'PUT',
     });
     toast({
