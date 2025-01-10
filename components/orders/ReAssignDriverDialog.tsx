@@ -34,12 +34,13 @@ export const ReAssignDriverDialog = ({
   const path = usePathname();
 
   const handleSubmit = async (data: any) => {
-    const { driverId } = data;
+    console.log(path.split('/')[2]);
+    console.log(data.incidentStep.driverId);
     await mutate({
       body: {
         order: {
           id: path.split('/')[2],
-          driverId,
+          driverId: data.incidentStep.driverId,
         },
       },
       route: '/orders-service/orders/driver',
@@ -56,7 +57,7 @@ export const ReAssignDriverDialog = ({
       <Dialog>
         <DialogTrigger asChild>
           <Button disabled={orderStatus !== 'ToBeAssigned'}>
-            Reasignar conductor
+            Asignar conductor
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px] bg-white">

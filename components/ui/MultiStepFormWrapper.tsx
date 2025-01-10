@@ -38,7 +38,7 @@ export function MultiStepFormWrapper<TFormValues extends FieldValues>({
 
   return (
     <Card className="max-w-3xl">
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <Form {...form}>
         <CardHeader>
           <div className="flex justify-between items-center">
             <CardTitle className="text-xl">
@@ -67,7 +67,7 @@ export function MultiStepFormWrapper<TFormValues extends FieldValues>({
               : 'Siguiente'}
           </Button>
         </CardFooter>
-      </form>
+      </Form>
     </Card>
   );
 }

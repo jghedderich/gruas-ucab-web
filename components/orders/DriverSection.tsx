@@ -6,7 +6,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '../ui/card';
@@ -26,6 +25,23 @@ export const DriverSection = ({
   const driverData = drivers.filter(
     (driver) => driver.driver.id === driverId
   )[0];
+
+  if (orderStatus === 'ToBeAssigned') {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Sin conductor</CardTitle>
+          <CardDescription>
+            Esta orden no tiene conductor asignado.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ReAssignDriverDialog orderStatus={orderStatus} drivers={drivers} />
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -67,9 +83,6 @@ export const DriverSection = ({
           {driverData.vehicle.model} ({driverData.vehicle.year})
         </p>
       </CardContent>
-      <CardFooter className=" flex justify-end">
-        <ReAssignDriverDialog orderStatus={orderStatus} drivers={drivers} />
-      </CardFooter>
     </Card>
   );
 };
