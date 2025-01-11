@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default async function CreateDriverPage() {
-  const token = cookies().get('token');
+  const token = cookies().get('token')?.value;
   const { providers } = await fetchData('/providers-service/providers', {
     cache: 'no-store',
     headers: {

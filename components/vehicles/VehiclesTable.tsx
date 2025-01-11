@@ -7,6 +7,7 @@ import { IPagination, Vehicle } from '@/types';
 import { useTable } from '@/hooks/use-table';
 import { DeleteDialog } from '../ui/DeleteDialog';
 import { useAuth } from '@/hooks/auth/use-auth';
+import { Badge } from '../ui/badge';
 
 const columns = [
   {
@@ -22,8 +23,8 @@ const columns = [
     field: 'tipo',
   },
   {
-    title: 'Conductor',
-    field: 'conductor',
+    title: 'Matrícula',
+    field: 'licensePlate',
   },
 ];
 
@@ -55,7 +56,11 @@ export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
     >
       {activeItems.map((vehicle) => (
         <tr key={vehicle.id} className="border-y">
-          <td className="py-3 px-4">
+          <td className="py-3 px-4 flex gap-2 items-center">
+            <div
+              className="size-3 rounded-full"
+              style={{ backgroundColor: vehicle.color }}
+            />
             <p>
               <b>{vehicle.brand}</b> {vehicle.model}
             </p>
@@ -66,8 +71,8 @@ export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
           <td className="py-3 px-4">
             <p>{vehicleTypeMapping[vehicle.type]}</p>
           </td>
-          <td className="py-3 px-4">
-            <p>{vehicle.providerId}</p>
+          <td className="py-3 px-4 capitalize">
+            <Badge variant="secondary">{vehicle.licensePlate}</Badge>
           </td>
           <td className="p-3">
             <Link

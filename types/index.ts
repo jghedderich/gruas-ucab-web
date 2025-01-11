@@ -60,6 +60,8 @@ export interface Vehicle extends IEntity {
   year: string;
   type: 'Light' | 'Medium' | 'Heavy' | 'Motorcycle';
   providerId?: string;
+  color: string;
+  licensePlate: string;
 }
 
 export interface Driver extends IEntity {

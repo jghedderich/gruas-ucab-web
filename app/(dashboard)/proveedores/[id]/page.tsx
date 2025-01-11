@@ -13,7 +13,7 @@ export default async function EditProviderPage({
 }: {
   params: { id: string };
 }) {
-  const token = cookies().get('token');
+  const token = cookies().get('token')?.value;
   const { provider } = await fetchData(
     `/providers-service/providers/${params.id}`,
     {

@@ -98,6 +98,41 @@ export default function VehicleForm({ vehicle, providers }: VehicleFormProps) {
       />
       <FormField
         control={form.control}
+        name="color"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Color</FormLabel>
+            <FormControl>
+              <div className="flex items-center space-x-2">
+                <Input
+                  type="text"
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                  className="flex-grow"
+                  placeholder="#000000"
+                />
+                <Input type="color" {...field} className="p-1 rounded-md " />
+              </div>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="licensePlate"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Matrícula</FormLabel>
+            <FormControl>
+              <Input type="string" placeholder="ABC-123" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
         name="providerId"
         render={({ field }) => (
           <FormItem>

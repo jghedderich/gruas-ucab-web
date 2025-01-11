@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { fetchData } from '@/lib/fetchData';
 import { DriversTable } from '@/components/drivers/DriversTable';
+import { cookies } from 'next/headers';
 
 export const metadata = {
   title: 'Conductores | Grúas UCAB',
@@ -11,8 +12,12 @@ export const metadata = {
 };
 
 export default async function DriversPage() {
+  const token = cookies().get('token')?.value;
   const response = await fetchData('/providers-service/drivers', {
     cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   return (

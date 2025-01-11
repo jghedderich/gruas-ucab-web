@@ -14,6 +14,12 @@ export const vehicleSchema = z.object({
   providerId: z.string().min(1, {
     message: 'Please select a provider.',
   }),
+  color: z.string().min(7, {
+    message: 'El color es requerido',
+  }),
+  licensePlate: z.string().min(6, {
+    message: 'Please enter a license plate.',
+  }),
 });
 
 export type VehicleFormData = z.infer<typeof vehicleSchema>;

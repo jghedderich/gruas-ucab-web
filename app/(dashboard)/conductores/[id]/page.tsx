@@ -13,7 +13,7 @@ export default async function EditProvidersPage({
 }: {
   params: { id: string };
 }) {
-  const token = cookies().get('token');
+  const token = cookies().get('token')?.value;
   const { driver } = await fetchData(
     `/providers-service/drivers/${params.id}`,
     {

@@ -142,7 +142,6 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
         description: 'La orden se ha actualizado correctamente.',
       });
     } else {
-      console.log({ ...validatedData, operatorId: user!.id });
       await mutate({
         body: {
           order: {
