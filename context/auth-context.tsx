@@ -41,10 +41,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [router]);
 
   useEffect(() => {
-    const authCookie = Cookies.get('auth');
     const userDataCookie = Cookies.get('userData');
 
-    if (authCookie && userDataCookie) {
+    if (userDataCookie) {
       try {
         const decodedUserData = decodeURIComponent(userDataCookie);
         const parsedUserData: User = JSON.parse(decodedUserData);
