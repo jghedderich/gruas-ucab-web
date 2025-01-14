@@ -4,12 +4,11 @@ import { ToggleOffIcon } from '../icons/ToggleOffIcon';
 
 interface ToggleProps {
   isToggleOn?: boolean;
-  handleClick: () => void;
 }
 
-function Toggle({ isToggleOn, handleClick }: ToggleProps) {
+function Toggle({ isToggleOn = true }: ToggleProps) {
   return (
-    <button onClick={handleClick} className="relative h-7">
+    <div className="relative h-5 w-10">
       <ToggleOnIcon
         className={`absolute top-0 transition duration-200 ease-out ${
           isToggleOn ? 'opacity-100' : 'opacity-0'
@@ -24,7 +23,7 @@ function Toggle({ isToggleOn, handleClick }: ToggleProps) {
         width={44}
         height={24}
       />
-    </button>
+    </div>
   );
 }
 

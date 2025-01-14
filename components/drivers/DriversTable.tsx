@@ -38,7 +38,7 @@ interface DriversTableProps {
 
 export const DriversTable = ({ drivers }: DriversTableProps) => {
   const { user } = useAuth();
-  const { handleDelete, activeItems } = useTable(
+  const { handleDelete } = useTable(
     user?.userType === 'provider'
       ? drivers.data.filter((driver) => driver.providerId === user!.id)
       : drivers.data,
@@ -47,11 +47,11 @@ export const DriversTable = ({ drivers }: DriversTableProps) => {
   return (
     <Table
       columns={columns}
-      count={activeItems.length}
+      count={drivers.count}
       pageSize={drivers.pageSize}
       pageIndex={drivers.pageIndex}
     >
-      {activeItems.map((driver) => (
+      {drivers.data.map((driver) => (
         <tr key={driver.id} className="border-y">
           <td className="py-3 px-4">
             <p>
@@ -90,7 +90,10 @@ export const DriversTable = ({ drivers }: DriversTableProps) => {
             </Link>
           </td>
           <td className="p-3">
-            <DeleteDialog handleDelete={() => handleDelete(driver)} />
+            <DeleteDialog
+              handleDelete={() => handleDelete(driver)}
+              isToggleOn={driver.isActive}
+            />
           </td>
         </tr>
       ))}

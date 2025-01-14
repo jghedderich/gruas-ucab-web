@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -9,31 +10,40 @@ import {
   DialogTrigger,
 } from './dialog';
 import { Button } from './button';
-import { Trash2 } from 'lucide-react';
+import Toggle from './Toggle';
 
 export const DeleteDialog = ({
   handleDelete,
+  isToggleOn,
 }: {
+  isToggleOn: boolean;
   handleDelete: () => void;
 }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="hover:text-red-500 transition ease-out">
-          <Trash2 className="w-5 h-5" />
+        <button>
+          <Toggle isToggleOn={isToggleOn} />
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-xs bg-white">
+      <DialogContent className="max-w-sm bg-white">
         <DialogHeader>
-          <DialogTitle>¿Desea borrar este registro?</DialogTitle>
+          <DialogTitle className="">
+            ¿Desea {isToggleOn ? 'desactivar' : 'activar'} este registro?
+          </DialogTitle>
           <DialogDescription>
             Esta acción no se puede deshacer.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mt-10">
-          <Button variant={'destructive'} onClick={handleDelete}>
-            Borrar
-          </Button>
+          <DialogClose>
+            <Button
+              variant={isToggleOn ? 'destructive' : 'default'}
+              onClick={handleDelete}
+            >
+              {isToggleOn ? 'Desactivar' : 'Activar'}
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

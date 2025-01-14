@@ -21,11 +21,11 @@ interface ITableProps {
 
 function Table({ columns, pageIndex, pageSize, count, children }: ITableProps) {
   const pageInfo: IPageInfo = {
-    page: pageIndex + 1,
+    page: pageIndex,
     perPage: pageSize,
     itemCount: count,
     pageCount: Math.ceil(count / pageSize),
-    hasPreviousPage: pageIndex > 1,
+    hasPreviousPage: pageIndex > 0,
     hasNextPage: pageIndex < Math.round(count / pageSize) || false,
   };
 

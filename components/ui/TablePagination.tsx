@@ -29,7 +29,7 @@ function TablePagination({ pageInfo }: ITablePaginationProps) {
         Anterior
       </Button>
       <div>
-        Página {pageInfo.page} de {pageInfo.pageCount}
+        Página {pageInfo.page + 1} de {pageInfo.pageCount}
       </div>
       <Button
         variant={'outline'}

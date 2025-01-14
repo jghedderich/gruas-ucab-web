@@ -28,15 +28,10 @@ export const useMutation = () => {
         },
         body: JSON.stringify(body),
       });
-      if (method === 'PUT') {
+      if (method === 'PUT' || method === 'DELETE') {
         toast({
           title: 'Cambios guardados',
           description: 'Los cambios se han guardado correctamente.',
-        });
-      } else if (method === 'DELETE') {
-        toast({
-          title: 'Datos eliminados',
-          description: 'Los datos se han eliminado correctamente.',
         });
       } else if (method === 'POST') {
         toast({

@@ -41,7 +41,7 @@ interface VehiclesTableProps {
 
 export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
   const { user } = useAuth();
-  const { handleDelete, activeItems } = useTable(
+  const { handleDelete } = useTable(
     user?.userType === 'provider'
       ? vehicles.data.filter((vehicle) => vehicle.providerId === user!.id)
       : vehicles.data,
@@ -50,11 +50,11 @@ export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
   return (
     <Table
       columns={columns}
-      count={activeItems.length}
+      count={vehicles.count}
       pageSize={vehicles.pageSize}
       pageIndex={vehicles.pageIndex}
     >
-      {activeItems.map((vehicle) => (
+      {vehicles.data.map((vehicle) => (
         <tr key={vehicle.id} className="border-y">
           <td className="py-3 px-4 flex gap-2 items-center">
             <div
@@ -83,7 +83,10 @@ export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
             </Link>
           </td>
           <td className="p-3">
-            <DeleteDialog handleDelete={() => handleDelete(vehicle)} />
+            <DeleteDialog
+              handleDelete={() => handleDelete(vehicle)}
+              isToggleOn={vehicle.isActive}
+            />
           </td>
         </tr>
       ))}

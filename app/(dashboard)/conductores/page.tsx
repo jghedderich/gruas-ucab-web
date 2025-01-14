@@ -11,14 +11,22 @@ export const metadata = {
   description: 'Lista de conductores gestionados por Grúas Ucab',
 };
 
-export default async function DriversPage() {
+export default async function DriversPage({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
   const token = cookies().get('token')?.value;
-  const response = await fetchData('/providers-service/drivers', {
-    cache: 'no-store',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const page = searchParams.page ? parseInt(searchParams.page) : 0;
+  const response = await fetchData(
+    '/providers-service/drivers?pageIndex=' + page,
+    {
+      cache: 'no-store',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   return (
     <Section

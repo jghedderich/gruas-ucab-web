@@ -11,14 +11,23 @@ export const metadata = {
   description: 'Lista de vehículos gestionados por Grúas Ucab',
 };
 
-export default async function VehiclesPage() {
+export default async function VehiclesPage({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
   const token = cookies().get('token')?.value;
-  const { vehicles } = await fetchData('/providers-service/vehicles', {
-    cache: 'no-store',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const page = searchParams.page ? parseInt(searchParams.page) : 0;
+
+  const { vehicles } = await fetchData(
+    `/providers-service/vehicles?pageIndex=${page}`,
+    {
+      cache: 'no-store',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   return (
     <Section
