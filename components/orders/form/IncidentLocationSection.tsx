@@ -11,18 +11,15 @@ import { MapComponent } from '../Map';
 import { Input } from '../../ui/input';
 import { UseFormReturn } from 'react-hook-form';
 import { OrderFormData } from '@/schemas/order-schema';
-import { AddressDetails, DriverWithVehicle } from '@/types';
-import { DriverInput } from './DriverInput';
+import { AddressDetails } from '@/types';
 
 interface IncidentLocationSectionProps {
   form: UseFormReturn<OrderFormData>;
-  drivers: DriverWithVehicle[];
   handleIncidentLocationChange: (coordinates: AddressDetails) => void;
 }
 
 export const IncidentLocationSection = ({
   form,
-  drivers,
   handleIncidentLocationChange,
 }: IncidentLocationSectionProps) => {
   return (
@@ -99,7 +96,7 @@ export const IncidentLocationSection = ({
             </FormItem>
           )}
         />
-        <DriverInput drivers={drivers!} form={form} />
+        <div />
         <FormField
           control={form.control}
           name="incidentStep.incidentAddress.coordinates.latitude"

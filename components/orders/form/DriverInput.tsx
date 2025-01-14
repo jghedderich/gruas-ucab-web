@@ -28,7 +28,7 @@ export const DriverInput = ({ drivers, form }: DriverInputProps) => {
   return (
     <FormField
       control={form.control}
-      name="incidentStep.driverId"
+      name="driverStep.driverId"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Conductor</FormLabel>
@@ -61,23 +61,28 @@ export const DriverInput = ({ drivers, form }: DriverInputProps) => {
                   <div className="flex items-center gap-2 pb-2">
                     <p>
                       {driver.driver.name.firstName}{' '}
-                      {driver.driver.name.lastName} -{' '}
-                      {driver.provider.company.name}
+                      {driver.driver.name.lastName}
                     </p>
-                    <Badge variant={'outline'}>{driver.driver.status}</Badge>
+                    <Badge variant={'outline'}>
+                      {driver.provider.company.name}
+                    </Badge>
                   </div>
                   <div className="flex items-center gap-1 mb-1">
                     <Car className="size-3 text-gray-500" />
                     <p className="text-xs text-gray-500">
                       {driver.vehicle.brand} {driver.vehicle.model} -{' '}
-                      {driver.vehicle.type}
+                      <span className="font-semibold">
+                        {driver.vehicle.type}
+                      </span>
                     </p>
                   </div>
                   <div className="flex items-center gap-1">
                     <MapPin className="size-3 text-gray-500" />
                     <p className="text-xs text-gray-500">
                       {driver.driver.location
-                        ? driver.driver.location.address1
+                        ? driver.driver.location.address1 +
+                          ', ' +
+                          driver.driver.location.addressLine2
                         : 'Por registrar'}
                     </p>
                   </div>

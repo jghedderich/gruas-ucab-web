@@ -8,7 +8,7 @@ export function parseProvidersList(
   providers.data.forEach((provider) => {
     provider.drivers.forEach((driver) => {
       const vehicle = provider.vehicles.find((v) => v.id === driver.vehicleId);
-      if (vehicle) {
+      if (vehicle && driver.isActive) {
         driverList.push({
           driver,
           provider,

@@ -71,15 +71,11 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
           },
         },
       },
+      driverStep: {
+        driverId: '',
+      },
     },
   });
-
-  const incidentLocation = form.watch(
-    'incidentStep.incidentAddress.coordinates'
-  );
-  const destinationLocation = form.watch(
-    'destinationStep.destinationAddress.coordinates'
-  );
 
   useEffect(() => {
     if (order) {
@@ -164,8 +160,6 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
     // state
     form,
     isSubmitting,
-    incidentLocation,
-    destinationLocation,
 
     // actions
     back,

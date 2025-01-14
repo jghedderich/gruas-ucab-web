@@ -40,11 +40,13 @@ export const orderFormSchema = z.object({
     }),
   }),
   incidentStep: z.object({
-    driverId: z.string().min(1, 'El conductor es requerido'),
     incidentAddress: addressSchema,
   }),
   destinationStep: z.object({
     destinationAddress: addressSchema,
+  }),
+  driverStep: z.object({
+    driverId: z.string().min(1, 'El conductor es requerido'),
   }),
 });
 

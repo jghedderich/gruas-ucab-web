@@ -8,6 +8,7 @@ import { IncidentLocationSection } from './form/IncidentLocationSection';
 import { DestinationLocationSection } from './form/DestinationLocationSection';
 import { SummarySection } from './form/SummarySection';
 import { VehicleSection } from './form/VehicleSection';
+import { DriverStep } from './form/DriverStep';
 
 interface MultiStepOrderFormProps {
   order?: Order;
@@ -22,13 +23,17 @@ export const OrderForm = ({
 }: MultiStepOrderFormProps) => {
   const {
     form,
-    incidentLocation,
-    destinationLocation,
     isSubmitting,
     onSubmit,
     handleDestinationLocationChange,
     handleIncidentLocationChange,
   } = useOrderForm({ order });
+  const incidentLocation = form.watch(
+    'incidentStep.incidentAddress.coordinates'
+  );
+  const destinationLocation = form.watch(
+    'destinationStep.destinationAddress.coordinates'
+  );
   const selectedPolicy = policies.data.find(
     (policy) => policy.id === form.watch('clientStep.policyId')
   );
@@ -54,7 +59,6 @@ export const OrderForm = ({
           body: (
             <IncidentLocationSection
               form={form}
-              drivers={drivers!}
               handleIncidentLocationChange={handleIncidentLocationChange}
             />
           ),
@@ -69,6 +73,24 @@ export const OrderForm = ({
             />
           ),
           fields: ['destinationStep'],
+        },
+        {
+          title: 'Asignar conductor',
+          body: (
+            <DriverStep
+              form={form}
+              drivers={drivers!}
+              origin={{
+                lat: parseFloat(incidentLocation.latitude),
+                lng: parseFloat(incidentLocation.longitude),
+              }}
+              destination={{
+                lat: parseFloat(destinationLocation.latitude),
+                lng: parseFloat(destinationLocation.longitude),
+              }}
+            />
+          ),
+          fields: ['driverStep'],
         },
         {
           title: 'Resumen',

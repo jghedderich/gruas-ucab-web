@@ -6,12 +6,12 @@ export function transformOrderData(
 ): ServerOrderFormData {
   return {
     policyId: clientData.clientStep.policyId,
-    driverId: clientData.incidentStep.driverId,
     client: {
       ...clientData.clientStep.client,
       clientVehicle: clientData.vehicleStep.clientVehicle,
     },
     incidentAddress: clientData.incidentStep.incidentAddress,
     destinationAddress: clientData.destinationStep.destinationAddress,
+    driverId: clientData.driverStep.driverId,
   };
 }
