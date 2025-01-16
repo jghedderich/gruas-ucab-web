@@ -27,7 +27,7 @@ export const PoliciesForm = ({ policy }: PoliciesFormProps) => {
       isEditing={!!policy}
       className="grid md:grid-cols-1 gap-6"
     >
-      <section className="border-b pb-5 border-gray-200">
+      <section className="pb-5">
         <h3 className="text-gray-500 mb-5 text-sm">DATOS DE LA PÓLIZA</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField
@@ -58,7 +58,7 @@ export const PoliciesForm = ({ policy }: PoliciesFormProps) => {
           />
         </div>
       </section>
-      <section className="border-b pb-5 border-gray-200">
+      <section className="pb-5">
         <h3 className="text-gray-500 mb-5 text-sm">TARIFAS ($)</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField

@@ -1,6 +1,7 @@
 import { DepartmentsForm } from '@/components/departments/DepartmentsForm';
 import Section from '@/components/ui/Section';
 import { fetchData } from '@/lib/fetchData';
+import { cookies } from 'next/headers';
 
 export const metadata = {
   title: 'Editar departamento | Grúas UCAB',
@@ -12,10 +13,14 @@ export default async function EditDepartmentsPage({
 }: {
   params: { id: string };
 }) {
+  const token = cookies().get('token')?.value;
   const { department } = await fetchData(
     '/admin-service/departments/' + params.id,
     {
       cache: 'no-store',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
 

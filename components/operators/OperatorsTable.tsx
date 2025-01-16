@@ -35,18 +35,18 @@ interface OperatorsTableProps {
 }
 
 export const OperatorsTable = ({ operators }: OperatorsTableProps) => {
-  const { handleDelete, activeItems } = useTable(
+  const { handleDelete } = useTable(
     operators.data,
     '/orders-service/operators'
   );
   return (
     <Table
       columns={columns}
-      count={activeItems.length}
+      count={operators.count}
       pageSize={operators.pageSize}
       pageIndex={operators.pageIndex}
     >
-      {activeItems.map((operator) => (
+      {operators.data.map((operator) => (
         <tr key={operator.id} className="border-y">
           <td className="py-3 px-4">
             <p>
@@ -77,7 +77,10 @@ export const OperatorsTable = ({ operators }: OperatorsTableProps) => {
             </Link>
           </td>
           <td className="p-3">
-            <DeleteDialog handleDelete={() => handleDelete(operator)} />
+            <DeleteDialog
+              isToggleOn={operator.isActive}
+              handleDelete={() => handleDelete(operator)}
+            />
           </td>
         </tr>
       ))}

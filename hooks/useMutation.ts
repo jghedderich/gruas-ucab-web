@@ -28,6 +28,14 @@ export const useMutation = () => {
         },
         body: JSON.stringify(body),
       });
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: 'Error',
+        description: 'Los datos no se han guardado correctamente.',
+        variant: 'destructive',
+      });
+    } finally {
       if (method === 'PUT' || method === 'DELETE') {
         toast({
           title: 'Cambios guardados',
@@ -39,16 +47,8 @@ export const useMutation = () => {
           description: 'Los datos se han guardado correctamente.',
         });
       }
-      refresh();
-    } catch (error) {
-      console.error(error);
-      toast({
-        title: 'Error',
-        description: 'Los datos no se han guardado correctamente.',
-        variant: 'destructive',
-      });
-    } finally {
       setIsSubmitting(false);
+      refresh();
     }
   }
 

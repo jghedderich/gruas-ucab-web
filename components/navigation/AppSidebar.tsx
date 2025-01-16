@@ -65,7 +65,9 @@ export function AppSidebar({ userType = 'administrator' }: AppSidebarProps) {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>Administración</SidebarGroupLabel>
+          {user?.userType === 'administrator' && (
+            <SidebarGroupLabel>Administración</SidebarGroupLabel>
+          )}
           <SidebarGroupContent>
             <SidebarMenu>
               {adminLinks.map((link) => (

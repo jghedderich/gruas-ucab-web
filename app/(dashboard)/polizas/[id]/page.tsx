@@ -14,7 +14,7 @@ export default async function EditPoliciesPage({
   params: { id: string };
 }) {
   const token = cookies().get('token')?.value;
-  const { policy } = await fetchData('/orders-service/policies' + params.id, {
+  const { policy } = await fetchData('/orders-service/policies/' + params.id, {
     cache: 'no-store',
     headers: {
       Authorization: `Bearer ${token}`,

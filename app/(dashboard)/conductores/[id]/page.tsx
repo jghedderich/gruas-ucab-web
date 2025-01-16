@@ -8,7 +8,7 @@ export const metadata = {
   description: 'Edita los datos de la conductor seleccionado.',
 };
 
-export default async function EditProvidersPage({
+export default async function EditDriversPage({
   params,
 }: {
   params: { id: string };
@@ -25,6 +25,9 @@ export default async function EditProvidersPage({
   );
   const { providers } = await fetchData('/providers-service/providers', {
     cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   return (

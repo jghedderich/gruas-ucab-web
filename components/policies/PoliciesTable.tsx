@@ -31,19 +31,16 @@ interface PoliciesTableProps {
 }
 
 export const PoliciesTable = ({ policies }: PoliciesTableProps) => {
-  const { activeItems, handleDelete } = useTable(
-    policies.data,
-    '/orders-service/policies'
-  );
+  const { handleDelete } = useTable(policies.data, '/orders-service/policies');
 
   return (
     <Table
       columns={columns}
-      count={activeItems.length}
+      count={policies.count}
       pageSize={policies.pageSize}
       pageIndex={policies.pageIndex}
     >
-      {activeItems.map((policy) => (
+      {policies.data.map((policy) => (
         <tr key={policy.id} className="border-y">
           <td className="py-3 px-4">
             <h6>{policy.name}</h6>
@@ -70,7 +67,10 @@ export const PoliciesTable = ({ policies }: PoliciesTableProps) => {
             </Link>
           </td>
           <td className="p-3">
-            <DeleteDialog handleDelete={() => handleDelete(policy)} />
+            <DeleteDialog
+              handleDelete={() => handleDelete(policy)}
+              isToggleOn={policy.isActive}
+            />
           </td>
         </tr>
       ))}

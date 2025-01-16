@@ -42,19 +42,23 @@ interface VehiclesTableProps {
 export const VehiclesTable = ({ vehicles }: VehiclesTableProps) => {
   const { user } = useAuth();
   const { handleDelete } = useTable(
-    user?.userType === 'provider'
-      ? vehicles.data.filter((vehicle) => vehicle.providerId === user!.id)
-      : vehicles.data,
+    vehicles.data,
     '/providers-service/vehicles'
   );
+
+  const filteredVehicles =
+    user?.userType === 'provider'
+      ? vehicles.data.filter((vehicle) => vehicle.providerId === user!.id)
+      : vehicles.data;
+
   return (
     <Table
       columns={columns}
-      count={vehicles.count}
+      count={filteredVehicles.length}
       pageSize={vehicles.pageSize}
       pageIndex={vehicles.pageIndex}
     >
-      {vehicles.data.map((vehicle) => (
+      {filteredVehicles.map((vehicle) => (
         <tr key={vehicle.id} className="border-y">
           <td className="py-3 px-4 flex gap-2 items-center">
             <div

@@ -199,8 +199,16 @@ export default function DriverForm({ driver, providers }: DriverFormProps) {
                 {providers.data.map((provider) =>
                   provider.vehicles.map((vehicle) => (
                     <SelectItem key={vehicle.id} value={vehicle.id}>
-                      {vehicle.brand} {vehicle.model} ({vehicle.year}) -{' '}
-                      {provider.company.name}
+                      <div className="flex gap-2 items-center">
+                        <div
+                          style={{ backgroundColor: vehicle.color }}
+                          className="rounded-full size-3"
+                        />
+                        <p>
+                          {vehicle.brand} {vehicle.model} ({vehicle.year}) -{' '}
+                          {provider.company.name}
+                        </p>
+                      </div>
                     </SelectItem>
                   ))
                 )}

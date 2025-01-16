@@ -38,20 +38,20 @@ interface DriversTableProps {
 
 export const DriversTable = ({ drivers }: DriversTableProps) => {
   const { user } = useAuth();
-  const { handleDelete } = useTable(
+  const { handleDelete } = useTable(drivers.data, '/providers-service/drivers');
+  const filteredDrivers =
     user?.userType === 'provider'
       ? drivers.data.filter((driver) => driver.providerId === user!.id)
-      : drivers.data,
-    '/providers-service/drivers'
-  );
+      : drivers.data;
+
   return (
     <Table
       columns={columns}
-      count={drivers.count}
+      count={filteredDrivers.length}
       pageSize={drivers.pageSize}
       pageIndex={drivers.pageIndex}
     >
-      {drivers.data.map((driver) => (
+      {filteredDrivers.map((driver) => (
         <tr key={driver.id} className="border-y">
           <td className="py-3 px-4">
             <p>
