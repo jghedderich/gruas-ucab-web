@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '../useMutation';
+import { useAuth } from '../auth/use-auth';
 
 interface DriverFormProps {
   driver?: Driver;
@@ -14,6 +15,7 @@ interface DriverFormProps {
 
 export const useDriverForm = ({ driver }: DriverFormProps) => {
   const { mutate, back, isSubmitting } = useMutation();
+  const { user } = useAuth();
   const form = useForm<DriverFormData>({
     resolver: zodResolver(driverSchema),
     defaultValues: {
@@ -33,7 +35,10 @@ export const useDriverForm = ({ driver }: DriverFormProps) => {
     if (driver) {
       form.reset(driver);
     }
-  }, [driver, form]);
+    if (user?.userType === 'provider') {
+      form.setValue('providerId', user.id);
+    }
+  }, [driver, form, user?.id, user?.userType]);
 
   async function onSubmit(values: DriverFormData) {
     if (driver) {
@@ -45,11 +50,12 @@ export const useDriverForm = ({ driver }: DriverFormProps) => {
         method: 'PUT',
       });
     } else {
-      await mutate({
-        body: { driver: values },
-        route: '/providers-service/drivers',
-        method: 'POST',
-      });
+      console.log(values);
+      // await mutate({
+      //   body: { driver: values },
+      //   route: '/providers-service/drivers',
+      //   method: 'POST',
+      // });
     }
   }
   return {

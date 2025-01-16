@@ -39,6 +39,7 @@ export const OrdersTable = ({ orders }: OrdersTableProps) => {
     orders.data,
     '/orders-service/orders'
   );
+
   return (
     <Table
       columns={columns}

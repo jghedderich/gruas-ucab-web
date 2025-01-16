@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '../useMutation';
+import { useAuth } from '../auth/use-auth';
 
 export const useVehicleForm = ({ vehicle }: { vehicle?: Vehicle }) => {
   const form = useForm<VehicleFormData>({
@@ -13,12 +14,16 @@ export const useVehicleForm = ({ vehicle }: { vehicle?: Vehicle }) => {
     defaultValues: { ...vehicle } as VehicleFormData,
   });
   const { mutate, back, isSubmitting } = useMutation();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (vehicle) {
       form.reset(vehicle as unknown as VehicleFormData);
     }
-  }, [vehicle, form]);
+    if (user?.userType === 'provider') {
+      form.setValue('providerId', user.id);
+    }
+  }, [vehicle, form, user?.id, user?.userType]);
 
   async function onSubmit(values: VehicleFormData) {
     if (vehicle) {
