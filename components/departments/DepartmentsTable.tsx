@@ -26,7 +26,7 @@ interface DepartmentsTableProps {
   departments: IPagination<Department>;
 }
 export const DepartmentsTable = ({ departments }: DepartmentsTableProps) => {
-  const { handleDelete, activeItems } = useTable(
+  const { handleDelete } = useTable(
     departments.data,
     '/admin-service/departments'
   );
@@ -34,11 +34,11 @@ export const DepartmentsTable = ({ departments }: DepartmentsTableProps) => {
   return (
     <Table
       columns={columns}
-      count={activeItems.length}
+      count={departments.data.length}
       pageSize={departments.pageSize}
       pageIndex={departments.pageIndex}
     >
-      {activeItems.map((department) => (
+      {departments.data.map((department) => (
         <tr key={department.id} className="border-y">
           <td className="py-3 px-4">
             <h6>{department.id}</h6>
@@ -59,7 +59,10 @@ export const DepartmentsTable = ({ departments }: DepartmentsTableProps) => {
             </Link>
           </td>
           <td className="p-3">
-            <DeleteDialog handleDelete={() => handleDelete(department)} />
+            <DeleteDialog
+              handleDelete={() => handleDelete(department)}
+              isToggleOn={department.isActive}
+            />
           </td>
         </tr>
       ))}

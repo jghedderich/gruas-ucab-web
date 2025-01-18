@@ -79,7 +79,7 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
 
   useEffect(() => {
     if (order) {
-      form.reset(order);
+      form.reset(order as unknown);
     }
   }, [order, form]);
 

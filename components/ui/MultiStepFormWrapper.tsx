@@ -26,7 +26,11 @@ export function MultiStepFormWrapper<TFormValues extends FieldValues>({
   onSubmit,
   steps,
 }: MultiStepFormWrapperProps<TFormValues>) {
-  const { next, previous, currentStep } = useMultiStepForm({ steps, form });
+  const { next, previous, currentStep } = useMultiStepForm({
+    steps,
+    form,
+    onSubmit,
+  });
 
   const handleNext = async () => {
     if (currentStep === steps.length - 1) {

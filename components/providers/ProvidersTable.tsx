@@ -31,7 +31,7 @@ interface ProvidersTableProps {
 }
 
 export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
-  const { handleDelete, activeItems } = useTable(
+  const { handleDelete } = useTable(
     providers.data,
     '/providers-service/providers'
   );
@@ -41,9 +41,9 @@ export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
       columns={columns}
       pageIndex={providers.pageIndex}
       pageSize={10}
-      count={activeItems.length}
+      count={providers.data.length}
     >
-      {activeItems.map((provider) => (
+      {providers.data.map((provider) => (
         <tr key={provider.id} className="border-y">
           <td className="py-3 px-4">
             <b>{provider.company.name}</b>
@@ -75,7 +75,10 @@ export const ProvidersTable = ({ providers }: ProvidersTableProps) => {
             </Link>
           </td>
           <td className="p-3">
-            <DeleteDialog handleDelete={() => handleDelete(provider)} />
+            <DeleteDialog
+              isToggleOn={provider.isActive}
+              handleDelete={() => handleDelete(provider)}
+            />
           </td>
         </tr>
       ))}

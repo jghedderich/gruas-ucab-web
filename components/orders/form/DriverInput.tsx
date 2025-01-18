@@ -80,9 +80,7 @@ export const DriverInput = ({ drivers, form }: DriverInputProps) => {
                     <MapPin className="size-3 text-gray-500" />
                     <p className="text-xs text-gray-500">
                       {driver.driver.location
-                        ? driver.driver.location.address1 +
-                          ', ' +
-                          driver.driver.location.addressLine2
+                        ? driver.driver.location.address1
                         : 'Por registrar'}
                     </p>
                   </div>

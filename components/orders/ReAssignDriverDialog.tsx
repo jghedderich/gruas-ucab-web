@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React from 'react';
 import { Button } from '../ui/button';
@@ -34,8 +35,6 @@ export const ReAssignDriverDialog = ({
   const path = usePathname();
 
   const handleSubmit = async (data: any) => {
-    console.log(path.split('/')[2]);
-    console.log(data.incidentStep.driverId);
     await mutate({
       body: {
         order: {

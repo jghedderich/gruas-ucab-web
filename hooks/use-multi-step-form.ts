@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IFormStep } from '@/types';
 import { useState } from 'react';
-import { UseFormReturn } from 'react-hook-form';
 
 interface MultiStepFormWrapperProps {
-  form: UseFormReturn;
-  onSubmit: (values: any) => Promise<void>;
+  form: any;
+  onSubmit: (values: any) => void;
   steps: IFormStep[];
 }
 
