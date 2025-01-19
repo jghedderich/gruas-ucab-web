@@ -18,6 +18,7 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
   const { back } = useRouter();
   const { toast } = useToast();
   const { user } = useAuth();
+  const { replace } = useRouter();
 
   const form = useForm<z.infer<typeof orderFormSchema>>({
     resolver: zodResolver(orderFormSchema),
@@ -149,6 +150,7 @@ export const useOrderForm = ({ order }: { order?: Order }) => {
         route: '/orders-service/orders',
         method: 'POST',
       });
+      replace('/ordenes-de-servicio');
       toast({
         title: 'Orden creada',
         description: 'La orden se ha creado correctamente.',
