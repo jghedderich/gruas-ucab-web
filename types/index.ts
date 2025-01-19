@@ -77,6 +77,7 @@ export interface Driver extends IEntity {
   };
   location: Address;
   email: string;
+  token: string;
   password: string;
   status: 'Available' | 'Unavailable';
   providerId: string;

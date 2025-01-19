@@ -4,6 +4,7 @@ import {
   Headset,
   Building,
   Users,
+  Bell,
 } from 'lucide-react';
 import { ProviderIcon } from '../icons/ProviderIcon';
 import { VehicleIcon } from '../icons/TruckIcon';
@@ -56,6 +57,12 @@ export const adminLinks: NavigationLink[] = [
     name: 'Departamentos',
     href: '/departamentos',
     icon: ProviderIcon,
+    roles: ['administrator'],
+  },
+  {
+    name: 'Notificaciones',
+    href: '/notificaciones',
+    icon: Bell,
     roles: ['administrator'],
   },
 ];
